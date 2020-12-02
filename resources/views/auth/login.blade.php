@@ -5,9 +5,9 @@
 @section('content')
     <form action="/login" method="POST">
         @csrf
-        <label for="username">Username:</label><br>
-        <input type="text" id="username" name="username" placeholder="prenom.nom@yncrea.fr"><br>
-        @error('username')
+        <label for="email">Email:</label><br>
+        <input type="text" id="email" name="email" placeholder="prenom.nom@yncrea.fr"><br>
+        @error('email')
             {{ $message }}
         @enderror
         <label for="password">Password:</label><br>
