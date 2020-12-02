@@ -40,6 +40,16 @@ class User extends Authenticatable
     ];
 
 
+    /**
+     * Get the user's full name.
+     *
+     * @return string
+     */
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->surname}";
+    }
+
     public function classgroup()
     {
         return $this->belongsTo('App\Models\ClassGroup');
