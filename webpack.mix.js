@@ -11,5 +11,4 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.sass('resources/sass/app.scss', 'public/dist/css').sass('node_modules/bulma/bulma.sass', 'public/dist/css').styles(["node_modules/normalize.css/normalize.css"], 'public/dist/css/normalize.css');
