@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,4 +11,13 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/sass/app.scss', 'public/dist/css').sass('node_modules/bulma/bulma.sass', 'public/dist/css').styles(["node_modules/normalize.css/normalize.css"], 'public/dist/css/normalize.css');
+mix.sass("resources/sass/app.scss", "public/dist/css")
+    .sass("node_modules/bulma/bulma.sass", "public/dist/css")
+    .styles(
+        ["node_modules/normalize.css/normalize.css"],
+        "public/dist/css/normalize.css"
+    )
+    .styles(
+        ["node_modules/css.gg/icons/all.css"],
+        "public/dist/css/css.gg.css"
+    );
