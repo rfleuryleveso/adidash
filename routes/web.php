@@ -16,7 +16,9 @@ use App\Http\Controllers\Student\TasksController;
 */
 
 Route::prefix('')->middleware("auth")->group(function () {
-    Route::get('', [HomeController::class, 'home']);
-    Route::get('/logout', [HomeController::class, 'logout']);
-    Route::get('tasks', [TasksController::class, 'home']);
+    Route::get('', [HomeController::class, 'home'])->name('student.home');
+    Route::get('tasks', [TasksController::class, 'home'])->name('student.tasks');
+
+
+    Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 });

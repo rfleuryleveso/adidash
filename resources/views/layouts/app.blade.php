@@ -17,11 +17,11 @@
     <body>
         <div class="sidebar">
             <h1>ADIDASH</h1>
-            <a class="active" href="#home"
+            <a class="active" href="{{route('student.home')}}"
                 ><div><i class="gg-home-alt"></i></div>
                 Accueil</a
             >
-            <a href="#news"
+            <a href="{{route('student.tasks')}}"
                 ><div><i class="gg-work-alt"></i></div>
                 Tâches</a
             >
