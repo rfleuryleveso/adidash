@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\HomeController;
+use App\Http\Controllers\Student\TasksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +16,6 @@ use App\Http\Controllers\Student\HomeController;
 */
 
 Route::prefix('')->middleware("auth")->group(function () {
-    Route::get('', [HomeController::class, 'show']);
-    Route::get('timesheets', [HomeController::class, 'timesheets']);
+    Route::get('', [HomeController::class, 'home']);
+    Route::get('tasks', [TasksController::class, 'home']);
 });

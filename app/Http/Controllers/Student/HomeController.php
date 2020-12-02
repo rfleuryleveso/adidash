@@ -7,14 +7,9 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
-    public function show()
+    public function home()
     {
-        return view('welcome', ['time' => time()]);
+        return view('student.home.home', ['time' => time()]);
     }
 
-    public function timesheets()
-    {
-        
-        return view('timesheets', ['time' => time()]);
-    }
 }

@@ -5,14 +5,14 @@
 @section('content')
 <form action="/register" method="POST">
     @csrf
-    <label for="name">Name:</label><br>
-    <input type="text" id="name" name="name" placeholder="John"><br>
-    @error('name')
+    <label for="first_name">Name:</label><br>
+    <input type="text" id="first_name" name="first_name" placeholder="John"><br>
+    @error('first_name')
         {{$message}}
     @enderror
-    <label for="surname">Surname:</label><br>
-    <input type="text" id="surname" name="surname" placeholder="Doe"><br>
-    @error('surname')
+    <label for="last_name">Surname:</label><br>
+    <input type="text" id="last_name" name="last_name" placeholder="Doe"><br>
+    @error('last_name')
         {{$message}}
     @enderror
     <label for="email">Email:</label><br>
