@@ -3,15 +3,29 @@
 @section('title', 'Login')
 
 @section('content')
+
+    <head>
+        <link rel="stylesheet" href="/dist/css/app.css" />
+    </head>
+
+    <h1 class="auth-title">Connection</h1>
+
     <form action="/login" method="POST">
         @csrf
         <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" placeholder="prenom.nom@yncrea.fr"><br>
-        @error('email')
-            {{ $message }}
-        @enderror
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" placeholder="password"><br>
+        <div class="auth-form"><i class="gg-profile"></i><input class="auth-field" type="text" id="email" name="email"
+                placeholder="prenom.nom@yncrea.fr">
+        </div>
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li class="error-message">{{ $error }}</li>
+                @endforeach
+            </ul>
+        @endif
+        <label for="password">Mot de passe:</label><br>
+        <div class="auth-form"><i class="gg-lock"></i><input class="auth-field" type="password" id="password"
+                name="password" placeholder="Mot de passe"></div>
         @error('password')
             {{ $message }}
         @enderror
@@ -19,13 +33,16 @@
         @if ($errors->any())
             <ul>
                 @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                    <li class="error-message">{{ $error }}</li>
                 @endforeach
             </ul>
         @endif
-
-        <label for="remember">Remember me ?</label><br />
-        <input type="checkbox" id="remember" name="remember"><br>
-        <input type="submit" value="Submit">
+        <div class="remember">
+            <label for="remember">Rester connecté ?</label>
+            <input type="checkbox" id="remember" name="remember">
+        </div>
+        <div class="form-button">
+            <button type="submit" class="submit-button">Se connecter</button>
+        </div>
     </form>
 @endsection

@@ -1,0 +1,82 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.auth-title {
+    margin-bottom: 50px;
+}
+
+label {
+    font-size: 1.25em;
+}
+
+.auth-form {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    border: 0;
+    border-bottom: 2px solid black;
+    width: 500px;
+    height: 50px;
+    margin-bottom: 25px;
+}
+
+.auth-field {
+    width: 450px;
+    height: 50px;
+    border: 0;
+    font-size: 1.25em;
+    outline: none;
+    background-color: transparent;
+}
+
+.remember {
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.remember input {
+    width: 15px;
+    height: 15px;
+}
+
+.form-button {
+    display: flex;
+    justify-content: center;
+}
+
+.submit-button {
+    font-weight: 700;
+    font-size: 1.25em;
+    width: 200px;
+    color: white;
+    border: 0;
+    background-image: linear-gradient(90deg, #00ce3c 0%, #00ffb3 50%);
+    transition: 0.5s;
+    background-size: 200% auto;
+    text-align: center;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 25px;
+    padding: 15px 10px;
+    margin-top: 25px;
+}
+
+.submit-button:hover {
+    background-position: right center;
+    text-decoration: none;
+}
+
+ul {
+    padding: 0;
+}
+.error-message {
+    list-style: none;
+    padding: 0;
+    color: red;
+}
