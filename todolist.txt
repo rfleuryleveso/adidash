@@ -1,0 +1,5 @@
+-connexion
+-accueil
+-tâches
+-projets
+-planning réunion (pour chef de projets principalement)
