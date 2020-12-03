@@ -20,4 +20,5 @@ mix.sass("resources/sass/app.scss", "public/dist/css")
     .styles(
         ["node_modules/css.gg/icons/all.css"],
         "public/dist/css/css.gg.css"
-    );
+    )
+    .js('resources/js/app.js', 'public/dist/js/app.js')
