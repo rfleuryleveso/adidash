@@ -51,6 +51,7 @@
                 <i class="gg-lock"></i><input class="auth-field" type="password" id="password_confirmation"
                     name="password_confirmation" placeholder="Confirmer le mot de passe">
             </div>
+
             @error('first_name')
                 <p class="error-message">{{ $message }}</p>
             @enderror
