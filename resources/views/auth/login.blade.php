@@ -4,55 +4,53 @@
 
 @section('content')
 
-    <head>
-        <link rel="stylesheet" href="/dist/css/app.css" />
-    </head>
+    <div class="auth-container">
 
-    <body>
-        <div class="auth-container">
+        <div class="auth-form-box">
             <h1 class="auth-title">Connexion :</h1>
 
             <form action="/login" method="POST">
                 @csrf
-                <label for="email">Email:</label><br>
-                @if ($errors->any())
-                    <div class="auth-form red-input">
-                    @else
-                        <div class="auth-form">
-                @endif
 
-                <i class="gg-mail"></i><input class="auth-field" type="text" id="email" name="email"
-                    placeholder="prenom.nom@yncrea.fr">
-        </div>
+                <div>
+                    <label for="email">Email:</label><br>
+                    @if ($errors->any())
+                        <div class="auth-form-input red-input">
+                        @else
+                            <div class="auth-form-input">
+                    @endif
 
-        <label for="password">Mot de passe:</label><br>
-        @if ($errors->any())
-            <div class="auth-form red-input">
-            @else
-                <div class="auth-form">
-        @endif
+                    <i class="gg-mail"></i><input class="auth-field" type="text" id="email" name="email"
+                        placeholder="prenom.nom@yncrea.fr">
+                </div>
+                <div>
 
-        <i class="gg-lock"></i><input class="auth-field" type="password" id="password" name="password"
-            placeholder="Mot de passe"></div>
-        @error('password')
-            {{ $message }}
-        @enderror
+                    <label for="password">Mot de passe:</label><br>
+                    @if ($errors->any())
+                        <div class="auth-form-input red-input">
+                        @else
+                            <div class="auth-form-input">
+                    @endif
 
-        @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li class="error-message">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-        <div class="remember">
-            <label for="remember">Rester connecté ?</label>
-            <input type="checkbox" id="remember" name="remember">
+                    <i class="gg-lock"></i><input class="auth-field" type="password" id="password" name="password"
+                        placeholder="Mot de passe">
+
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </div>
+
+
+                <div class="remember">
+                    <label for="remember">Rester connecté ?</label>
+                    <input type="checkbox" id="remember" name="remember">
+                </div>
+                <div class="form-bottom">
+                    <button type="submit" class="submit-button">Se connecter</button>
+                    <p>Pas de compte ? <a href="#">En créer un ici</a></p>
+                </div>
+            </form>
         </div>
-        <div class="form-button">
-            <button type="submit" class="submit-button">Se connecter</button>
-        </div>
-        </form>
-        </div>
-    </body>
+    </div>
+
 @endsection

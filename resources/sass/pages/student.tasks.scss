@@ -1,0 +1,21 @@
+.element-task {
+    background-color: #161537;
+    border-radius: 5px;
+    width: 500px;
+    height: 100px;
+    display: flex;
+}
+
+.task-text {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.task-title {
+    margin: 0;
+}
+.task-description {
+    margin: 0;
+}
