@@ -3,29 +3,54 @@
 @section('title', 'Login')
 
 @section('content')
-    <form action="/login" method="POST">
-        @csrf
-        <label for="email">Email:</label><br>
-        <input type="text" id="email" name="email" placeholder="prenom.nom@yncrea.fr"><br>
-        @error('email')
-            {{ $message }}
-        @enderror
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" placeholder="password"><br>
-        @error('password')
-            {{ $message }}
-        @enderror
 
-        @if ($errors->any())
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
+    <div class="auth-container">
 
-        <label for="remember">Remember me ?</label><br />
-        <input type="checkbox" id="remember" name="remember"><br>
-        <input type="submit" value="Submit">
-    </form>
+        <div class="auth-form-box">
+            <h1 class="auth-title">Connexion :</h1>
+
+            <form action="/login" method="POST">
+                @csrf
+
+                <div>
+                    <label for="email">Email:</label><br>
+                    @if ($errors->any())
+                        <div class="auth-form-input red-input">
+                        @else
+                            <div class="auth-form-input">
+                    @endif
+
+                    <i class="gg-mail"></i><input class="auth-field" type="text" id="email" name="email"
+                        placeholder="prenom.nom@yncrea.fr">
+                </div>
+                <div>
+
+                    <label for="password">Mot de passe:</label><br>
+                    @if ($errors->any())
+                        <div class="auth-form-input red-input">
+                        @else
+                            <div class="auth-form-input">
+                    @endif
+
+                    <i class="gg-lock"></i><input class="auth-field" type="password" id="password" name="password"
+                        placeholder="Mot de passe">
+
+                    @error('password')
+                        {{ $message }}
+                    @enderror
+                </div>
+
+
+                <div class="remember">
+                    <label for="remember">Rester connecté ?</label>
+                    <input type="checkbox" id="remember" name="remember">
+                </div>
+                <div class="form-bottom">
+                    <button type="submit" class="submit-button">Se connecter</button>
+                    <p>Pas de compte ? <a href="#">En créer un ici</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
 @endsection

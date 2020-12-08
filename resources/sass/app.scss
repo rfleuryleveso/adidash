@@ -1,5 +1,6 @@
 @import url("https://css.gg/css");
 @import "./pages/student.tasks.scss";
+@import "./pages/auth.scss";
 
 body {
     margin: 0;
@@ -102,8 +103,6 @@ body {
         float: none;
     }
 }
-
-
 
 div.content {
     margin-left: 240px;
