@@ -55,21 +55,11 @@
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
-                            <a href="#" class="dropdown-item">
-                                Dropdown item
+                            <a class="dropdown-item" href={{ route('settings') }}>
+                                Paramètres
                             </a>
-                            <a class="dropdown-item">
-                                Other dropdown item
-                            </a>
-                            <a href="#" class="dropdown-item is-active">
-                                Active dropdown item
-                            </a>
-                            <a href="#" class="dropdown-item">
-                                Other dropdown item
-                            </a>
-                            <hr class="dropdown-divider">
-                            <a href="#" class="dropdown-item">
-                                With a divider
+                            <a class="dropdown-item" href={{ route('logout') }}>
+                                Déconnexion
                             </a>
                         </div>
                     </div>
