@@ -21,5 +21,6 @@ Route::prefix('')->middleware("auth")->group(function () {
     Route::get('tasks', [TasksController::class, 'home'])->name('student.tasks');
     Route::get('projects', [ProjectsController::class, 'home'])->name('student.projects');
 
+    Route::get('settings', [HomeController::class, 'logout'])->name('settings');
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 });
