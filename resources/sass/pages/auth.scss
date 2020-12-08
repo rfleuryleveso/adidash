@@ -4,6 +4,7 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
+    width: 100%;
     color: #161537;
     font-size: 0.9em;
 }
@@ -41,6 +42,10 @@ label {
     width: 350px;
     height: 40px;
     margin-bottom: 25px;
+}
+
+.auth-form i {
+    --ggs: 0.75;
 }
 
 .short {
@@ -86,7 +91,7 @@ label {
     width: 200px;
     color: white;
     border: 0;
-    background-image: linear-gradient(90deg, #00ce3c 0%, #00ffb3 50%);
+    background-image: linear-gradient(45deg, #67cb31 0%, #7cff36 100%);
     transition: 0.5s;
     background-size: 200% auto;
     text-align: center;
