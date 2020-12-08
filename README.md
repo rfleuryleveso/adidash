@@ -13,4 +13,4 @@ Site de gestion de projet pour ADIMAKER
 - Executer ``php artisan key:generate`` pour créer la clée de chiffrement
 - Configurer la base de donnée dans .env
 - Executer ``php artisan migrate:install`` pour mettre en place le layout de base de donnée
-- Executer ``php artisan migrate:up`` pour installer la dernière version des structures BDD
+- Executer ``php artisan migrate`` pour installer la dernière version des structures BDD

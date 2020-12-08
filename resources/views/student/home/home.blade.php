@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Page Title')
+@section('title', 'Accueil')
 
 @section('page_name', 'Accueil')
 
@@ -11,5 +11,5 @@
         Vous n'avez pas encore choisi votre classe, veuillez la sélectionner dans votre profil
       </div>
     @endif
-    <p>This is my body content.</p>
+    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Reprehenderit cupiditate quam beatae error veniam aperiam? Iste, quos, a dolorum adipisci itaque ad blanditiis corporis laudantium quam mollitia voluptate iusto ipsum?</p>
 @endsection
