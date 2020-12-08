@@ -14,3 +14,6 @@ Site de gestion de projet pour ADIMAKER
 - Configurer la base de donnée dans .env
 - Executer ``php artisan migrate:install`` pour mettre en place le layout de base de donnée
 - Executer ``php artisan migrate`` pour installer la dernière version des structures BDD
+
+## Organisation
+Trello: [Tableau Appli Web](https://trello.com/b/nj5wNvU2/appli-web)
