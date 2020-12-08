@@ -50,13 +50,17 @@ class User extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
 
-    public function classgroup()
+    public function groups()
     {
-        return $this->belongsTo('App\Models\ClassGroup');
+        return $this->belongsToMany('App\Models\Group')->using('App\Models\UserGroup');
     }
 
     public function tasks()
     {
         return $this->belongsToMany('App\Models\Task')->using('App\Models\TaskRole');
+    }
+
+    public function getClassGroup() {
+        return $this->groups()->where('is_class', true)->first();
     }
 }

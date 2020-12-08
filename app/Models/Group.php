@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ClassGroup extends Model
+class Group extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public function members()
+    public function users()
     {
-        return $this->hasMany('App\Models\User');
+        return $this->hasMany('App\Models\User')->using('App\Models\UserGroup');
     }
 }
