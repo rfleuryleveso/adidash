@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\HomeController;
 use App\Http\Controllers\Student\TasksController;
 use App\Http\Controllers\Student\ProjectsController;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,6 @@ Route::prefix('')->middleware("auth")->group(function () {
     Route::get('tasks', [TasksController::class, 'home'])->name('student.tasks');
     Route::get('projects', [ProjectsController::class, 'home'])->name('student.projects');
 
-    Route::get('settings', [HomeController::class, 'logout'])->name('settings');
+    Route::get('settings', [SettingsController::class, 'home'])->name('settings');
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 });
