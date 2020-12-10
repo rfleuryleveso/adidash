@@ -50,7 +50,7 @@
                     <div class="dropdown-trigger">
                         <a aria-haspopup="true" aria-controls="dropdown-menu">
                             <span><i class="far fa-user"></i>{{ Auth::user()->fullName }}
-                                ({{ Auth::user()->classgroup()->first()->name }})</span>
+                            @if(Auth::user()->hasClassGroup()) ({{Auth::user()->getClassGroup()->name}}) @endif</span>
                         </a>
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">

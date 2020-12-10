@@ -52,7 +52,7 @@ class User extends Authenticatable
 
     public function groups()
     {
-        return $this->belongsToMany('App\Models\Group')->using('App\Models\UserGroup');
+        return $this->belongsToMany(Group::class);
     }
 
     public function tasks()
@@ -62,5 +62,9 @@ class User extends Authenticatable
 
     public function getClassGroup() {
         return $this->groups()->where('is_class', true)->first();
+    }
+
+    public function hasClassGroup() {
+        return $this->getClassGroup() != null;
     }
 }

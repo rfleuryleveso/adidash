@@ -125,8 +125,9 @@
         text-align: center;
         border-radius: 10px;
         color: #7f7b97;
-        text-decoration: none;
+        
         & > a {
+            text-decoration: none;
             color: #2980b9;
         }
     }

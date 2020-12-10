@@ -69,6 +69,13 @@ body {
         line-height: 64px;
         margin-right: 15px;
         vertical-align: middle;
+        a {
+            text-decoration: none;
+            color: black;
+            svg {
+                margin-right: 5px;
+            }
+        }
         button {
             line-height: 64px;
         }
