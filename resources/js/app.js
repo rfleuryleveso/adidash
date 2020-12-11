@@ -18,3 +18,5 @@ dropdownMenu.addEventListener("mouseleave", function(event) {
         hovered = false;
     }
 });
+
+require("./calendar")

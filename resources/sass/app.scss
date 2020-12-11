@@ -1,6 +1,7 @@
 @import url("https://css.gg/css");
 @import "./pages/student.tasks.scss";
 @import "./pages/auth.scss";
+@import "./pages/calendar.scss";
 
 body {
     margin: 0;
@@ -111,10 +112,10 @@ body {
     }
 }
 
-div.content {
+div.page-content {
     margin-left: 240px;
     height: 1000px;
-    h2 {
+    h2.page-title {
         text-transform: uppercase;
         font-weight: 100;
         margin: 10px auto 5px auto;
