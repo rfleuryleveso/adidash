@@ -16,10 +16,10 @@ class CreateGroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->string("description");
-            $table->boolean('is_class');
-            $table->integer('rank')->comment('0 = Etudiant, 1 = Délégué, 2 = Comité, 3 = Staff, 4 = Administrateur');
-            $table->string('auto_expire')->comment('Set this if the user should loose this rank after a defined time. example: "1 month". Set to S to expire when the year\'s over ');
+            $table->string("description")->nullable();
+            $table->boolean('is_class')->default(false);
+            $table->integer('rank')->comment('0 = Etudiant, 1 = Délégué, 2 = Comité, 3 = Staff, 4 = Administrateur')->default(0);
+            $table->string('auto_expire')->comment('Set this if the user should loose this rank after a defined time. example: "1 month". Set to S to expire when the year\'s over ')->default('S');
             $table->softDeletes(); 
             $table->timestamps();
         });
