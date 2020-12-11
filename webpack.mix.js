@@ -22,3 +22,4 @@ mix.sass("resources/sass/app.scss", "public/dist/css")
         "public/dist/css/css.gg.css"
     )
     .js('resources/js/app.js', 'public/dist/js/app.js')
+    .js('resources/js/calendar/index.js', 'public/dist/js/calendar.js')
