@@ -19,7 +19,8 @@ class CreateTasksTable extends Migration
             $table->string("name");
             $table->integer('parent_task')->nullable();
             $table->enum('status', ['WAITING_FOR_PARENT_TASK', 'WAITING', 'STARTED', 'FINISHED', 'CANCELLED']);
-            
+
+            $table->date('ended_at')->nullable();
             $table->date('ends_at')->nullable();
 
             $table->softDeletes();
