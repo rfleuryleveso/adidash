@@ -17,6 +17,11 @@ class CreateTasksTable extends Migration
             $table->id();
             $table->integer('project_id');
             $table->string("name");
+            $table->integer('parent_task')->nullable();
+            $table->enum('status', ['WAITING_FOR_PARENT_TASK', 'WAITING', 'STARTED', 'FINISHED', 'CANCELLED']);
+            
+            $table->date('ends_at')->nullable();
+
             $table->softDeletes();
             $table->timestamps();
         });
