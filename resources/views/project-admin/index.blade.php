@@ -11,7 +11,7 @@
                 <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">
-                            Tâches en cours
+                            Tâches de la semaine
                         </p>
                     </header>
                     <div class="card-content">
@@ -23,18 +23,38 @@
                                         <th>Equipe</th>
                                         <th>Statut</th>
                                         <th>Fin</th>
+                                        <th>Fin attendue</th>
                                         <th>Détail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>Finir la stabilisation</th>
-                                        <td>Robin Lecouffe</td>
-                                        <td><span class="tag is-primary">En cours</span></td>
-                                        <td>11-12-2020  <span class="tag is-warning">(Retard 1j)</span></td>
-                                        <td><a href=""><i class="far fa-eye"></i></a></td>
-                                    </tr>
+                                    @foreach ($week_tasks as $task)
+                                        <tr>
+                                            <th>{{ $task->name }}</th>
+                                            <td>{{ $task->users->map(function ($member) {
+                                                        return $member->fullName;
+                                                    })->join(', ') }}</td>
+                                            <td>
+                                                <x-task-status :status="$task->status" />
+                                            </td>
+                                            <td>
+                                                @if($task->ended_at != null)
+                                                    {{ $task->ended_at->toDateString() }}
+                                                @endif
+                                            </td>
+                                            <td>
 
+                                                {{ $task->ends_at->toDateString() }}
+                                                @if ($task->ends_at->isPast())
+                                                    <span class="tag is-warning">(Retard
+                                                        {{ $task->ends_at->shortAbsoluteDiffForHumans() }})
+                                                    </span>
+                                                @endif
+
+                                            </td>
+                                            <td><a href=""><i class="far fa-eye"></i></a></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -94,7 +114,9 @@
                                 </p>
                             </div>
                             <div class="column">
-                                <p class="is-size-3 has-text-right">{{ $project->tasks()->where('status', 'STARTED')->count() }}</p>
+                                <p class="is-size-3 has-text-right">
+                                    {{ $project->tasks()->where('status', 'STARTED')->count() }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -113,7 +135,9 @@
                                 </p>
                             </div>
                             <div class="column">
-                                <p class="is-size-3 has-text-right">{{ $project->tasks()->where('status', 'FINISHED')->count() }}</p>
+                                <p class="is-size-3 has-text-right">
+                                    {{ $project->tasks()->where('status', 'FINISHED')->count() }}
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -132,7 +156,9 @@
                                 </p>
                             </div>
                             <div class="column">
-                                <p class="is-size-3 has-text-right">{{ $project->tasks()->where('status', 'STARTED')->where('ends_at', '<', 'GETDATE()')->count() }}</p>
+                                <p class="is-size-3 has-text-right">
+                                    {{ $project->tasks()->where('status', 'STARTED')->whereDate('ends_at', '<', \Carbon\Carbon::now())->count() }}
+                                </p>
                             </div>
                         </div>
                     </div>
