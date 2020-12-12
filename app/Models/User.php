@@ -58,10 +58,8 @@ class User extends Authenticatable
      */
     public function groups()
     {
-        return $this->belongsToMany(Group::class);
+        return $this->belongsToMany(Group::class)->using(GroupUser::class);
     }
-
-    
 
     /**
      * Get the user's tasks
@@ -70,7 +68,27 @@ class User extends Authenticatable
      */
     public function tasks()
     {
-        return $this->belongsToMany(Task::class);
+        return $this->belongsToMany(Task::class)->using(TaskUser::class);
+    }
+
+    /**
+     * Get the user's projects
+     *
+     * @return [Project]
+     */
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->using(ProjectUser::class);
+    }
+
+    /**
+     * Get the user's directed projects
+     * 
+     * @return [Project]
+     */
+    public function ownedProjects()
+    {
+        return $this->belongsToMany(Project::class)->using(ProjectUser::class)->wherePivot('relation_type', 2);
     }
 
     /**
@@ -111,5 +129,23 @@ class User extends Authenticatable
      */
     public function hasComityGroup() {
         return $this->getComityGroup() != null;
+    }
+
+    /**
+     * Get the user's staff groups
+     * 
+     * @return Group
+     */
+    public function getStaffGroup() {
+        return $this->groups()->where('rank', 3)->first();
+    }
+
+    /**
+     * Check if the user has a staff group
+     * 
+     * @return Boolean
+     */
+    public function hasStaffGroup() {
+        return $this->getStaffGroup() != null;
     }
 }
