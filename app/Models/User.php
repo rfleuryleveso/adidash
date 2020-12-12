@@ -61,6 +61,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Group::class);
     }
 
+    
+
     /**
      * Get the user's tasks
      * 
@@ -68,7 +70,7 @@ class User extends Authenticatable
      */
     public function tasks()
     {
-        return $this->belongsToMany('App\Models\Task')->using('App\Models\TaskRole');
+        return $this->belongsToMany(Task::class);
     }
 
     /**
