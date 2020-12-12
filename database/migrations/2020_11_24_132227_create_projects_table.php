@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("description");
-            $table->string("drive_link");
+            $table->string("drive_link")->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
