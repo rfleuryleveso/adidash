@@ -6,6 +6,7 @@ use App\Http\Controllers\Student\TasksController;
 use App\Http\Controllers\Student\ProjectController;
 use App\Http\Controllers\Student\MeetingController;
 use App\Http\Controllers\Student\SettingsController;
+use App\Http\Controllers\ProjectAdmin\ProjectAdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,4 +27,8 @@ Route::prefix('')->middleware("auth")->group(function () {
 
     Route::get('settings', [SettingsController::class, 'home'])->name('settings');
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
+
+    Route::group(['prefix' => 'project-admin/{project}', 'as' => 'project-admin.', 'middleware' => 'can:update,project'], function () {
+        Route::get('', [ProjectAdminController::class, 'home'])->name('home');
+    });
 });
