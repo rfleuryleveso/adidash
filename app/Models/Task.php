@@ -9,15 +9,25 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'ends_at' => 'datetime:Y-m-d',
+        'ended_at' => 'datetime:Y-m-d',
+    ];
+
     use HasFactory, SoftDeletes;
 
     public function project()
     {
-        return $this->belongsTo('App\Models\Project');
+        return $this->belongsTo(Project::class);
     }
 
     public function users()
     {
-        return $this->hasMany('App\Models\User')->using('App\Models\TaskUser');
+        return $this->belongsToMany(User::class)->using(TaskUser::class);
     }
 }
