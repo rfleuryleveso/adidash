@@ -29,16 +29,19 @@
             <div><i class="gg-copy"></i></div>
             Projets
         </a>
-        <div class="nav-separator"></div>
-        <a href="#" class="nav-header">PROJET DRONE</a>
-        <a href="#news">
-            <div><i class="gg-pen"></i></div>
-            Gestion du projet
-        </a>
-        <a href="#news">
-            <div><i class="gg-work-alt"></i></div>
-            Tâches
-        </a>
+
+        @foreach (Auth::user()->ownedProjects as $project)
+            <div class="nav-separator"></div>
+            <a href="#" class="nav-header">{{ $project->name }}</a>
+            <a href="{{ route('project-admin.home', ['project' => $project->id]) }}">
+                <div><i class="gg-pen"></i></div>
+                Gestion du projet
+            </a>
+            <a href="#news">
+                <div><i class="gg-work-alt"></i></div>
+                Tâches
+            </a>
+        @endforeach
     </div>
 
     <div class="page-content">
