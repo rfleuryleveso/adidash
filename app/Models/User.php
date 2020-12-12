@@ -114,21 +114,21 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's comity group
+     * Get the user's committee group
      * 
      * @return Group
      */
-    public function getComityGroup() {
+    public function getCommitteeGroup() {
         return $this->groups()->where('rank', 2)->first();
     }
 
     /**
-     * Check if the user has a comity group
+     * Check if the user has a committee group
      * 
      * @return Boolean
      */
-    public function hasComityGroup() {
-        return $this->getComityGroup() != null;
+    public function hasCommitteeGroup() {
+        return $this->getCommitteeGroup() != null;
     }
 
     /**
