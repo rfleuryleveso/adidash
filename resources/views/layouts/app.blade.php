@@ -11,6 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
+    @yield('head')
 </head>
 
 <body>
@@ -40,7 +41,7 @@
         </a>
     </div>
 
-    <div class="content">
+    <div class="page-content">
         <div class="topbar">
             <div class="notifications">
                 <p><i class="far fa-user"></i></p>
@@ -50,7 +51,9 @@
                     <div class="dropdown-trigger">
                         <a aria-haspopup="true" aria-controls="dropdown-menu">
                             <span><i class="far fa-user"></i>{{ Auth::user()->fullName }}
-                            @if(Auth::user()->hasClassGroup()) ({{Auth::user()->getClassGroup()->name}}) @endif</span>
+                                @if (Auth::user()->hasClassGroup())
+                                    ({{ Auth::user()->getClassGroup()->name }}) @endif
+                            </span>
                         </a>
                     </div>
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
@@ -67,8 +70,8 @@
 
             </div>
         </div>
-        <div class="inner">
-            <h2>
+        <div class="inner page-{{ str_replace('.', '-', $view_name) }}">
+            <h2 class="page-title">
                 @yield('page_name')
             </h2>
             @yield('content')
@@ -76,6 +79,7 @@
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
+    @yield('script')
 </body>
 
 </html>
