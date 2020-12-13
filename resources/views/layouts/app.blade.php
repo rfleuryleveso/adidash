@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/dist/css/normalize.css" />
     <link rel="stylesheet" href="/dist/css/bulma.css" />
     <link rel="stylesheet" href="/dist/css/app.css" />
-    <link rel="stylesheet" href="/dist/css/css.gg.css" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
@@ -21,7 +20,7 @@
             <div><i class="fas fa-home"></i></div>
             Accueil
         </a>
-        <a href="{{ route('student.tasks') }}">
+        <a href="{{ route('student.tasks.index') }}">
             <div><i class="fas fa-tasks"></i></div>
             Tâches
         </a>
@@ -83,10 +82,10 @@
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
                             <a class="dropdown-item" href={{ route('settings') }}>
-                                Paramètres
+                                <i class="fas fa-cog"></i> Paramètres
                             </a>
                             <a class="dropdown-item" href={{ route('logout') }}>
-                                Déconnexion
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
                             </a>
                         </div>
                     </div>
@@ -103,7 +102,8 @@
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
-    @yield('script')
+
+    @stack('scripts')
 </body>
 
 </html>

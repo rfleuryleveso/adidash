@@ -9,6 +9,6 @@
     </div>
 @endsection
 
-@section('script')
+@push('scripts')
     <script src="/dist/js/calendar.js"></script>
-@endsection
+@endpush
