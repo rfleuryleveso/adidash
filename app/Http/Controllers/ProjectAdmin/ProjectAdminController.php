@@ -23,22 +23,25 @@ class ProjectAdminController extends Controller
      */
     public function __construct(Request $request)
     {
-        
     }
 
     public function home(Project $project)
     {
-
         $week_start = \Carbon\Carbon::now()->previous(Carbon::MONDAY);
         $week_end = $week_start->copy()->next(Carbon::SUNDAY); // Generate bounds
 
-        $week_tasks = $project->tasks()->where([
+        $week_tasks = $project->tasks()
+        ->where(
+            [
             ['ends_at', '>=', $week_start],
             ['ends_at', '<=', $week_end]
-        ])->orWhere([
+        ]
+        )->orWhere(
+            [
             ['ended_at', '>=', $week_start],
             ['ended_at', '<=', $week_end]
-        ])->get();
+        ]
+        )->get();
         // Check for tasks within the bounds
 
         return view('project-admin.index', ['project'=>$project, 'week_tasks' => $week_tasks]);
