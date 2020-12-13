@@ -13,13 +13,14 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
 
-/**
+    /**
      * The attributes that should be cast.
      *
      * @var array
      */
     protected $casts = [
-        'ends_at' => 'datetime:Y-m-d',
+        'end_date' => 'datetime:Y-m-d',
+        'start_date' => 'datetime:Y-m-d'
     ];
 
     /**
@@ -37,5 +38,4 @@ class Project extends Model
     {
         return $this->belongsToMany(User::class)->using(ProjectUser::class);
     }
-    
 }
