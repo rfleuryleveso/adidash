@@ -1,4 +1,6 @@
 require("./bootstrap");
+require("./taskModal");
+require("./calendar")
 
 const dropdown = document.querySelector(".dropdown");
 const dropdownMenu = document.querySelector(".dropdown-menu");
@@ -12,11 +14,9 @@ dropdown.addEventListener("mouseover", function(event) {
 
 dropdownMenu.addEventListener("mouseleave", function(event) {
     event.stopPropagation();
-    console.log("leave");
     if (hovered === true) {
         dropdown.classList.remove("is-active");
         hovered = false;
     }
 });
 
-require("./calendar")
