@@ -20,9 +20,14 @@ use App\Http\Controllers\ProjectAdmin\ProjectAdminController;
 */
 
 Route::prefix('')->middleware("auth")->group(function () {
-    Route::get('', [HomeController::class, 'home'])->name('student.home');
-    Route::get('tasks', [TasksController::class, 'home'])->name('student.tasks');
-    Route::get('projects', [ProjectController::class, 'index'])->name('student.projects');
+    Route::group(["prefix" => "", "as" => "student."], function () {
+        Route::get('', [HomeController::class, 'home'])->name('home');
+        Route::resource('tasks', 'Student\TasksController');
+    
+        Route::get('projects', [ProjectController::class, 'index'])->name('projects');
+        Route::get('project/{project}', [ProjectController::class, 'show'])->name('project');
+    });
+    
     Route::resource('meetings', 'Student\MeetingController');
 
     Route::get('settings', [SettingsController::class, 'home'])->name('settings');
