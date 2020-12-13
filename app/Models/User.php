@@ -88,7 +88,7 @@ class User extends Authenticatable
      */
     public function ownedProjects()
     {
-        return $this->belongsToMany(Project::class)->using(ProjectUser::class)->wherePivot('relation_type', 2);
+        return $this->belongsToMany(Project::class)->using(ProjectUser::class)->wherePivot('relation_type', '>=', 2);
     }
 
     /**
