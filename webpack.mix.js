@@ -19,9 +19,5 @@ mix.sass("resources/sass/app.scss", "public/dist/css")
         ["node_modules/normalize.css/normalize.css"],
         "public/dist/css/normalize.css"
     )
-    .styles(
-        ["node_modules/css.gg/icons/all.css"],
-        "public/dist/css/css.gg.css"
-    )
     .js('resources/js/app.js', 'public/dist/js/app.js')
     .js('resources/js/calendar/index.js', 'public/dist/js/calendar.js')

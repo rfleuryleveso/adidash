@@ -24,7 +24,7 @@
         "@fullcalendar/daygrid": "^5.4.0",
         "bulma": "^0.9.1",
         "bulma-steps": "^2.2.1",
-        "css.gg": "^2.0.0",
+        "moment": "^2.29.1",
         "normalize.css": "^8.0.1"
     }
 }
