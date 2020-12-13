@@ -27,6 +27,7 @@ class ProjectController extends Controller
      */
     public function show(Project $project)
     {
-        return view("student.projects.project", ["project" => $project]);
+        $available_tasks = $project->tasks()->whereIn('status', ['WAITING', 'STARTED'])->get();
+        return view("student.projects.project", ["project" => $project, "available_tasks" => $available_tasks]);
     }
 }
