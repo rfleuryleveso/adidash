@@ -18,36 +18,57 @@
     <div class="sidebar">
         <h1>ADIDASH</h1>
         <a class="active" href="{{ route('student.home') }}">
-            <div><i class="gg-home-alt"></i></div>
+            <div><i class="fas fa-home"></i></div>
             Accueil
         </a>
         <a href="{{ route('student.tasks') }}">
-            <div><i class="gg-work-alt"></i></div>
+            <div><i class="fas fa-tasks"></i></div>
             Tâches
         </a>
         <a href="{{ route('student.projects') }}">
-            <div><i class="gg-copy"></i></div>
+            <div><i class="far fa-lightbulb"></i></div>
             Projets
+        </a>
+        <a href="{{ route('meetings.index') }}">
+            <div><i class="fas fa-calendar"></i></div>
+            Agenda
         </a>
 
         @foreach (Auth::user()->ownedProjects as $project)
             <div class="nav-separator"></div>
             <a href="#" class="nav-header">{{ $project->name }}</a>
             <a href="{{ route('project-admin.home', ['project' => $project->id]) }}">
-                <div><i class="gg-pen"></i></div>
+                <div><i class="fas fa-tools"></i></div>
                 Gestion du projet
             </a>
             <a href="#news">
-                <div><i class="gg-work-alt"></i></div>
+                <div><i class="fas fa-tasks"></i></div>
                 Tâches
             </a>
+            <a href="#news">
+                <div><i class="fas fa-users"></i></div>
+                Membres de l'équipe
+            </a>
         @endforeach
+
+        @if (Auth::user()->hasCommitteeGroup())
+            <div class="nav-separator"></div>
+            <a href="#" class="nav-header">Comité de projet</a>
+            <a href="#news">
+                <div><i class="fas fa-users"></i></div>
+                Utilisateurs
+            </a>
+            <a href="#news">
+                <div><i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+        @endif
     </div>
 
     <div class="page-content">
         <div class="topbar">
             <div class="notifications">
-                <p><i class="far fa-user"></i></p>
+                <p></p>
             </div>
             <div class="profile">
                 <div class="dropdown">
