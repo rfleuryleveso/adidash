@@ -13,6 +13,15 @@ class Project extends Model
 {
     use HasFactory, SoftDeletes;
 
+/**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'ends_at' => 'datetime:Y-m-d',
+    ];
+
     /**
      * Get the tasks for the project.
      */
