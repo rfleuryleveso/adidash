@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class Task extends Model
 {
     /**
@@ -29,5 +28,10 @@ class Task extends Model
     public function users()
     {
         return $this->belongsToMany(User::class)->using(TaskUser::class);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class)->using(TaskTag::class);
     }
 }
