@@ -7,7 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
@@ -63,7 +62,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's tasks
-     * 
+     *
      * @return [Task]
      */
     public function tasks()
@@ -83,7 +82,7 @@ class User extends Authenticatable
 
     /**
      * Get the user's directed projects
-     * 
+     *
      * @return [Project]
      */
     public function ownedProjects()
@@ -97,55 +96,76 @@ class User extends Authenticatable
     
     /**
      * Get the user's classgroup
-     * 
+     *
      * @return Group
      */
-    public function getClassGroup() {
+    public function getClassGroup()
+    {
         return $this->groups()->where('is_class', true)->first();
     }
 
     /**
      * Check if the user has a class group
-     * 
+     *
      * @return Boolean
      */
-    public function hasClassGroup() {
+    public function hasClassGroup()
+    {
         return $this->getClassGroup() != null;
+    }
+    
+    /**
+     * Get the user's classgroup
+     *
+     * @return String
+     */
+    public function getClassGroupName()
+    {
+        $classGroup = $this->getClassGroup();
+        if ($classGroup) {
+            return $classGroup->name;
+        } else {
+            return "N/A";
+        }
     }
 
     /**
      * Get the user's committee group
-     * 
+     *
      * @return Group
      */
-    public function getCommitteeGroup() {
+    public function getCommitteeGroup()
+    {
         return $this->groups()->where('rank', 2)->first();
     }
 
     /**
      * Check if the user has a committee group
-     * 
+     *
      * @return Boolean
      */
-    public function hasCommitteeGroup() {
+    public function hasCommitteeGroup()
+    {
         return $this->getCommitteeGroup() != null;
     }
 
     /**
      * Get the user's staff groups
-     * 
+     *
      * @return Group
      */
-    public function getStaffGroup() {
+    public function getStaffGroup()
+    {
         return $this->groups()->where('rank', 3)->first();
     }
 
     /**
      * Check if the user has a staff group
-     * 
+     *
      * @return Boolean
      */
-    public function hasStaffGroup() {
+    public function hasStaffGroup()
+    {
         return $this->getStaffGroup() != null;
     }
 }
