@@ -28,6 +28,6 @@ class CreateTaskUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_users');
+        Schema::dropIfExists('task_user');
     }
 }
