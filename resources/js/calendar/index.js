@@ -4,7 +4,9 @@ import frLocale from "@fullcalendar/core/locales/fr";
 
 document.addEventListener("DOMContentLoaded", function() {
     var calendarEl = document.getElementById("calendar");
-
+    if (calendarEl === null) {
+        return;
+    }
     var calendar = new Calendar(calendarEl, {
         plugins: [dayGridPlugin],
         locale: frLocale,
@@ -22,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 start: "2020-12-12"
             }
         ],
-        eventDisplay: 'block',
+        eventDisplay: "block"
     });
     calendar.render();
 });
