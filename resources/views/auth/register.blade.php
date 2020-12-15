@@ -15,7 +15,7 @@
                     <div>
                         <label for="first_name">Prénom :</label>
                         <div class="auth-form-input short">
-                            <i class="gg-profile"></i><input type="text" id="first_name" class="register-auth-field"
+                            <i class="far fa-user-circle"></i><input type="text" id="first_name" class="register-auth-field"
                                 name="first_name" placeholder="Prénom">
                         </div>
                         @error('first_name')
@@ -30,7 +30,7 @@
                     <div>
                         <label for="last_name">Nom :</label>
                         <div class="auth-form-input short">
-                            <i class="gg-profile"></i><input type="text" id="last_name" class="register-auth-field"
+                            <i class="far fa-user-circle"></i><input type="text" id="last_name" class="register-auth-field"
                                 name="last_name" placeholder="Nom">
                         </div>
                         @error('last_name')

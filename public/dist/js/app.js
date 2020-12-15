@@ -19344,9 +19344,21 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 var dropdown = document.querySelector(".dropdown");
-dropdown.addEventListener("click", function (event) {
+var dropdownMenu = document.querySelector(".dropdown-menu");
+var hovered = false;
+dropdown.addEventListener("mouseover", function (event) {
   event.stopPropagation();
-  dropdown.classList.toggle("is-active");
+  dropdown.classList.add("is-active");
+  hovered = true;
+});
+dropdownMenu.addEventListener("mouseleave", function (event) {
+  event.stopPropagation();
+  console.log("leave");
+
+  if (hovered === true) {
+    dropdown.classList.remove("is-active");
+    hovered = false;
+  }
 });
 
 /***/ }),
@@ -19401,9 +19413,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\laragon\www\adidash\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! D:\laragon\www\adidash\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! D:\laragon\www\adidash\node_modules\bulma\bulma.sass */"./node_modules/bulma/bulma.sass");
+__webpack_require__(/*! C:\laragon\www\adidash\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\laragon\www\adidash\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\laragon\www\adidash\node_modules\bulma\bulma.sass */"./node_modules/bulma/bulma.sass");
 
 
 /***/ })

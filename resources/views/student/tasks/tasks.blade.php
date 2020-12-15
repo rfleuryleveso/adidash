@@ -6,11 +6,10 @@
 
 @section('content')
     <section>
-        <h2>Mes tâches</h2>
         <div class="element-task">
             <div class="task-text">
-                <h1 class="task-title">Titre de la tâche</h1>
-                <h2 class="task-description">Description de la tâche</h2>
+                <h2 class="task-title">Titre de la tâche</h2>
+                <p class="task-description">Description de la tâche</p>
                 <p>deadline</p>
             </div>
 

@@ -19,7 +19,7 @@
                 <i class="gg-mail"></i><input class="auth-field" type="text" id="email" name="email"
                     placeholder="prenom.nom@yncrea.fr">
                 @error('email')
-                    {{ $message }}
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
             <div>
@@ -35,7 +35,7 @@
                     placeholder="Mot de passe">
 
                 @error('password')
-                    {{ $message }}
+                    <p class="error-message">{{ $message }}</p>
                 @enderror
             </div>
 

@@ -2,20 +2,22 @@
     background-color: #161537;
     border-radius: 5px;
     width: 500px;
-    height: 100px;
+    height: 200px;
     display: flex;
+
+    .task-title {
+        color: white;
+        font-variant: initial;
+        font-weight: 700;
+    }
 }
 
+.task-descrition {
+    margin: 0;
+}
 .task-text {
     color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
-
-.task-title {
-    margin: 0;
-}
-.task-description {
-    margin: 0;
 }
