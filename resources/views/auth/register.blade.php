@@ -15,8 +15,8 @@
                     <div>
                         <label for="first_name">Prénom :</label>
                         <div class="auth-form-input short">
-                            <i class="far fa-user-circle"></i><input type="text" id="first_name" class="register-auth-field"
-                                name="first_name" placeholder="Prénom">
+                            <i class="far fa-user-circle auth-icon"></i><input type="text" id="first_name"
+                                class="register-auth-field" name="first_name" placeholder="Prénom">
                         </div>
                         @error('first_name')
                             <p class="error-message">{{ $message }}</p>
@@ -30,8 +30,8 @@
                     <div>
                         <label for="last_name">Nom :</label>
                         <div class="auth-form-input short">
-                            <i class="far fa-user-circle"></i><input type="text" id="last_name" class="register-auth-field"
-                                name="last_name" placeholder="Nom">
+                            <i class="far fa-user-circle auth-icon"></i><input type="text" id="last_name"
+                                class="register-auth-field" name="last_name" placeholder="Nom">
                         </div>
                         @error('last_name')
                             <p class="error-message">{{ $message }}</p>
@@ -45,7 +45,7 @@
 
                 <label for="email">Email:</label>
                 <div class="auth-form-input">
-                    <i class="gg-mail"></i><input class="auth-field" type="text" id="email" name="email"
+                    <i class="far fa-envelope auth-icon"></i><input class="auth-field" type="text" id="email" name="email"
                         placeholder="prenom.nom@yncrea.fr">
                 </div>
                 @error('email')
@@ -54,8 +54,8 @@
 
                 <label for="password">Mot de passe:</label>
                 <div class="auth-form-input">
-                    <i class="gg-lock"></i><input class="auth-field" type="password" id="password" name="password"
-                        placeholder="Mot de passe">
+                    <i class="far fa-lock auth-icon"></i><input class="auth-field" type="password" id="password"
+                        name="password" placeholder="Mot de passe">
                 </div>
                 @error('password')
                     <p class="error-message">{{ $message }}</p>
@@ -63,8 +63,8 @@
 
                 <label for="password_confirmation">Confirmer le mot de passe :</label>
                 <div class="auth-form-input">
-                    <i class="gg-lock"></i><input class="auth-field" type="password" id="password_confirmation"
-                        name="password_confirmation" placeholder="Confirmer le mot de passe">
+                    <i class="far fa-lock auth-icon"></i><input class="auth-field" type="password"
+                        id="password_confirmation" name="password_confirmation" placeholder="Confirmer le mot de passe">
                 </div>
                 @error('password_confirmation')
                     <p class="error-message">{{ $message }}</p>

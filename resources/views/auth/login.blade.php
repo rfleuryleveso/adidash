@@ -16,7 +16,7 @@
                         <div class="auth-form-input">
                 @endif
 
-                <i class="gg-mail"></i><input class="auth-field" type="text" id="email" name="email"
+                <i class="far fa-envelope auth-icon"></i><input class="auth-field" type="text" id="email" name="email"
                     placeholder="prenom.nom@yncrea.fr">
                 @error('email')
                     <p class="error-message">{{ $message }}</p>
@@ -31,7 +31,7 @@
                         <div class="auth-form-input">
                 @endif
 
-                <i class="gg-lock"></i><input class="auth-field" type="password" id="password" name="password"
+                <i class="far fa-lock auth-icon"></i><input class="auth-field" type="password" id="password" name="password"
                     placeholder="Mot de passe">
 
                 @error('password')
