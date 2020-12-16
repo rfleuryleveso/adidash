@@ -1,23 +1,116 @@
+.tasks-list {
+    .tasks-title-row {
+        display: flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: flex-start;
+        cursor: pointer;
+    }
+}
+
+.rotate-right {
+    transform: rotate(90deg);
+    transition: All 0.25s ease-in-out;
+}
+
+.task-section-title {
+    text-transform: none !important;
+    font-weight: 700 !important;
+    margin: 10px 0 !important;
+    margin-left: 10px !important;
+}
+
 .element-task {
-    background-color: #161537;
-    border-radius: 5px;
-    width: 500px;
-    height: 200px;
+    width: 80%;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 !important;
+    display: none;
+}
+
+.show-flex {
     display: flex;
+}
+
+.task {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgb(200, 200, 200);
+    padding: 0 10px;
+    margin-bottom: 10px;
+    width: 90%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
     .task-title {
-        color: white;
-        font-variant: initial;
+        color: rgb(0, 0, 0);
+        text-transform: none;
+        margin: 0 !important;
+
+        font-size: 1.25em;
+        font-weight: 700;
+    }
+
+    .task-button {
+        width: 35px;
+        height: 35px;
+        border-radius: 10px;
+        border: 1px solid rgb(125, 125, 125);
+        cursor: pointer;
+    }
+
+    .separation-line {
+        width: 2px;
+        height: 60%;
+        background-color: black;
+    }
+    .task-deadline-box {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+    }
+    .calendar-icon {
+        font-size: 1.25em;
+        margin: 0 10px;
+    }
+
+    .project-title {
+        width: 20%;
+        margin: 0 !important;
+        font-size: 1.25em;
+        text-transform: none;
         font-weight: 700;
     }
 }
 
-.task-descrition {
-    margin: 0;
+.element-task li {
+    transform-origin: top center;
+    opacity: 0;
+    animation: dropdowntasks 0.15s ease-in-out forwards;
 }
-.task-text {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+
+.no-select {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+@keyframes dropdowntasks {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 50%;
+    }
+    100% {
+        opacity: 100%;
+    }
 }

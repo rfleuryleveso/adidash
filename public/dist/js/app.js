@@ -19360,6 +19360,20 @@ dropdownMenu.addEventListener("mouseleave", function (event) {
     hovered = false;
   }
 });
+var myTaskListTitle = document.querySelector("#my-tasks-title");
+var myTaskList = document.querySelector("#my-tasks-list");
+var availableTaskListTitle = document.querySelector("#available-tasks-title");
+var availableTaskList = document.querySelector("#available-tasks-list");
+myTaskListTitle.addEventListener("click", function () {
+  var chevron = document.querySelector("#my-tasks-chevron");
+  chevron.classList.toggle("rotate-right");
+  myTaskList.classList.toggle("show-flex");
+});
+availableTaskListTitle.addEventListener("click", function () {
+  var chevron = document.querySelector("#available-tasks-chevron");
+  chevron.classList.toggle("rotate-right");
+  availableTaskList.classList.toggle("show-flex");
+});
 
 /***/ }),
 

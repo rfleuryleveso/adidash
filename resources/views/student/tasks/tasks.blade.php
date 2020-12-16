@@ -5,23 +5,67 @@
 @section('page_name', 'Tâches')
 
 @section('content')
-    <section>
-        <div class="element-task">
-            <div class="task-text">
-                <h2 class="task-title">Titre de la tâche</h2>
-                <p class="task-description">Description de la tâche</p>
-                <p>deadline</p>
-            </div>
-
-            <div class="task-button">
-                <a href="#"></a>
-            </div>
+    <section class="tasks-list">
+        <div class="tasks-title-row no-select" id="my-tasks-title">
+            <i class="fas fa-chevron-right" id="my-tasks-chevron"></i>
+            <h2 class="task-section-title">Mes tâches</h2>
         </div>
-    </section>
-    <section>
-        <h2>Tâches disponibles</h2>
+        <ul class="element-task" id="my-tasks-list">
+            <li class="task">
+                <div class="task-button"></div>
+                <h2 class="task-title">Coder le système de stabilisation</h2>
+                <div class="separation-line"></div>
+                <div class="task-deadline-box">
+                    <i class="fad fa-calendar calendar-icon"></i>
+                    <p>24/01/2021</p>
+                </div>
+                <div class="separation-line"></div>
+                <h2 class="project-title">Drone</h2>
+            </li>
+            <li class="task">
+                <div class="task-button"></div>
+                <h2 class="task-title">Coder le système de stabilisation</h2>
+                <div class="separation-line"></div>
+                <div class="task-deadline-box">
+                    <i class="fad fa-calendar calendar-icon"></i>
+                    <p>24/01/2021</p>
+                </div>
+                <div class="separation-line"></div>
+                <h2 class="project-title">Drone</h2>
+            </li>
+        </ul>
     </section>
 
+    <section class="tasks-list">
+        <div class="tasks-title-row" id="available-tasks-title">
+            <i class="fas fa-chevron-right" id="available-tasks-chevron"></i>
+            <h2 class="task-section-title no-select">Tâches disponibles</h2>
+        </div>
+        <ul class="element-task" id="available-tasks-list">
+            <li class="task">
+                <div class="task-button"></div>
+                <h2 class="task-title">Coder le système de stabilisation</h2>
+                <div class="separation-line"></div>
+                <div class="task-deadline-box">
+                    <i class="fad fa-calendar calendar-icon"></i>
+                    <p>24/01/2021</p>
+                </div>
+                <div class="separation-line"></div>
+                <h2 class="project-title">Drone</h2>
+            </li>
+            <li class="task">
+                <div class="task-button"></div>
+                <h2 class="task-title">Coder le système de stabilisation</h2>
+                <div class="separation-line"></div>
+                <div class="task-deadline-box">
+                    <i class="fad fa-calendar calendar-icon"></i>
+                    <p>24/01/2021</p>
+                </div>
+                <div class="separation-line"></div>
+                <h2 class="project-title">Drone</h2>
+            </li>
+        </ul>
+    </section>
     </main>
 
 @endsection
