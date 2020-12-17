@@ -16,7 +16,7 @@ Site de gestion de projet pour ADIMAKER
 - Executer ``php artisan migrate`` pour installer la dernière version des structures BDD
 
 ## Organisation
-Trello: [Tableau Appli Web](https://trello.com/b/nj5wNvU2/appli-web)
+Trello: [Tableau Appli Web](https://trello.com/invite/b/nj5wNvU2/47f56d119e9407858bfa1a40f8033865/appli-web)
 Pour contribuer, il vaut mieux créer un fork et le cloner.
 Pensez à récupérer souvent les changements du git parent ("upstream") avec
 ```bash
