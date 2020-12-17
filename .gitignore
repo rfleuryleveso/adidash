@@ -25,3 +25,6 @@ Homestead.json
 public/dist/
 
 storage/
+public/dist/css
+public/dist/js
+public/mix-manifest.json

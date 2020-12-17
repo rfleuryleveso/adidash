@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function home()
     {
-        return view('student.home.home', ['time' => time()]);
+        return view('student.home.home');
     }
 
     public function logout()

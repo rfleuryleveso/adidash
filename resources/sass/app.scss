@@ -1,6 +1,9 @@
-@import url("https://css.gg/css");
 @import "./pages/student.tasks.scss";
 @import "./pages/auth.scss";
+@import "./pages/calendar.scss";
+@import "./pages/projects-list.scss";
+@import "./pages/project.scss";
+@import "./task-modal.scss";
 
 body {
     margin: 0;
@@ -90,6 +93,18 @@ body {
     padding: 1px 16px;
 }
 
+
+
+div.page-content {
+    margin-left: 240px;
+    height: 1000px;
+    h2.page-title {
+        text-transform: uppercase;
+        font-weight: 100;
+        margin: 10px auto 5px auto;
+    }
+}
+
 @media screen and (max-width: 700px) {
     .sidebar {
         width: 100%;
@@ -99,7 +114,7 @@ body {
     .sidebar a {
         float: left;
     }
-    div.content {
+    div.page-content {
         margin-left: 0;
     }
 }
@@ -111,12 +126,3 @@ body {
     }
 }
 
-div.content {
-    margin-left: 240px;
-    height: 1000px;
-    h2 {
-        text-transform: uppercase;
-        font-weight: 100;
-        margin: 10px auto 5px auto;
-    }
-}

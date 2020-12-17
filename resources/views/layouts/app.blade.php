@@ -7,45 +7,67 @@
     <link rel="stylesheet" href="/dist/css/normalize.css" />
     <link rel="stylesheet" href="/dist/css/bulma.css" />
     <link rel="stylesheet" href="/dist/css/app.css" />
-    <link rel="stylesheet" href="/dist/css/css.gg.css" />
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
+    @yield('head')
 </head>
 
 <body>
     <div class="sidebar">
         <h1>ADIDASH</h1>
         <a class="active" href="{{ route('student.home') }}">
-            <div><i class="gg-home-alt"></i></div>
+            <div><i class="fas fa-home"></i></div>
             Accueil
         </a>
-        <a href="{{ route('student.tasks') }}">
-            <div><i class="gg-work-alt"></i></div>
+        <a href="{{ route('student.tasks.index') }}">
+            <div><i class="fas fa-tasks"></i></div>
             Tâches
         </a>
         <a href="{{ route('student.projects') }}">
-            <div><i class="gg-copy"></i></div>
+            <div><i class="far fa-lightbulb"></i></div>
             Projets
         </a>
-        <div class="nav-separator"></div>
-        <a href="#" class="nav-header">PROJET DRONE</a>
-        <a href="#news">
-            <div><i class="gg-pen"></i></div>
-            Gestion du projet
+        <a href="{{ route('meetings.index') }}">
+            <div><i class="fas fa-calendar"></i></div>
+            Agenda
         </a>
-        <a href="#news">
-            <div><i class="gg-work-alt"></i></div>
-            Tâches
-        </a>
+
+        @foreach (Auth::user()->ownedProjects as $project)
+            <div class="nav-separator"></div>
+            <a href="#" class="nav-header">{{ $project->name }}</a>
+            <a href="{{ route('project-admin.home', ['project' => $project->id]) }}">
+                <div><i class="fas fa-tools"></i></div>
+                Gestion du projet
+            </a>
+            <a href="#news">
+                <div><i class="fas fa-tasks"></i></div>
+                Tâches
+            </a>
+            <a href="#news">
+                <div><i class="fas fa-users"></i></div>
+                Membres de l'équipe
+            </a>
+        @endforeach
+
+        @if (Auth::user()->hasCommitteeGroup())
+            <div class="nav-separator"></div>
+            <a href="#" class="nav-header">Comité de projet</a>
+            <a href="#news">
+                <div><i class="fas fa-users"></i></div>
+                Utilisateurs
+            </a>
+            <a href="#news">
+                <div><i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+        @endif
     </div>
 
-    <div class="content">
+    <div class="page-content">
         <div class="topbar">
             <div class="notifications">
-                <p><i class="far fa-user"></i></p>
+                <p></p>
             </div>
             <div class="profile">
                 <div class="dropdown">
@@ -60,10 +82,10 @@
                     <div class="dropdown-menu" id="dropdown-menu" role="menu">
                         <div class="dropdown-content">
                             <a class="dropdown-item" href={{ route('settings') }}>
-                                Paramètres
+                                <i class="fas fa-cog"></i> Paramètres
                             </a>
                             <a class="dropdown-item" href={{ route('logout') }}>
-                                Déconnexion
+                                <i class="fas fa-sign-out-alt"></i> Déconnexion
                             </a>
                         </div>
                     </div>
@@ -71,8 +93,8 @@
 
             </div>
         </div>
-        <div class="inner">
-            <h2>
+        <div class="inner page-{{ str_replace('.', '-', $view_name) }}">
+            <h2 class="page-title">
                 @yield('page_name')
             </h2>
             @yield('content')
@@ -80,6 +102,8 @@
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
+
+    @stack('scripts')
 </body>
 
 </html>
