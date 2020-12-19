@@ -15,6 +15,8 @@ Site de gestion de projet pour ADIMAKER
 - Executer ``php artisan migrate:install`` pour mettre en place le layout de base de donnée
 - Executer ``php artisan migrate`` pour installer la dernière version des structures BDD
 
+- **A chaque séance de travail**: Lancer ``npm run watch`` pour compiler le CSS automatiquement
+
 ## Organisation
 Trello: [Tableau Appli Web](https://trello.com/invite/b/nj5wNvU2/47f56d119e9407858bfa1a40f8033865/appli-web)
 Pour contribuer, il vaut mieux créer un fork et le cloner.
