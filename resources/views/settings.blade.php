@@ -34,7 +34,7 @@
             </div>
             <div class="field is-grouped">
                 <div class="control">
-                    <input type="submit" class="button is-link" value="Submit" />
+                    <input type="submit" class="button is-link" value="Mettre à jour" />
                 </div>
             </div>
         </form>
