@@ -97,6 +97,11 @@
             <h2 class="page-title">
                 @yield('page_name')
             </h2>
+            @if (session('success'))
+                <div class="notification is-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>
