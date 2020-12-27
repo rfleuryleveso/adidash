@@ -21,7 +21,7 @@
                     <hr />
                     <p>
                         Début du projet: {{ $project->start_date->toFormattedDateString() }}<br />
-                        Deadline: {{ $project->end_date->toFormattedDateString() }}<br />
+                        Deadline: @if($project->end_date) {{ $project->end_date->toFormattedDateString() }} @else Inconnu @endif<br />
                         Chef(s) de projet: {{ $project->members()->wherePivot('relation_type', 3)->get()->map(function ($user) {
                                     return $user->fullName;
                                 })->join(', ') }}
@@ -57,7 +57,9 @@
                                                     return $member->fullName;
                                                 })->join(', ') }}</td>
                                         <td>
-                                            Electronique, Programmation
+                                            @foreach ($task->tags as $tag)
+                                            <x-task-tag :tag="$tag" />
+                                            @endforeach
                                         </td>
                                         <td>
                                             <x-task-status :status="$task->status" />
@@ -71,7 +73,7 @@
                                                     </span>
                                                 @endif
                                             @else
-                                                ?
+                                                Inconnu
                                             @endif
                                         </td>
                                         <td><a href="#" onclick="openTaskModal({{ $task->id }})"><i
