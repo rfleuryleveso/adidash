@@ -17,7 +17,7 @@ class User extends JsonResource {
 			'full_name' => $this->fullName,
 			'first_name' => $this->first_name,
 			'last_name' => $this->last_name,
-			'classgroup' => new Group($this->getClassGroup()),
+			'classgroup' => new Group($this->getClassGroups()->first()),
 		];
 	}
 }
