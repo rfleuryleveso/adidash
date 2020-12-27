@@ -16,16 +16,16 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->longText("description");
+            $table->longText("description")->nullable();
             $table->string("intro")->nullable();
-            $table->enum("status", ["STARTED", "FINISHED", "FROZEN", "CANCELLED"]);
+            $table->enum("status", ["CREATED", "STARTED", "FINISHED", "FROZEN", "CANCELLED"])->default("CREATED");
 
             $table->string("drive_link")->nullable();
 
             // Images
             $table->string("background_image")->nullable();
 
-            $table->date("start_date");
+            $table->date("start_date")->nullable();
             $table->date("end_date")->nullable();
 
             $table->softDeletes();

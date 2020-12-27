@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTaskTagTable extends Migration
+class CreateTagTaskTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTaskTagTable extends Migration
      */
     public function up()
     {
-        Schema::create('task_tag', function (Blueprint $table) {
+        Schema::create('tag_task', function (Blueprint $table) {
             $table->id();
             $table->integer('tag_id');
             $table->integer('task_id');
@@ -28,6 +28,6 @@ class CreateTaskTagTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('task_tag');
+        Schema::dropIfExists('tag_task');
     }
 }
