@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use DB;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password',
+        'first_name', 'last_name', 'email',
     ];
 
     /**
@@ -69,11 +70,50 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the user's projects
+     * Get the projects on which the user is working.
      *
      * @return [Project]
      */
     public function projects()
+    {
+        // Get the group projects
+        $projectsQueries = $this->getClassGroups()->get()->reduce(function ($projects, $group) {
+            $projects->push($group->projects()->getQuery()->select(DB::raw('`projects`.*, 0 as `pivot_user_id`, 0 as `pivot_project_id`'))); // c rien c la rue
+            return $projects;
+        }, collect())->all();
+        $query = $this->linkedProjects();
+        foreach ($projectsQueries as $projectQuery) {
+            $query = $query->union($projectQuery);
+        }
+        return $query;
+    }
+
+    /**
+     * Get the projects by group
+     *
+     * @return [Project]
+     */
+    public function groupProjects()
+    {
+        // Get the group projects
+        $projectsQueries = $this->getClassGroups()->get()->reduce(function ($projects, $group) {
+            $projects->push($group->projects()->getQuery()); // c rien c la rue
+            return $projects;
+        }, collect())->all();
+
+        $query = $projectsQueries[0];
+        foreach (array_slice($projectsQueries, 1) as $projectsQuery) {
+            $query = $query->union($projectQuery);
+        }
+        return $query;
+    }
+
+    /**
+     * Get the project by relation
+     *
+     * @return [Project]
+     */
+    public function linkedProjects()
     {
         return $this->belongsToMany(Project::class)->using(ProjectUser::class);
     }
@@ -85,7 +125,7 @@ class User extends Authenticatable
      */
     public function ownedProjects()
     {
-        return $this->belongsToMany(Project::class)->using(ProjectUser::class)->wherePivot('relation_type', '>=', 2);
+        return $this->linkedProjects()->wherePivot('relation_type', '>=', 2);
     }
 
     /**
@@ -93,13 +133,14 @@ class User extends Authenticatable
      */
 
     /**
-     * Get the user's classgroup
+     * Get the user's classgroups
+     * More likely to be only one.
      *
      * @return Group
      */
-    public function getClassGroup()
+    public function getClassGroups()
     {
-        return $this->groups()->where('is_class', true)->first();
+        return $this->groups()->where('is_class', true);
     }
 
     /**
@@ -109,7 +150,7 @@ class User extends Authenticatable
      */
     public function hasClassGroup()
     {
-        return $this->getClassGroup() != null;
+        return $this->getClassGroups()->first() != null;
     }
 
     /**
@@ -119,7 +160,7 @@ class User extends Authenticatable
      */
     public function getClassGroupName()
     {
-        $classGroup = $this->getClassGroup();
+        $classGroup = $this->getClassGroups()->first();
         if ($classGroup) {
             return $classGroup->name;
         } else {
@@ -132,9 +173,9 @@ class User extends Authenticatable
      *
      * @return Group
      */
-    public function getCommitteeGroup()
+    public function getCommitteeGroups()
     {
-        return $this->groups()->where('rank', 2)->first();
+        return $this->groups()->where('rank', 2);
     }
 
     /**
@@ -144,7 +185,7 @@ class User extends Authenticatable
      */
     public function hasCommitteeGroup()
     {
-        return $this->getCommitteeGroup() != null;
+        return $this->getCommitteeGroups()->first() != null;
     }
 
     /**
@@ -152,9 +193,9 @@ class User extends Authenticatable
      *
      * @return Group
      */
-    public function getStaffGroup()
+    public function getStaffGroups()
     {
-        return $this->groups()->where('rank', 3)->first();
+        return $this->groups()->where('rank', 3);
     }
 
     /**
@@ -164,6 +205,17 @@ class User extends Authenticatable
      */
     public function hasStaffGroup()
     {
-        return $this->getStaffGroup() != null;
+        return $this->getStaffGroups()->first() != null;
+    }
+    
+    /**
+     * Checks if the user is an administrator.
+     * Currently unused
+     *
+     * @return Boolean
+     */
+    public function isAdministrator()
+    {
+        return false;
     }
 }
