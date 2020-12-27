@@ -7,6 +7,11 @@ use App\Http\Controllers\Student\ProjectController;
 use App\Http\Controllers\Student\MeetingController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ProjectAdmin\ProjectAdminController;
+use App\Http\Controllers\ProjectAdmin\TasksController as ProjectTasksController;
+use App\Http\Controllers\Committee\CommitteeController;
+
+use App\Http\Controllers\Committee\ProjectController as CommitteeProjectController;
+use App\Http\Controllers\Committee\UserController as CommitteeUserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,9 +38,33 @@ Route::prefix('')->middleware("auth")->group(function () {
     Route::get('settings', [SettingsController::class, 'home'])->name('settings');
     Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
 
+    Route::get('tags', [HomeController::class, 'tags'])->name('tags');
+
     Route::get('logout', [HomeController::class, 'logout'])->name('logout');
 
     Route::group(['prefix' => 'project-admin/{project}', 'as' => 'project-admin.', 'middleware' => 'can:update,project'], function () {
         Route::get('', [ProjectAdminController::class, 'home'])->name('home');
+
+        Route::get('tasks', [ProjectTasksController::class, 'home'])->name('tasks');
+
+        Route::view('create-task', 'project-admin.create-task')->name('create-task');
+        Route::post('create-task', [ProjectTasksController::class, 'create'])->name('create-task');
+    });
+
+    Route::group(['prefix' => 'committee', 'as' => 'committee.',  'middleware' => 'can:access-committee'], function () {
+        Route::get('', [CommitteeController::class, 'home'])->name('home');
+
+        Route::get('users', [CommitteeUserController::class, 'users'])->name('users');
+        Route::get('users/{user}', [CommitteeUserController::class, 'user'])->name('user')->middleware('can:view,user');
+        
+        Route::get('projects', [CommitteeProjectController::class, 'projects'])->name('projects');
+        Route::view('project/create', 'committee.projects.create-project')->name('create-project');
+        Route::post('project/create', [CommitteeProjectController::class, 'createProject'])->name('create-project');
+        
+        Route::get('project/{project}', [CommitteeProjectController::class, 'project'])->name('project');
+        Route::get('project/{project}/tasks', [CommitteeProjectController::class, 'project_tasks'])->name('project_tasks');
+        Route::get('project/{project}/team', [CommitteeProjectController::class, 'project_team'])->name('project_team');
+
+        Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
     });
 });
