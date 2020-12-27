@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
+use App\Models\Project;
+
 class RouteServiceProvider extends ServiceProvider {
 	/**
 	 * This namespace is applied to your controller routes.
@@ -29,6 +31,7 @@ class RouteServiceProvider extends ServiceProvider {
 	 */
 	public function boot() {
 		//
+		Route::model('project', Project::class);
 
 		parent::boot();
 	}
