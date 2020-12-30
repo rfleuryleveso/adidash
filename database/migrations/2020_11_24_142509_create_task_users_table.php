@@ -17,7 +17,6 @@ class CreateTaskUsersTable extends Migration
             $table->id();
             $table->integer("user_id");
             $table->integer("task_id");
-            $table->timestamps();
         });
     }
 
