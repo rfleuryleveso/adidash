@@ -6,6 +6,8 @@ use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Route;
 
 use App\Models\Project;
+use App\Models\Task;
+use App\Models\User;
 
 class RouteServiceProvider extends ServiceProvider {
 	/**
@@ -32,6 +34,8 @@ class RouteServiceProvider extends ServiceProvider {
 	public function boot() {
 		//
 		Route::model('project', Project::class);
+		Route::model('task', Task::class);
+		Route::model('user', User::class);
 
 		parent::boot();
 	}
