@@ -1,6 +1,6 @@
 const bulmaCalendar = require("bulma-calendar");
 
-bulmaCalendar.attach('[type="date"]', { type: "date" });
+bulmaCalendar.attach('[type="date"]', { type: "date", dateFormat: "DD-MM-YYYY" });
 
 const tags_choices = new Choices("#tags-selection", {
     placeholder: true,
