@@ -10,6 +10,15 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Task extends Model
 {
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'description', 'starts_at', 'ends_at', 'started_at', 'parent_task'];
+    
+
     /**
      * The attributes that should be cast.
      *
@@ -18,6 +27,7 @@ class Task extends Model
     protected $casts = [
         'ends_at' => 'datetime:Y-m-d',
         'ended_at' => 'datetime:Y-m-d',
+        'starts_at' => 'datetime:Y-m-d'
     ];
 
     use HasFactory, SoftDeletes;
@@ -25,6 +35,11 @@ class Task extends Model
     public function project()
     {
         return $this->belongsTo(Project::class);
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Task::class, "parent_task");
     }
 
     public function users()
