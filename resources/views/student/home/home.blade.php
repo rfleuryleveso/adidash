@@ -5,7 +5,7 @@
 @section('page_name', 'Accueil')
 
 @section('content')
-    @if(Auth::user()->getClassGroup() == null)
+    @if(!Auth::user()->hasClassGroup())
     <div class="notification is-warning">
         Bonjour {{Auth::user()->fullName}}, <br/>
         Vous n'avez pas encore choisi votre classe, veuillez la sélectionner dans votre profil

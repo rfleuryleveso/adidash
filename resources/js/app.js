@@ -1,6 +1,6 @@
 require("./bootstrap");
 require("./taskModal");
-require("./calendar")
+require("./calendar");
 
 const dropdown = document.querySelector(".dropdown");
 const dropdownMenu = document.querySelector(".dropdown-menu");
@@ -20,23 +20,28 @@ dropdownMenu.addEventListener("mouseleave", function(event) {
     }
 });
 
-
+// Tasks list chevron
 const myTaskListTitle = document.querySelector("#my-tasks-title");
 const myTaskList = document.querySelector("#my-tasks-list");
 
 const availableTaskListTitle = document.querySelector("#available-tasks-title");
 const availableTaskList = document.querySelector("#available-tasks-list");
 
+if (
+    myTaskList &&
+    myTaskListTitle &&
+    availableTaskList &&
+    availableTaskListTitle
+) {
+    myTaskListTitle.addEventListener("click", function() {
+        const chevron = document.querySelector("#my-tasks-chevron");
+        chevron.classList.toggle("rotate-right");
+        myTaskList.classList.toggle("show-flex");
+    });
 
-myTaskListTitle.addEventListener("click", function(){
-    const chevron = document.querySelector("#my-tasks-chevron");
-    chevron.classList.toggle("rotate-right");
-    myTaskList.classList.toggle("show-flex");
-});
-
-availableTaskListTitle.addEventListener("click", function(){
-    const chevron = document.querySelector("#available-tasks-chevron");
-    chevron.classList.toggle("rotate-right");
-    availableTaskList.classList.toggle("show-flex");
-});
- 
+    availableTaskListTitle.addEventListener("click", function() {
+        const chevron = document.querySelector("#available-tasks-chevron");
+        chevron.classList.toggle("rotate-right");
+        availableTaskList.classList.toggle("show-flex");
+    });
+}

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\Models\Project;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Project;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -15,7 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::all();
+        $projects = Auth::user()->groupProjects()->where('status', 'STARTED')->get();
         return view("student.projects.index", ["projects" => $projects]);
     }
 

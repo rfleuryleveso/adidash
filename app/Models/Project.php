@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\ProjectUser;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Task;
-use App\Models\User;
-use App\Models\ProjectUser;
 
 class Project extends Model
 {
@@ -19,8 +19,10 @@ class Project extends Model
      * @var array
      */
     protected $casts = [
+        'created_at' => 'datetime:Y-m-d',
+        'updated_at' => 'datetime:Y-m-d',
         'end_date' => 'datetime:Y-m-d',
-        'start_date' => 'datetime:Y-m-d'
+        'start_date' => 'datetime:Y-m-d',
     ];
 
     /**
@@ -37,5 +39,13 @@ class Project extends Model
     public function members()
     {
         return $this->belongsToMany(User::class)->using(ProjectUser::class);
+    }
+
+    /**
+    * Get the groups
+    */
+    public function groups()
+    {
+        return $this->belongsToMany(Group::class)->using(GroupProject::class);
     }
 }

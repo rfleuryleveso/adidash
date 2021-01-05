@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class TaskRoleController extends Controller
-{
-    //
+class TaskRoleController extends Controller {
+	//
 }

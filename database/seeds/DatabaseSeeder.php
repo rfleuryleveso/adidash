@@ -2,6 +2,11 @@
 
 use Illuminate\Database\Seeder;
 
+use Database\Seeders\GroupSeeder;
+use Database\Seeders\UserSeeder;
+use Database\Seeders\ProjectSeeder;
+use Database\Seeders\TaskSeeder;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -11,6 +16,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+        $this->call([GroupSeeder::class, UserSeeder::class, ProjectSeeder::class, TaskSeeder::class]);
     }
 }

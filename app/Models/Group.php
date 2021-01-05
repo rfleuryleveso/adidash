@@ -12,6 +12,24 @@ class Group extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->using(UserGroup::class);
+        return $this->belongsToMany(User::class)->using(GroupUser::class);
+    }
+
+    public function childs()
+    {
+        return $this->hasMany(Group::class, "parent_group");
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo(Group::class, "parent_group");
+    }
+
+    /**
+    * Get the projects
+    */
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class)->using(GroupProject::class);
     }
 }

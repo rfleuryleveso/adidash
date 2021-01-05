@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="/dist/css/normalize.css" />
     <link rel="stylesheet" href="/dist/css/bulma.css" />
     <link rel="stylesheet" href="/dist/css/app.css" />
+    <link rel="stylesheet" href="/dist/css/choices.min.css" />
+    @stack('styles')
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
-    @yield('head')
+    
 </head>
 
 <body>
@@ -40,7 +42,7 @@
                 <div><i class="fas fa-tools"></i></div>
                 Gestion du projet
             </a>
-            <a href="#news">
+            <a href="{{ route('project-admin.tasks', ['project' => $project->id]) }}">
                 <div><i class="fas fa-tasks"></i></div>
                 Tâches
             </a>
@@ -52,12 +54,12 @@
 
         @if (Auth::user()->hasCommitteeGroup())
             <div class="nav-separator"></div>
-            <a href="#" class="nav-header">Comité de projet</a>
-            <a href="#news">
+            <a href="{{ route('committee.home') }}" class="nav-header">Comité de projet</a>
+            <a href="{{ route('committee.users') }}">
                 <div><i class="fas fa-users"></i></div>
                 Utilisateurs
             </a>
-            <a href="#news">
+            <a href="{{ route('committee.projects') }}">
                 <div><i class="far fa-lightbulb"></i></div>
                 Projets
             </a>
@@ -75,7 +77,7 @@
                         <a aria-haspopup="true" aria-controls="dropdown-menu">
                             <span><i class="far fa-user"></i>{{ Auth::user()->fullName }}
                                 @if (Auth::user()->hasClassGroup())
-                                    ({{ Auth::user()->getClassGroup()->name }}) @endif
+                                    ({{ Auth::user()->getClassGroups()->first()->name }}) @endif
                             </span>
                         </a>
                     </div>
@@ -97,12 +99,18 @@
             <h2 class="page-title">
                 @yield('page_name')
             </h2>
+            @if (session('success'))
+                <div class="notification is-success mb-2">
+                    {{ session('success') }}
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
-
+    <script src="/dist/js/choices.min.js"></script>
+    
     @stack('scripts')
 </body>
 

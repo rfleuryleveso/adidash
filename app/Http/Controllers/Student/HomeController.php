@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Student;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
+use App\Models\Tag;
+use App\Http\Resources\Tag as TagResource;
 
 class HomeController extends Controller
 {
@@ -19,4 +20,9 @@ class HomeController extends Controller
         return redirect('/');
     }
 
+    public function tags()
+    {
+        $tags = Tag::all();
+        return TagResource::collection($tags);
+    }
 }

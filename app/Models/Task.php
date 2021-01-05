@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class Task extends Model
 {
     /**
@@ -32,6 +34,21 @@ class Task extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class)->using(TaskTag::class);
+        return $this->belongsToMany(Tag::class)->using(TagTask::class);
+    }
+
+    /**
+    * The "booted" method of the model.
+    *
+    * @return void
+    */
+    protected static function booted()
+    {
+        static::addGlobalScope('available', function (Builder $builder) {
+            $builder->where(function ($query) {
+                $query->where('starts_at', '<', now())->orWhereNull('starts_at');
+            })
+            ->whereNotIn('status', ['WAITING_FOR_PARENT_TASK', 'FINISHED', 'CANCELLED']);
+        });
     }
 }
