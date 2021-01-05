@@ -8,18 +8,24 @@ use App\Models\Project;
 use App\Models\Task;
 use App\Models\Tag;
 use App\Http\Requests\ProjectCreateTask;
+use App\Http\Requests\ProjectAdminSearchTasks;
 use App\Http\Resources\Task as TaskResource;
 
 class TasksController extends Controller
 {
-    public function home(Request $request, Project $project)
+    public function home(ProjectAdminSearchTasks $request, Project $project)
     {
         $tasksQuery = $project->tasks()->withoutGlobalScopes();
         if ($request->ajax()) {
             return TaskResource::collection($tasksQuery->whereNotIn('status', ['FINISHED', 'CANCELLED'])->get());
         }
         if ($request->isMethod('post')) {
-            dd($request->all());
+            if ($request->has('status')) {
+                $tasksQuery->whereIn('status', $request->input('status'));
+            }
+            if ($request->has('name')) {
+                $tasksQuery->where('name', 'LIKE', '%'. $request->input('name') . '%');
+            }
         }
         $tasks = $tasksQuery->paginate(10);
         return view('project-admin.tasks', ['project' => $project, 'tasks' => $tasks]);
@@ -42,8 +48,11 @@ class TasksController extends Controller
                 $task->tags()->attach($tag);
             }
         }
-        
-
         return redirect()->route('project-admin.tasks', ['project' => $task->project_id]);
+    }
+
+    public function task(Project $project, Task $task)
+    {
+        return view('project-admin.task', ['project' => $project, 'task' => $task]);
     }
 }
