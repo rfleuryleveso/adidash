@@ -52,6 +52,11 @@ class Task extends Model
         return $this->belongsToMany(Tag::class)->using(TagTask::class);
     }
 
+    public function deliverables()
+    {
+        return $this->hasMany(Deliverable::class);
+    }
+
     /**
     * The "booted" method of the model.
     *
