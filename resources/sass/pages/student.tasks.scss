@@ -9,21 +9,24 @@
 }
 
 .rotate-right {
-    transform: rotate(90deg);
-    transition: All 0.25s ease-in-out;
+    animation: rotate-right 0.2s forwards;
+}
+
+.rotate-back {
+    animation: rotate-right 0.2s reverse;
 }
 
 .task-section-title {
     text-transform: none !important;
+    font-size: 1.5em;
     font-weight: 700 !important;
     margin: 10px 0 !important;
     margin-left: 10px !important;
 }
 
 .element-task {
-    width: 80%;
     justify-content: flex-start;
-    align-items: center;
+    padding-left: 25px;
     flex-direction: column;
     margin: 0 !important;
     display: none;
@@ -35,12 +38,13 @@
 
 .task {
     background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 0 10px rgb(200, 200, 200);
-    padding: 0 10px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 10px;
     margin-bottom: 10px;
     width: 90%;
-    height: 50px;
+    max-width: 900px;
+    height: fit-content;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -48,38 +52,44 @@
     .task-title {
         color: rgb(0, 0, 0);
         text-transform: none;
+        width: 35%;
         margin: 0 !important;
-
-        font-size: 1.25em;
+        font-size: 1em;
         font-weight: 700;
     }
 
     .task-button {
         width: 35px;
         height: 35px;
-        border-radius: 10px;
+        border-radius: 7.5px;
         border: 1px solid rgb(125, 125, 125);
         cursor: pointer;
     }
 
+    .first-separation-line,
     .separation-line {
         width: 2px;
-        height: 60%;
+        height: 30px;
         background-color: black;
     }
     .task-deadline-box {
         display: flex;
+        justify-content: space-between !important;
         align-items: center;
         font-weight: 600;
     }
     .calendar-icon {
         font-size: 1.25em;
-        margin: 0 10px;
+        margin-right: 10px;
     }
 
     .project-title {
         width: 20%;
+        min-width: 75px;
         margin: 0 !important;
+        display: flex;
+        height: 100%;
+        align-items: center;
         font-size: 1.25em;
         text-transform: none;
         font-weight: 700;
@@ -112,5 +122,31 @@
     }
     100% {
         opacity: 100%;
+    }
+}
+
+@keyframes rotate-right {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 825px) {
+    .calendar-icon {
+        display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    .task-deadline-box {
+        display: none !important;
+    }
+
+    .first-separation-line {
+        display: none !important;
     }
 }
