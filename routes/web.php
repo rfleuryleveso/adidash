@@ -12,6 +12,7 @@ use App\Http\Controllers\Committee\CommitteeController;
 
 use App\Http\Controllers\Committee\ProjectController as CommitteeProjectController;
 use App\Http\Controllers\Committee\UserController as CommitteeUserController;
+use App\Http\Controllers\Committee\TagsController as CommitteeTagsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +46,8 @@ Route::prefix('')->middleware("auth")->group(function () {
     Route::group(['prefix' => 'project-admin/{project}', 'as' => 'project-admin.', 'middleware' => 'can:update,project'], function () {
         Route::get('', [ProjectAdminController::class, 'home'])->name('home');
 
-        Route::get('tasks', [ProjectTasksController::class, 'home'])->name('tasks');
+        Route::match(['GET', 'POST'], 'tasks', [ProjectTasksController::class, 'home'])->name('tasks');
+        Route::get('tasks/{task}', [ProjectTasksController::class, 'task'])->name('task');
 
         Route::view('create-task', 'project-admin.create-task')->name('create-task');
         Route::post('create-task', [ProjectTasksController::class, 'create'])->name('create-task');
@@ -53,6 +55,10 @@ Route::prefix('')->middleware("auth")->group(function () {
 
     Route::group(['prefix' => 'committee', 'as' => 'committee.',  'middleware' => 'can:access-committee'], function () {
         Route::get('', [CommitteeController::class, 'home'])->name('home');
+
+        Route::get('tags', [CommitteeTagsController::class, 'list'])->name('tags.list');
+        Route::post('tags', [CommitteeTagsController::class, 'create'])->name('tags.create');
+        Route::get('tags/{tag}/delete', [CommitteeTagsController::class, 'delete'])->name('tags.delete');
 
         Route::get('users', [CommitteeUserController::class, 'users'])->name('users');
         Route::get('users/{user}', [CommitteeUserController::class, 'user'])->name('user')->middleware('can:view,user');
