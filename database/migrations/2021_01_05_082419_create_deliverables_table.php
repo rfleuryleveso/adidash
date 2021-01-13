@@ -13,11 +13,11 @@ class CreateDeliverableTable extends Migration
      */
     public function up()
     {
-        Schema::create('deliverable', function (Blueprint $table) {
+        Schema::create('deliverables', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('task_id');
             $table->string('url');
-            $table->longText('comments');
+            $table->longText('comments')->nullable();
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateDeliverableTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliverable');
+        Schema::dropIfExists('deliverables');
     }
 }
