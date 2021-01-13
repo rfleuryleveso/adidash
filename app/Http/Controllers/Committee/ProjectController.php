@@ -73,6 +73,12 @@ class ProjectController extends CommitteeController
         $project->name = $request->get('name');
         $project->save();
 
+        foreach ($request->get('groups') as $groupId) {
+            // Create the relation and notify the chief
+            $group = Group::find($groupId);
+            $group->projects()->attach($project);
+        }
+        
         foreach ($request->get('project-chiefs') as $chiefId) {
             // Create the relation and notify the chief
             $chief = User::find($chiefId);
@@ -80,11 +86,7 @@ class ProjectController extends CommitteeController
             $chief->notify(new ProjectAwaitingConfiguration($project));
         }
 
-        foreach ($request->get('groups') as $groupId) {
-            // Create the relation and notify the chief
-            $group = Group::find($groupId);
-            $group->projects()->attach($project);
-        }
+        
 
         return redirect()->route('committee.project', ['project' => $project->id])->with('success', "Projet {$project->name} créer avec succès");
     }
