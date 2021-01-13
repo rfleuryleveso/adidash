@@ -16,7 +16,8 @@ class CreateDeliverableUsersTable extends Migration
         Schema::create('deliverable_user', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('task_id');
+            $table->integer('deliverable_id');
+            $table->enum('level', ['HELP', 'MEMBER', 'CREATOR']);
         });
     }
 
@@ -27,6 +28,6 @@ class CreateDeliverableUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('deliverable_users');
+        Schema::dropIfExists('deliverable_user');
     }
 }
