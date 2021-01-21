@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateDeliverableTable extends Migration
+class CreateDeliverablesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -19,6 +19,7 @@ class CreateDeliverableTable extends Migration
             $table->string('url');
             $table->longText('comments')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
