@@ -53,6 +53,7 @@ class TasksController extends Controller
 
     public function task(Project $project, Task $task)
     {
-        return view('project-admin.task', ['project' => $project, 'task' => $task]);
+        $grades = $task->grades;
+        return view('project-admin.task', ['project' => $project, 'task' => $task, 'grades' => $grades]);
     }
 }
