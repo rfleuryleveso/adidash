@@ -38,7 +38,7 @@ class TasksController extends Controller
         $task = new Task;
        
         $task->project_id = $request->route('project')->id;
-        $task->fill($request->all());
+        $task->fill($request->validated());
         $task->status = (!!$request->parent_task) ? "WAITING_FOR_PARENT_TASK" : "WAITING";
         $task->save();
 

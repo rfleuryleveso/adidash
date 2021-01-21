@@ -40,7 +40,7 @@ class TagsController extends Controller
      */
     public function create(CommitteeCreateTag $request)
     {
-        $tag = Tag::create($request->all());
+        $tag = Tag::create($request->validated());
         return redirect()->route('committee.tags.list')->with('success', 'Tag créé');
     }
 }
