@@ -42,6 +42,14 @@ class Project extends Model
     }
 
     /**
+     * Get the members
+     */
+    public function admins()
+    {
+        return $this->members()->wherePivot('relation_type', 3);
+    }
+
+    /**
     * Get the groups
     */
     public function groups()

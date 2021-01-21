@@ -57,6 +57,11 @@ class Task extends Model
         return $this->hasMany(Deliverable::class);
     }
 
+    public function grades()
+    {
+        return $this->hasMany(Grade::class);
+    }
+
     /**
     * The "booted" method of the model.
     *
@@ -64,11 +69,5 @@ class Task extends Model
     */
     protected static function booted()
     {
-        static::addGlobalScope('available', function (Builder $builder) {
-            $builder->where(function ($query) {
-                $query->where('starts_at', '<', now())->orWhereNull('starts_at');
-            })
-            ->whereNotIn('status', ['WAITING_FOR_PARENT_TASK', 'FINISHED', 'CANCELLED']);
-        });
     }
 }

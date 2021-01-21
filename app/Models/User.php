@@ -129,6 +129,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's deliverables
+     *
+     * @return [Task]
+     */
+    public function deliverables()
+    {
+        return $this->belongsToMany(Deliverable::class)->using(DeliverableUser::class);
+    }
+
+    /**
      * Helper functions for groups
      */
 
