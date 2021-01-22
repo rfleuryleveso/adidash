@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
-class CreateNewUser implements CreatesNewUsers {
+class CreateNewUser implements CreatesNewUsers
+{
 	use PasswordValidationRules;
 
 	/**
@@ -17,7 +18,8 @@ class CreateNewUser implements CreatesNewUsers {
 	 * @param  array  $input
 	 * @return \App\Models\User
 	 */
-	public function create(array $input) {
+	public function create(array $input)
+	{
 		Validator::make($input, [
 			'first_name' => ['required', 'string', 'max:255'],
 			'last_name' => ['required', 'string', 'max:255'],
@@ -30,7 +32,6 @@ class CreateNewUser implements CreatesNewUsers {
 			],
 			'password' => $this->passwordRules(),
 		])->validate();
-
 		return User::create([
 			'first_name' => $input['first_name'],
 			'last_name' => $input['last_name'],
