@@ -23,6 +23,16 @@ class Project extends Model
         'updated_at' => 'datetime:Y-m-d',
         'end_date' => 'datetime:Y-m-d',
         'start_date' => 'datetime:Y-m-d',
+        'allow_new_member' => 'boolean'
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'status', 'name', 'description', 'allow_new_member'
     ];
 
     /**

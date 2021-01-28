@@ -8,33 +8,39 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use \Carbon\Carbon;
 
-class ProjectAdminController extends Controller {
-	/**
-	 * Instantiate a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct(Request $request) {
-	}
+use App\Http\Requests\ProjectUpdate;
 
-	public function home(Project $project) {
-		$week_start = \Carbon\Carbon::now()->previous(Carbon::MONDAY);
-		$week_end = $week_start->copy()->next(Carbon::SUNDAY); // Generate bounds
+class ProjectAdminController extends Controller
+{
+    /**
+     * Instantiate a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(Request $request)
+    {
+    }
 
-		$week_tasks = $project->tasks()
-			->where(
-				[
-					['ends_at', '>=', $week_start],
-					['ends_at', '<=', $week_end],
-				]
-			)->orWhere(
-			[
-				['ended_at', '>=', $week_start],
-				['ended_at', '<=', $week_end],
-			]
-		)->get();
-		// Check for tasks within the bounds
+    public function home(Project $project)
+    {
+        $finished_tasks = $project->tasks()
+            ->where(
+                [
+                    ['status', 'FINISHED'],
+                    ['notation_status', 'WAITING_FOR_CHIEF']
+                ]
+            )->get();
+        // Check for tasks within the bounds
+        
+        $members = $project->members;
+        $tasksIds = $project->tasks()->pluck('id')->all();
+        return view('project-admin.index', ['project' => $project, 'members' => $members, 'tasksIds' => $tasksIds, 'finished_tasks' => $finished_tasks]);
+    }
 
-		return view('project-admin.index', ['project' => $project, 'week_tasks' => $week_tasks]);
-	}
+    public function update(ProjectUpdate $request, Project $project)
+    {
+        $project->update($request->validated());
+        $project->save();
+        return redirect()->back()->with('success', 'Projet mis à jour avec succès');
+    }
 }

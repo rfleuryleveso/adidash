@@ -18,8 +18,10 @@ class CreateProjectsTable extends Migration
             $table->string("name");
             $table->longText("description")->nullable();
             $table->string("intro")->nullable();
-            $table->enum("status", ["CREATED", "STARTED", "FINISHED", "FROZEN", "CANCELLED"])->default("CREATED");
+            $table->enum("status", ["CREATED", "STARTED", "FINISHED", "PAUSED", "FROZEN", "CANCELLED"])->default("CREATED");
 
+
+            $table->boolean("allow_new_member")->default(true);
             $table->string("drive_link")->nullable();
 
             // Images
