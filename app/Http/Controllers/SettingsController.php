@@ -61,11 +61,7 @@ class SettingsController extends Controller
             $pivotModel->delete();
         }
         
-        $newPivot = new GroupUser;
-
-        $newPivot->user_id = Auth::id();
-        $newPivot->group_id = $forms->get("class_group");
-        $newPivot->save();
+        Auth::user()->groups()->attach($forms->get("class_group"));
         
         return redirect('settings')->with('success', 'Profil mis à jour avec succès');
     }
