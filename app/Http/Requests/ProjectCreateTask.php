@@ -35,8 +35,8 @@ class ProjectCreateTask extends FormRequest
                 $query->where('project_id', $this->route('project')->id);
             })],
             'tags.*' => 'exists:tags,id',
-            'start_date' => 'nullable|date_format:d-m-Y',
-            'end_date' => 'nullable|date_format:d-m-Y|after:today|after:start_date'
+            'starts_at' => 'nullable|date_format:d-m-Y',
+            'ends_at' => 'nullable|date_format:d-m-Y|after:today|after:starts_at'
         ];
     }
 }

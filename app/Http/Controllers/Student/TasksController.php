@@ -5,79 +5,79 @@ namespace App\Http\Controllers\Student;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Task as TaskResource;
 use App\Models\Task;
+use App\Http\Requests\StudentUpdateTaskStatus;
 use Illuminate\Http\Request;
+use Auth;
 
-class TasksController extends Controller {
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function index() {
-		return view('student.tasks.tasks');
-	}
+class TasksController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('student.tasks.tasks');
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return \Illuminate\Http\Response
-	 */
-	public function create() {
-		//
-	}
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @return \Illuminate\Http\Response
-	 */
-	public function store(Request $request) {
-		//
-	}
+    /**
+     * Display the specified resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Task  $task
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Task $task)
+    {
+        if ($request->ajax()) {
+            return new TaskResource($task);
+        }
+        $project = $task->project;
+        return view("student.tasks.task", ["task" => $task, 'project' => $project]);
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\Task  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function show(Request $request, Task $task) {
-		if ($request->ajax()) {
-			return new TaskResource($task);
-		}
-		return view("student.tasks.task", ["task" => $task]);
-	}
+    /**
+    * Make the user join a specific task
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Task  $task
+    * @return \Illuminate\Http\Response
+    */
+    public function join(Request $request, Task $task)
+    {
+        $task->users()->attach(Auth::user());
+        return redirect()->back()->with('success', 'Vous avez rejoint cette tâche');
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  \App\Models\Task  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function edit(Task $task) {
-		//
-	}
+    /**
+    * Make the user leave a specific task
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @param  \App\Models\Task  $task
+    * @return \Illuminate\Http\Response
+    */
+    public function leave(Request $request, Task $task)
+    {
+        $task->users()->detach(Auth::user());
+        return redirect()->back()->with('success', 'Vous avez quitté cette tâche');
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  \Illuminate\Http\Request  $request
-	 * @param  \App\Models\Task  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function update(Request $request, Task $task) {
-		//
-	}
-
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  \App\Models\Task  $task
-	 * @return \Illuminate\Http\Response
-	 */
-	public function destroy(Task $task) {
-		//
-	}
+    /**
+    * Update the task and set it's status
+    *
+    * @param  \Illuminate\Http\Requests\StudentUpdateTaskStatus  $request
+    * @param  \App\Models\Task  $task
+    * @return \Illuminate\Http\Response
+    */
+    public function setStatus(StudentUpdateTaskStatus $request, Task $task)
+    {
+        $task->status = $request->status;
+        if ($request->status == "FINISHED") {
+            $task->ended_at = now();
+        }
+        $task->save();
+        return redirect()->back()->with('success', 'Vous avez mis à jour cette tâche');
+    }
 }

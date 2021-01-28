@@ -62,21 +62,21 @@
                 <div class="field">
                     <label class="label">Date de début (Optionnel)</label>
                     <div class="control">
-                        <input class="input @error('start_date') is-danger @enderror" type="date" name="start_date"
+                        <input class="input @error('starts_at') is-danger @enderror" type="date" name="starts_at"
                             placeholder="Date de début (optionnel)">
                     </div>
                     <p class="help">La tâche ne sera pas affichée avant cette date</p>
-                    @error('start_date') <p class="help is-danger">{{ $message }} </p>@enderror
+                    @error('starts_at') <p class="help is-danger">{{ $message }} </p>@enderror
                 </div>
                 <div class="field">
                     <label class="label">Date de fin (Optionnel)</label>
                     <div class="control">
-                        <input class="input @error('end_date') is-danger @enderror" type="date" name="end_date"
+                        <input class="input @error('ends_at') is-danger @enderror" type="date" name="ends_at"
                             placeholder="Date de fin (optionnel)">
                     </div>
                     <p class="help">La date de fin est optionnelle, mais recommandée. Un rappel sera envoyé aux membres la
                         veille de la date de fin si la tâche n'est pas complétée</p>
-                    @error('end_date') <p class="help is-danger">{{ $message }} </p>@enderror
+                    @error('ends_at') <p class="help is-danger">{{ $message }} </p>@enderror
                 </div>
                 <div class="field is-grouped">
                     <div class="control">

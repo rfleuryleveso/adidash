@@ -55,17 +55,21 @@ function _getTaskDetails(taskId) {
         axios
             .get(`/tasks/${taskId}`)
             .then(response => {
+                console.log(response.data.data);
                 if (
                     typeof response !== "undefined" &&
                     typeof response.data !== "undefined" &&
                     typeof response.data.data !== "undefined" &&
                     response.data.data.id === taskId
                 ) {
-                    resolve(response.data.data);
+                    return response.data.data;
                 } else {
-                    reject("Impossible de récupérer les données de la tâche");
+                    throw new Error(
+                        "Impossible de récupérer les données de la tâche"
+                    );
                 }
             })
+            .then(data => resolve(data))
             .catch(error => reject(error));
     });
 }
@@ -103,7 +107,9 @@ function _createErrorElements(elements, error) {
     // Add loading text
     const errorP = document.createElement("p");
     errorP.classList.add("has-text-centered");
-    errorP.innerText = `Une erreur est survenue: ${error.message}`;
+    errorP.innerText = `Une erreur est survenue: ${
+        typeof error == "object" ? error.message : error
+    }`;
 
     elements.cardContentContentDiv.appendChild(errorI);
     elements.cardContentContentDiv.appendChild(errorP);
@@ -134,7 +140,7 @@ function _createTaskProperty(name, value) {
 }
 
 function _renderTask(elements, taskData) {
-    elements.cardHeaderP.innerText = `Task #${taskData.id} | ${taskData.name}`;
+    elements.cardHeaderP.innerHTML = `Task #${taskData.id} | ${taskData.name} | <a href="/tasks/${taskData.id}" style="margin-left: 2px;">Plus de détails</a>`;
 
     // Task name
     elements.cardContentContentDiv.append(
@@ -159,6 +165,7 @@ function _renderTask(elements, taskData) {
 }
 
 function openTaskModal(taskId) {
+    console.log(`Rendering ${taskId}`);
     const elements = _createModal();
     elements.cardHeaderP.innerText = `Task #${taskId}`;
     elements.parentDiv.classList.add("is-active");
@@ -179,6 +186,7 @@ function openTaskModal(taskId) {
             _removeLoadingElements(elements, loadingI, loadingP);
             _createErrorElements(elements, error);
         });
+    return false;
 }
 
 window.openTaskModal = openTaskModal;

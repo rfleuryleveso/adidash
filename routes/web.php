@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Student\HomeController;
-use App\Http\Controllers\Student\TasksController;
+use App\Http\Controllers\Student\DeliverableController as StudentDeliverableController;
+use App\Http\Controllers\Student\TasksController as StudentTasksController;
 use App\Http\Controllers\Student\ProjectController;
 use App\Http\Controllers\Student\MeetingController;
 use App\Http\Controllers\SettingsController;
@@ -28,10 +29,29 @@ use App\Http\Controllers\Committee\TagsController as CommitteeTagsController;
 Route::prefix('')->middleware("auth")->group(function () {
     Route::group(["prefix" => "", "as" => "student."], function () {
         Route::get('', [HomeController::class, 'home'])->name('home');
-        Route::resource('tasks', 'Student\TasksController');
     
         Route::get('projects', [ProjectController::class, 'index'])->name('projects');
         Route::get('project/{project}', [ProjectController::class, 'show'])->name('project');
+
+        
+        
+        Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
+            Route::get('', [StudentTasksController::class, 'index'])->name('index');
+            Route::get('{task}', [StudentTasksController::class, 'show'])->name('task');
+
+            Route::get('{task}/join', [StudentTasksController::class, 'join'])->name('task.join');
+            Route::get('{task}/leave', [StudentTasksController::class, 'leave'])->name('task.leave');
+
+            Route::post('{task}/set-status', [StudentTasksController::class, 'setStatus'])->name('task.set-status');
+        });
+
+
+        Route::group(["prefix" => "deliverables", "as" => "deliverable."], function () {
+            Route::post('', [StudentDeliverableController::class, 'store'])->name('store');
+            Route::post('{deliverable}/add-user', [StudentDeliverableController::class, 'addUserToDeliverable'])->name('add-user');
+            Route::post('{deliverable}/remove-user', [StudentDeliverableController::class, 'removeUserFromDeliverable'])->name('remove-user');
+            Route::delete('{deliverable}', [StudentDeliverableController::class, 'destory'])->name('destroy');
+        });
     });
     
     Route::resource('meetings', 'Student\MeetingController');
@@ -45,7 +65,7 @@ Route::prefix('')->middleware("auth")->group(function () {
 
     Route::group(['prefix' => 'project-admin/{project}', 'as' => 'project-admin.', 'middleware' => 'can:update,project'], function () {
         Route::get('', [ProjectAdminController::class, 'home'])->name('home');
-
+        Route::post('update', [ProjectAdminController::class, 'update'])->name('update');
         Route::match(['GET', 'POST'], 'tasks', [ProjectTasksController::class, 'home'])->name('tasks');
         Route::get('tasks/{task}', [ProjectTasksController::class, 'task'])->name('task');
 

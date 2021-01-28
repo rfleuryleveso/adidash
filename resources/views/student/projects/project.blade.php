@@ -14,14 +14,17 @@
                     </p>
                 </header>
                 <div class="card-content project-description">
-                    @php
-                    $Parsedown = new \Parsedown();
-                    echo $Parsedown->setBreaksEnabled(true)->text($project->description);
-                    @endphp
+                    <x-markdown :content="$project->description || '' " />
                     <hr />
                     <p>
-                        Début du projet: {{ $project->start_date->toFormattedDateString() }}<br />
-                        Deadline: @if($project->end_date) {{ $project->end_date->toFormattedDateString() }} @else Inconnu @endif<br />
+                        Début du projet: @if ($project->start_date)
+                        {{ $project->start_date->toFormattedDateString() }} @else Inconnu
+                        @endif
+                        <br />
+                        Deadline: @if ($project->end_date)
+                        {{ $project->end_date->toFormattedDateString() }} @else Inconnu
+                        @endif
+                        <br />
                         Chef(s) de projet: {{ $project->members()->wherePivot('relation_type', 3)->get()->map(function ($user) {
                                     return $user->fullName;
                                 })->join(', ') }}
@@ -58,7 +61,7 @@
                                                 })->join(', ') }}</td>
                                         <td>
                                             @foreach ($task->tags as $tag)
-                                            <x-task-tag :tag="$tag" />
+                                                <x-task-tag :tag="$tag" />
                                             @endforeach
                                         </td>
                                         <td>
@@ -76,7 +79,8 @@
                                                 Inconnu
                                             @endif
                                         </td>
-                                        <td><a href="#" onclick="openTaskModal({{ $task->id }})"><i
+                                        <td><a href="{{ route('student.tasks.task', ['task' => $task->id]) }}"
+                                                data-dashrole="taskModal" data-task="{{ $task->id }}"><i
                                                     class="far fa-eye"></i></a></td>
                                     </tr>
                                 @endforeach
@@ -88,3 +92,18 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        Array.from(document.querySelectorAll('a[data-dashrole="taskModal"]')).forEach(el => {
+            el.addEventListener("click", (event) => {
+                return 2 === event.which || event.metaKey || event.ctrlKey ? true : (() => {
+                    event.preventDefault();
+                    openTaskModal(parseInt(el.dataset.task, 10))
+                })();
+            });
+        })
+
+    </script>
+
+@endpush
