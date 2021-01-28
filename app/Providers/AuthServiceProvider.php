@@ -39,5 +39,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-committee', function (User $user) {
             return $user->hasCommitteeGroup();
         });
+
+        Gate::define('access-staff', function (User $user) {
+            return $user->hasStaffGroup();
+        });
     }
 }
