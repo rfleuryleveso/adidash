@@ -21,6 +21,7 @@ class CreateGradesTable extends Migration
             $table->unsignedInteger('evaluator_id'); // the staff responsible for the note
             $table->enum('evaluation_type', ['PROJETCHIEF', 'STAFF']);
             $table->integer('grade');
+            $table->longText("comments");
             
             $table->timestamps();
         });
