@@ -70,50 +70,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the projects on which the user is working.
-     *
-     * @return [Project]
-     */
-    public function projects()
-    {
-        // Get the group projects
-        $projectsQueries = $this->getClassGroups()->get()->reduce(function ($projects, $group) {
-            $projects->push($group->projects()->getQuery()->select(DB::raw('`projects`.*, 0 as `pivot_user_id`, 0 as `pivot_project_id`'))); // c rien c la rue
-            return $projects;
-        }, collect())->all();
-        $query = $this->linkedProjects();
-        foreach ($projectsQueries as $projectQuery) {
-            $query = $query->union($projectQuery);
-        }
-        return $query;
-    }
-
-    /**
-     * Get the projects by group
-     *
-     * @return [Project]
-     */
-    public function groupProjects()
-    {
-        // Get the group projects
-        $projectsQueries = $this->getClassGroups()->get()->reduce(function ($projects, $group) {
-            $projects->push($group->projects()->getQuery()); // c rien c la rue
-            return $projects;
-        }, collect())->all();
-
-        $query = $projectsQueries[0];
-        foreach (array_slice($projectsQueries, 1) as $projectsQuery) {
-            $query = $query->union($projectQuery);
-        }
-        return $query;
-    }
-
-    /**
      * Get the project by relation
      *
      * @return [Project]
      */
-    public function linkedProjects()
+    public function projects()
     {
         return $this->belongsToMany(Project::class)->using(ProjectUser::class);
     }
@@ -125,7 +86,7 @@ class User extends Authenticatable
      */
     public function ownedProjects()
     {
-        return $this->linkedProjects()->wherePivot('relation_type', '>=', 2);
+        return $this->projects()->wherePivot('relation_type', '>=', 2);
     }
 
     /**
