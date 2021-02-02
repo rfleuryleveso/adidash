@@ -45,7 +45,7 @@ Route::prefix('')->middleware("auth")->group(function () {
             Route::post('', [StudentDeliverableController::class, 'store'])->name('store');
             Route::post('{deliverable}/add-user', [StudentDeliverableController::class, 'addUserToDeliverable'])->name('add-user');
             Route::post('{deliverable}/remove-user', [StudentDeliverableController::class, 'removeUserFromDeliverable'])->name('remove-user');
-            Route::delete('{deliverable}', [StudentDeliverableController::class, 'destory'])->name('destroy');
+            Route::delete('{deliverable}', [StudentDeliverableController::class, 'destroy'])->name('destroy');
         });
     });
 
