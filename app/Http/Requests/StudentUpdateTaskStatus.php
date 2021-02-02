@@ -25,7 +25,7 @@ class StudentUpdateTaskStatus extends FormRequest
     public function rules()
     {
         return [
-            'status' =>  [
+            'status' => [
                 'required',
                 Rule::in(['STARTED', 'FINISHED']),
             ],
