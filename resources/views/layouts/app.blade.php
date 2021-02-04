@@ -35,6 +35,65 @@
             Agenda
         </a>
 
+<!--
+///////////////////////////////////////////
+////////////proto instance prof////////////
+///////////////////////////////////////////
+
+///Accueil spécial prof :
+///Tâches (mode prof aka notation)
+///Projets (mode prof aka notation)
+///Elèves (mode prof aka notation)
+-->
+
+        @if (Auth::user()->hasStaffGroup())
+        <div class="nav-separator"></div>
+            <a href="{{ route('staff.home') }}" class="nav-header">Staff</a>
+            <a href="{{ route('staff.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+            <a href="{{ route('staff.users') }}">
+                <div><i class="fas fa-users"></i></div>
+                Tâches
+            </a>
+            <a href="{{ route('staff.projects') }}">
+                <div> <i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+            <a href="{{ route('staff.tags.list') }}">
+                <div><i class="fas fa-tags"></i></div>
+                Elèves
+            </a>
+        @endif
+    </div>
+
+<!--/// EN DESSOUS A S INSPIRIER-->
+    @if (Auth::user()->hasCommitteeGroup())
+            <div class="nav-separator"></div>
+            <a href="{{ route('committee.home') }}" class="nav-header">Comité de projet</a>
+            <a href="{{ route('committee.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil comité
+            </a>
+            <a href="{{ route('committee.users') }}">
+                <div><i class="fas fa-users"></i></div>
+                Utilisateurs
+            </a>
+            <a href="{{ route('committee.projects') }}">
+                <div><i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+            <a href="{{ route('committee.tags.list') }}">
+                <div><i class="fas fa-tags"></i></div>
+                Tags
+            </a>
+        @endif
+    </div>
+    <!--////////////////////
+    ////////////////////
+    ////////////////////-->
+
         @foreach (Auth::user()->ownedProjects as $project)
             <div class="nav-separator"></div>
             <a href="#" class="nav-header">{{ $project->name }}</a>
