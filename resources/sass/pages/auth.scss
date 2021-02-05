@@ -6,8 +6,8 @@
     margin: 0 auto;
     width: 100%;
     height: 100%;
-    background-color: #242222;
-    color: white;
+    background-color: white;
+    color: #242222;
     font-size: 1em;
     font-family: "Source Sans Pro", sans-serif;
 
@@ -20,7 +20,7 @@
     }
 
     .logo-text {
-        color: white;
+        color: #242222;
         display: block;
         width: 50%;
         margin: 50px auto;
@@ -51,13 +51,14 @@
 
     .auth-input-field {
         background-color: transparent;
-        color: white;
+        color: #242222;
         font-family: "Lato", sans-serif;
         font-size: 1.2vw;
         border: 0;
         height: 40px;
         padding-bottom: 5px;
-        border-bottom: 1px solid white;
+
+        border-bottom: 2px solid #242222;
         outline: none;
         margin-bottom: 25px;
     }
@@ -67,7 +68,7 @@
     }
 
     .forgot-password {
-        font-weight: 300;
+        font-weight: 400;
         color: #5d1ed7;
         margin-bottom: 25px;
     }
@@ -95,8 +96,8 @@
     }
 
     .submit-button {
-        color: black;
-        background-color: white;
+        color: white;
+        background-color: #5d1ed7;
         line-height: 1em;
         display: flex;
         align-items: center;
@@ -111,7 +112,7 @@
     }
 
     .submit-button:hover {
-        background-color: rgb(220, 220, 220);
+        background-color: #5121af;
         transition: 0.1s ease-in-out;
     }
 
@@ -126,9 +127,9 @@
     .auth-link-title {
         font-size: 1em;
         margin: 20px;
-        font-weight: 300;
+        font-weight: 400;
         text-align: center;
-        color: #dfdfdf;
+        color: #242222;
     }
     .auth-link-btn {
         display: block;
@@ -148,8 +149,45 @@
 
     .auth-link-btn:hover {
         background-color: #5d1ed7;
-        color: #242222;
+        color: #ffffff;
         transition: 0.2s ease-in-out;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        .auth-container {
+            background-color: #242222;
+            color: white;
+
+            .logo-text {
+                color: white;
+            }
+
+            .auth-input-field {
+                color: white;
+                border-bottom: 1px solid white;
+            }
+
+            .auth-link-btn:hover {
+                color: #242222;
+            }
+
+            .submit-button {
+                color: black;
+                background-color: white;
+            }
+
+            .submit-button:hover {
+                background-color: rgb(220, 220, 220);
+            }
+
+            .auth-link-title {
+                color: #dfdfdf;
+            }
+
+            .auth-link-btn:hover {
+                color: #242222;
+            }
+        }
     }
 
     @media only screen and (max-width: 500px) {

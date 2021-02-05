@@ -12,12 +12,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
-    
+
 </head>
 
 <body>
     <div class="sidebar">
-        <h1>ADIDASH</h1>
+        <img class="logo" src="dist/img/watermarks/purple/watermark-whitetext.svg">
         <a class="active" href="{{ route('student.home') }}">
             <div><i class="fas fa-home"></i></div>
             Accueil
@@ -99,6 +99,7 @@
             <h2 class="page-title">
                 @yield('page_name')
             </h2>
+            <hr class="section-separation" />
             @if (session('success'))
                 <div class="notification is-success mb-2">
                     {{ session('success') }}
@@ -110,7 +111,7 @@
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
     <script src="/dist/js/choices.min.js"></script>
-    
+
     @stack('scripts')
 </body>
 
