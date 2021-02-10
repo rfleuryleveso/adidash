@@ -15,6 +15,13 @@ use App\Http\Controllers\Committee\ProjectController as CommitteeProjectControll
 use App\Http\Controllers\Committee\UserController as CommitteeUserController;
 use App\Http\Controllers\Committee\TagsController as CommitteeTagsController;
 
+use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
+//use App\Http\Controllers\Staff\StaffStudentsControllers as StaffStudentsController;
+//use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
+//use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
+//use App\Http\Controllers\Staff\StaffSettingsController as StaffSettingsController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,49 +33,52 @@ use App\Http\Controllers\Committee\TagsController as CommitteeTagsController;
 |
 */
 
-///PROTO ROUTE PROF//
-Route::group(['prefix' => 'staff', 'as' => 'staff.',  'middleware' => 'can:access-staff'], function () {
 
-    ///HOME - Accueil
-    Route::get('', [StaffController::class, 'home'])->name('home');
-
-////Accueil spécial prof :
-////Tâches (mode prof aka notation)
-///Projets (mode prof aka notation)
-///Elèves (mode prof aka notation)
-
-//// EN DESSOUS A MODIFIER
-
-    ///USERS
-    Route::get('users', [StaffUserController::class, 'users'])->name('users');
-    Route::get('users/{user}', [StaffUserController::class, 'user'])->name('user');
-    
-    ///Tasks
-    Route::get('tasks', [StaffTasksController::class, 'list'])->name('tasks.list');
-    Route::get('tasks/{task}', [StaffController::class, 'show'])->name('task');
-    Route::post('tasks', [StaffTasksController::class, 'create'])->name('tasks.create');
-    Route::get('tasks/{task}/delete', [StaffTasksController::class, 'delete'])->name('tasks.delete');
-    
-
-    ///PROJET
-    Route::get('projects', [CommitteeProjectController::class, 'projects'])->name('projects');
-    Route::view('project/create', 'committee.projects.create-project')->name('create-project');
-    Route::post('project/create', [CommitteeProjectController::class, 'createProject'])->name('create-project');
-    
-    Route::get('project/{project}', [CommitteeProjectController::class, 'project'])->name('project');
-    Route::get('project/{project}/tasks', [CommitteeProjectController::class, 'project_tasks'])->name('project_tasks');
-    Route::get('project/{project}/team', [CommitteeProjectController::class, 'project_team'])->name('project_team');
-
-    ///GROUPS
-    Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
-
-});
-
-
-
-
+    /////////////////////
     ////FIN PROTO ROUTE PROF///
+    /////////////////////
+    
 Route::prefix('')->middleware("auth")->group(function () {
+    /////////////////////
+    ///PROTO ROUTE PROF//
+    /////////////////////
+    Route::group(['prefix' => 'staff', 'as' => 'staff.',  'middleware' => 'can:access-staff'], function () {
+
+       ///HOME - Accueil
+        Route::get('', [StaffHomeController::class, 'home'])->name('home');
+        
+        ////Tâches (mode prof aka notation)
+        Route::get('tasks', [StaffTasksController::class, 'show'])->name('task');
+        //Route::get('tasks/{task}', [StaffController::class, 'show'])->name('tasks');
+/*
+        ///Projets (mode prof aka notation)
+        Route::get('notation', [StaffGradeController::class, 'projectNotation'])->name('projectNotation');
+        ///Elèves (mode prof aka notation)
+        Route::get('notation_deux', [StaffController::class, 'studentNotation'])->name('studentNotation');*
+        Route::get('tasks', [StaffTasksController::class, 'tasks'])->name('tasks');
+
+
+    //// EN DESSOUS A MODIFIER
+
+        ///Tasks
+        Route::get('tasks', [StaffTasksController::class, 'list'])->name('tasks.list'); //Affichage taches
+        //Route::get('tasks/{task}', [StaffTasksController::class, 'show'])->name('task');
+        Route::get('tasks/{task}/comment', [StaffTasksController::class, 'comment'])->name('tasks.comment'); //Commenter les tâches
+        Route::get('tasks/{task}/grade', [StaffTasksController::class, 'grade'])->name('tasks.grade'); //Noter les tâches
+
+        ///PROJET
+        Route::get('projects', [CommitteeProjectController::class, 'projects'])->name('projects');
+        Route::view('project/create', 'committee.projects.create-project')->name('create-project');
+        Route::post('project/create', [CommitteeProjectController::class, 'createProject'])->name('create-project');
+        
+        Route::get('project/{project}', [CommitteeProjectController::class, 'project'])->name('project');
+        Route::get('project/{project}/tasks', [CommitteeProjectController::class, 'project_tasks'])->name('project_tasks');
+        Route::get('project/{project}/team', [CommitteeProjectController::class, 'project_team'])->name('project_team');
+
+        ///GROUPS
+        Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
+*/
+    });
     Route::group(["prefix" => "", "as" => "student."], function () {
         Route::get('', [HomeController::class, 'home'])->name('home');
     
@@ -79,6 +89,7 @@ Route::prefix('')->middleware("auth")->group(function () {
         
         Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
             Route::get('', [StudentTasksController::class, 'index'])->name('index');
+            
             Route::get('{task}', [StudentTasksController::class, 'show'])->name('task');
 
             Route::get('{task}/join', [StudentTasksController::class, 'join'])->name('task.join');
