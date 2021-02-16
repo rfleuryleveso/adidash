@@ -18,7 +18,7 @@ use App\Http\Controllers\Committee\TagsController as CommitteeTagsController;
 use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
 //use App\Http\Controllers\Staff\StaffStudentsControllers as StaffStudentsController;
 //use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
-//use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
+use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
 //use App\Http\Controllers\Staff\StaffSettingsController as StaffSettingsController;
 
 
@@ -33,10 +33,6 @@ use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
 |
 */
 
-
-    /////////////////////
-    ////FIN PROTO ROUTE PROF///
-    /////////////////////
     
 Route::prefix('')->middleware("auth")->group(function () {
     /////////////////////
@@ -44,11 +40,26 @@ Route::prefix('')->middleware("auth")->group(function () {
     /////////////////////
     Route::group(['prefix' => 'staff', 'as' => 'staff.',  'middleware' => 'can:access-staff'], function () {
 
-       ///HOME - Accueil
+        //Accueil
         Route::get('', [StaffHomeController::class, 'home'])->name('home');
         
-        ////Tâches (mode prof aka notation)
-        Route::get('tasks', [StaffTasksController::class, 'show'])->name('task');
+        //Tâches
+        Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
+            Route::get('', [StaffTasksController::class, 'showWaintingGrades'])->name('index');
+        });
+
+        //Affichage par défaut des tâches en attente de notation
+        /*Route::get('tasks', [StaffTasksController::class, 'list'])->name('tasks.list');
+        Route::get('tasks/{task}', [StaffTasksController::class, 'show'])->name('task');
+        //Commenter les tâches
+        Route::get('tasks/{task}/comment', [StaffTasksController::class, 'comment'])->name('tasks.comment');
+        //Notation des tâches
+        Route::get('tasks/{task}/grade', [StaffTasksController::class, 'grade'])->name('tasks.grade'); 
+        //Accès au filtre d’affichage des tâches
+
+       
+*/
+
         //Route::get('tasks/{task}', [StaffController::class, 'show'])->name('tasks');
 /*
         ///Projets (mode prof aka notation)
@@ -59,12 +70,6 @@ Route::prefix('')->middleware("auth")->group(function () {
 
 
     //// EN DESSOUS A MODIFIER
-
-        ///Tasks
-        Route::get('tasks', [StaffTasksController::class, 'list'])->name('tasks.list'); //Affichage taches
-        //Route::get('tasks/{task}', [StaffTasksController::class, 'show'])->name('task');
-        Route::get('tasks/{task}/comment', [StaffTasksController::class, 'comment'])->name('tasks.comment'); //Commenter les tâches
-        Route::get('tasks/{task}/grade', [StaffTasksController::class, 'grade'])->name('tasks.grade'); //Noter les tâches
 
         ///PROJET
         Route::get('projects', [CommitteeProjectController::class, 'projects'])->name('projects');
@@ -78,6 +83,10 @@ Route::prefix('')->middleware("auth")->group(function () {
         ///GROUPS
         Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
 */
+
+    /////////////////////
+    ////FIN PROTO ROUTE PROF///
+    /////////////////////
     });
     Route::group(["prefix" => "", "as" => "student."], function () {
         Route::get('', [HomeController::class, 'home'])->name('home');

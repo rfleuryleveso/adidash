@@ -53,6 +53,11 @@
             <a href="{{ route('staff.home') }}">
                 <div><i class="fas fa-home"></i></div>
                 Accueil
+
+            <a href="{{ route('staff.tasks.index') }}">
+                <div><i class="fas fa-tasks"></i></div>
+                Tâches
+            </a>
                 <!--
 
             </a>
