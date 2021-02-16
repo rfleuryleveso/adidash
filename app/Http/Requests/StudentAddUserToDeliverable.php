@@ -14,10 +14,10 @@ class StudentAddUserToDeliverable extends FormRequest
     public function authorize()
     {
         return $this->deliverable
-        ->users()
-        ->wherePivot('level', 'CREATOR')
-        ->get()
-        ->contains($this->user());
+            ->users()
+            ->wherePivot('level', 'CREATOR')
+            ->get()
+            ->contains($this->user());
     }
 
     /**

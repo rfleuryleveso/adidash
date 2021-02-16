@@ -7,17 +7,17 @@ use Illuminate\Foundation\Http\FormRequest;
 class StudentRemoveUserFromDeliverable extends FormRequest
 {
     /**
-    * Determine if the user is authorized to make this request.
-    *
-    * @return bool
-    */
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
     public function authorize()
     {
         return $this->deliverable
-        ->users()
-        ->wherePivot('level', 'CREATOR')
-        ->get()
-        ->contains($this->user());
+            ->users()
+            ->wherePivot('level', 'CREATOR')
+            ->get()
+            ->contains($this->user());
     }
 
     /**

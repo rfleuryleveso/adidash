@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\ProjectAdmin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Models\Project;
-use App\Models\Task;
-use App\Models\Tag;
-use App\Http\Requests\ProjectCreateTask;
 use App\Http\Requests\ProjectAdminSearchTasks;
+use App\Http\Requests\ProjectAdminUpdateNotation;
+use App\Http\Requests\ProjectCreateTask;
 use App\Http\Resources\Task as TaskResource;
+use App\Models\Grade;
+use App\Models\Project;
+use App\Models\Tag;
+use App\Models\Task;
+use Auth;
 
 class TasksController extends Controller
 {
@@ -32,11 +34,11 @@ class TasksController extends Controller
     }
 
 
-    
+
     public function create(ProjectCreateTask $request)
     {
         $task = new Task;
-       
+
         $task->project_id = $request->route('project')->id;
         $task->fill($request->validated());
         $task->status = (!!$request->parent_task) ? "WAITING_FOR_PARENT_TASK" : "WAITING";
@@ -54,6 +56,18 @@ class TasksController extends Controller
     public function task(Project $project, Task $task)
     {
         $grades = $task->grades;
-        return view('project-admin.task', ['project' => $project, 'task' => $task, 'grades' => $grades]);
+        $canChangeGrades = $task->notation_status == "WAITING_FOR_CHIEF";
+        return view('project-admin.task', ['project' => $project, 'task' => $task, 'grades' => $grades, 'canChangeGrades' => $canChangeGrades]);
+    }
+
+    public function taskUpdateNotation(ProjectAdminUpdateNotation $request)
+    {
+        foreach ($request->grades as $grade) {
+            Grade::updateOrCreate(
+                ['task_id' => $request->task->id, 'user_id' => $grade['user'], 'evaluation_type' => 'PROJETCHIEF'],
+                ['grade' => $grade['grade'], 'evaluator_id' => Auth::id(), 'comments' => $grade['comments']]
+            );
+        }
+        return redirect()->back()->with('success', 'Notes mises à jour');
     }
 }

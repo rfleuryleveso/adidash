@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Project;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class ProjectCreateTask extends FormRequest

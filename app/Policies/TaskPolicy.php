@@ -53,7 +53,7 @@ class TaskPolicy
      */
     public function update(User $user, Task $task)
     {
-        return true;
+        return $user->tasks()->get()->contains($task);
     }
 
     /**
