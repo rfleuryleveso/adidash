@@ -42,8 +42,9 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::get('', [StaffHomeController::class, 'home'])->name('home');
         
         //Tâches
-        Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
-            Route::get('', [StaffTasksController::class, 'showWaintingGrades'])->name('index');
+        Route::group(["prefix" => "tasks", "as" => "tasks."], function () {            
+            Route::get('', [StaffTasksController::class, 'home'])->name('home');
+            Route::match(['GET', 'POST'], 'tasks', [StaffTasksController::class, 'home'])->name('home');
         });
 
         //Affichage par défaut des tâches en attente de notation

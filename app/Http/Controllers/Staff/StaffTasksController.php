@@ -3,53 +3,41 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StaffSearchTasks;
+use App\Http\Resources\Task as TaskResource;
 use Illuminate\Http\Request;
-use App\Models\Task;
+use App\Models\Grade;
 use App\Models\Project;
+use App\Models\Tag;
+use App\Models\Task;
+use Auth;
 
 class StaffTasksController extends Controller
 {
 
-    
-public function showWaintingGrades()
-{    
-    $tasksAwaitingNotation = Task::where(
-        [
-            ['status', 'FINISHED'],
-            ['notation_status', 'WAITING_FOR_STAFF']
-        ]
-    )->get();
+    //TODO : ADD NOTATION STATUS FILTER (WAITING FOR STAFF)
+    //TODO : CHECK FILTER FUNCTIONNALITY 
 
-    return view('staff.tasks.tasks', ['tasksAwaitingNotation'=>$tasksAwaitingNotation]);
-}
-
-/*
-foreach ($memus as $memu) {
-       echo $memu['name'];
-}
-*/
-
-/*
-    public function list()
+    public function home(StaffSearchTasks $request)
     {
-        $tasks = Task::all('tasks')->get();
-        return view('staff.tasks', ['projects' => $projects, 'tasks' => $tasks], ['grades' => $grades]);
-    }
-
-    public function index()
-    {
-        return view('staff.tasks.tasks');
-    }
-
-    
-    public function show(Request $request, Task $task)
-    {
+        $tasksQuery = (new Task)->newQuery();
+        //Building the Query block by block
         if ($request->ajax()) {
-            return new TaskResource($task);
+            return TaskResource::collection($tasksQuery->where('status', ['FINISHED'])->get());
         }
-        $project = $task->project;
-        return view("staff.tasks.task", ["task" => $task, 'project' => $project]);
+        if ($request->isMethod('post')) {
+            if ($request->has('status')) {
+                $tasksQuery->whereIn('status', $request->input('status'));
+            }
+            if ($request->has('name')) {
+                $tasksQuery->where('name', 'LIKE', '%'. $request->input('name') . '%');
+            }
+            if($request->has('notation_status')) {
+                $tasksQuery->where('notation_status', ['WAITING_FOR_STAFF']);
+            }
+        }
+        $tasks = $tasksQuery->paginate(10);
+        
+        return view('staff.tasks.tasks', ['tasks' => $tasks]);
     }
-    */
 }
-

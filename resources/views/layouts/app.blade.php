@@ -54,7 +54,7 @@
                 <div><i class="fas fa-home"></i></div>
                 Accueil
 
-            <a href="{{ route('staff.tasks.index') }}">
+            <a href="{{ route('staff.tasks.home') }}">
                 <div><i class="fas fa-tasks"></i></div>
                 Tâches
             </a>
