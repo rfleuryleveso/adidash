@@ -18,7 +18,6 @@ class CreateProjectUserTable extends Migration
             $table->integer('user_id');
             $table->integer('project_id');
             $table->integer('relation_type')->comment('0 = Project Member, 1 = Project Client (ReadOnly), 2 = Project Moderator, 3 = Project Admin');
-            $table->timestamps();
         });
     }
 

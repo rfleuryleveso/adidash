@@ -17,7 +17,6 @@ class CreateTagTaskTable extends Migration
             $table->id();
             $table->integer('tag_id');
             $table->integer('task_id');
-            $table->timestamps();
         });
     }
 

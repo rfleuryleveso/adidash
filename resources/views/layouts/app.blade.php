@@ -55,6 +55,10 @@
         @if (Auth::user()->hasCommitteeGroup())
             <div class="nav-separator"></div>
             <a href="{{ route('committee.home') }}" class="nav-header">Comité de projet</a>
+            <a href="{{ route('committee.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
             <a href="{{ route('committee.users') }}">
                 <div><i class="fas fa-users"></i></div>
                 Utilisateurs
@@ -62,6 +66,10 @@
             <a href="{{ route('committee.projects') }}">
                 <div><i class="far fa-lightbulb"></i></div>
                 Projets
+            </a>
+            <a href="{{ route('committee.tags.list') }}">
+                <div><i class="fas fa-tags"></i></div>
+                Tags
             </a>
         @endif
     </div>

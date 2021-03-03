@@ -27,7 +27,7 @@ class ProjectPolicy {
 	 * @return mixed
 	 */
 	public function view(User $user, Project $project) {
-		
+		return $user->projects->contains($project);
 	}
 
 	/**

@@ -26,9 +26,9 @@ class CommitteeCreateProjectRequest extends FormRequest
         return [
             'name' => 'required|max:255',
             'project-chiefs' => 'required|array|size:1',
-            'project-chiefs.*' => 'exists:users,id', 
-            'groups' => 'required|array|size:1',
-            'groups.*' => 'exists:groups,id', 
+            'project-chiefs.*' => 'exists:users,id',
+            'groups' => 'required|array|min:1',
+            'groups.*' => 'exists:groups,id',
         ];
     }
 }

@@ -36,7 +36,7 @@
                         également de cahier des charges pour la notation. Référence Markdown: <a
                             href="https://guides.github.com/features/mastering-markdown/">https://guides.github.com/features/mastering-markdown/</a>
                     </p>
-                    @error('name') <p class="help is-danger">{{ $message }} </p>@enderror
+                    @error('description') <p class="help is-danger">{{ $message }} </p>@enderror
                 </div>
                 <div class="field">
                     <label class="label">Tags</label>
@@ -52,37 +52,40 @@
                 <div class="field">
                     <label class="label">Tâche parente (Optionnel)</label>
                     <div class="select is-fullwidth">
-                        <select id="parent-selection" name="parent-task">
+                        <select id="parent-selection" name="parent_task">
                         </select>
                     </div>
                     <p class="help">Créer une dépendance à une tâche. La tâche ne s'affichera par défaut que quand la tâche
                         parente sera finie. Si la tâche parente est annulée, vous devrez la débloquer vous-même.</p>
-                    @error('tags') <p class="help is-danger">{{ $message }} </p>@enderror
+                    @error('parent_task') <p class="help is-danger">{{ $message }} </p>@enderror
                 </div>
                 <div class="field">
                     <label class="label">Date de début (Optionnel)</label>
                     <div class="control">
-                        <input class="input @error('start_date') is-danger @enderror" type="date" name="start_date"
+                        <input class="input @error('starts_at') is-danger @enderror" type="date" name="starts_at"
                             placeholder="Date de début (optionnel)">
                     </div>
                     <p class="help">La tâche ne sera pas affichée avant cette date</p>
-                    @error('start_date') <p class="help is-danger">{{ $message }} </p>@enderror
+                    @error('starts_at') <p class="help is-danger">{{ $message }} </p>@enderror
                 </div>
                 <div class="field">
                     <label class="label">Date de fin (Optionnel)</label>
                     <div class="control">
-                        <input class="input @error('end_date') is-danger @enderror" type="date" name="end_date"
+                        <input class="input @error('ends_at') is-danger @enderror" type="date" name="ends_at"
                             placeholder="Date de fin (optionnel)">
                     </div>
                     <p class="help">La date de fin est optionnelle, mais recommandée. Un rappel sera envoyé aux membres la
                         veille de la date de fin si la tâche n'est pas complétée</p>
-                    @error('start_date') <p class="help is-danger">{{ $message }} </p>@enderror
+                    @error('ends_at') <p class="help is-danger">{{ $message }} </p>@enderror
                 </div>
                 <div class="field is-grouped">
                     <div class="control">
-                        <button class="button is-link">Submit</button>
+                        <button class="button is-link">Créer la tâche</button>
                     </div>
                 </div>
+                @foreach ($errors as $error)
+                    {{$error->message}}
+                @endforeach
             </form>
         </div>
     </div>

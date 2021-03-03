@@ -2,12 +2,57 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use DB;
 
+/**
+ * App\Models\User
+ *
+ * @property int $id
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property \Illuminate\Support\Carbon|null $email_verified_at
+ * @property string $password
+ * @property string|null $two_factor_secret
+ * @property string|null $two_factor_recovery_codes
+ * @property string|null $remember_token
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Deliverable[] $deliverables
+ * @property-read int|null $deliverables_count
+ * @property-read string $full_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read int|null $groups_count
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Project[] $projects
+ * @property-read int|null $projects_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Task[] $tasks
+ * @property-read int|null $tasks_count
+ * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Query\Builder|User onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmail($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereEmailVerifiedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereFirstName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereLastName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorRecoveryCodes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
+ * @mixin \Eloquent
+ */
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, HasFactory;
@@ -70,50 +115,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the projects on which the user is working.
-     *
-     * @return [Project]
-     */
-    public function projects()
-    {
-        // Get the group projects
-        $projectsQueries = $this->getClassGroups()->get()->reduce(function ($projects, $group) {
-            $projects->push($group->projects()->getQuery()->select(DB::raw('`projects`.*, 0 as `pivot_user_id`, 0 as `pivot_project_id`'))); // c rien c la rue
-            return $projects;
-        }, collect())->all();
-        $query = $this->linkedProjects();
-        foreach ($projectsQueries as $projectQuery) {
-            $query = $query->union($projectQuery);
-        }
-        return $query;
-    }
-
-    /**
-     * Get the projects by group
-     *
-     * @return [Project]
-     */
-    public function groupProjects()
-    {
-        // Get the group projects
-        $projectsQueries = $this->getClassGroups()->get()->reduce(function ($projects, $group) {
-            $projects->push($group->projects()->getQuery()); // c rien c la rue
-            return $projects;
-        }, collect())->all();
-
-        $query = $projectsQueries[0];
-        foreach (array_slice($projectsQueries, 1) as $projectsQuery) {
-            $query = $query->union($projectQuery);
-        }
-        return $query;
-    }
-
-    /**
      * Get the project by relation
      *
      * @return [Project]
      */
-    public function linkedProjects()
+    public function projects()
     {
         return $this->belongsToMany(Project::class)->using(ProjectUser::class);
     }
@@ -125,7 +131,17 @@ class User extends Authenticatable
      */
     public function ownedProjects()
     {
-        return $this->linkedProjects()->wherePivot('relation_type', '>=', 2);
+        return $this->projects()->wherePivot('relation_type', '>=', 2);
+    }
+
+    /**
+     * Get the user's deliverables
+     *
+     * @return [Task]
+     */
+    public function deliverables()
+    {
+        return $this->belongsToMany(Deliverable::class)->using(DeliverableUser::class);
     }
 
     /**

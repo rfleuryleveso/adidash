@@ -15,8 +15,8 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Auth::user()->groupProjects()->where('status', 'STARTED')->get();
-        return view("student.projects.index", ["projects" => $projects]);
+        $groups = Auth::user()->groups;
+        return view("student.projects.index", ["groups" => $groups]);
     }
 
     /**
