@@ -45,7 +45,15 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::group(["prefix" => "tasks", "as" => "tasks."], function () {            
             Route::get('', [StaffTasksController::class, 'home'])->name('home');
             Route::match(['GET', 'POST'], 'tasks', [StaffTasksController::class, 'home'])->name('home');
+            Route::get('{task}', [StaffTasksController::class, 'task'])->name('task');
+            Route::post('{task}/grades', [StaffTasksController::class, 'StaffUpdateNotation'])->name('task.update-grades');
+            Route::post('update', [StaffTasksController::class, 'update'])->name('update');
         });
+
+
+ 
+        
+        
 
         //Affichage par défaut des tâches en attente de notation
         /*Route::get('tasks', [StaffTasksController::class, 'list'])->name('tasks.list');

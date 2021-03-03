@@ -66,13 +66,13 @@
                                             @endif
                                         @endif
                                     </td>
-                                    <td><a href="{{route('staff.tasks.home', ['tasks' => $task->id])}}"><i class="far fa-eye"></i></a></td>
+                                    <td><a href="{{route('staff.tasks.task', ['project' => $project->id, 'task' => $task->id])}}"><i class="far fa-eye"></i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                     <div class="is-block">
-                        {{ $tasks->links() }}
+                           {{ $tasks->links() }}
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         <div class="field">
                             <label class="label">Nom</label>
                             <div class="control">
-                                <input class="input" value="{{ request()->input("name") }}" name="name" type="text" placeholder="Nom partiels autorisés">
+                                <input class="input" value="{{ request()->input('name') }}" name="name" type="text" placeholder="Nom partiels autorisés">
                             </div>
                         </div>
                         <div class="field">
