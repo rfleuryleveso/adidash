@@ -18,15 +18,24 @@ class TasksController extends Controller
      */
     public function index()
     {
-        return view('student.tasks.tasks');
+        $userTasks = Auth::user()->tasks;
+
+        $memberProjectsTasks = Auth::user()->projects->map(function ($project) {
+            return $project->tasks()->available()->get();
+        })->reduce(function($carry, $projectTasks) {
+            $carry = $carry->merge($projectTasks);
+            return $carry;
+        }, collect());
+
+        return view('student.tasks.tasks', ['userTasks' => $userTasks, 'memberProjectsTasks' => $memberProjectsTasks]);
     }
 
 
     /**
      * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Task  $task
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Task $task
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Task $task)
@@ -39,12 +48,12 @@ class TasksController extends Controller
     }
 
     /**
-    * Make the user join a specific task
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
-    */
+     * Make the user join a specific task
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Task $task
+     * @return \Illuminate\Http\Response
+     */
     public function join(Request $request, Task $task)
     {
         $task->users()->attach(Auth::user());
@@ -52,12 +61,12 @@ class TasksController extends Controller
     }
 
     /**
-    * Make the user leave a specific task
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
-    */
+     * Make the user leave a specific task
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Task $task
+     * @return \Illuminate\Http\Response
+     */
     public function leave(Request $request, Task $task)
     {
         $task->users()->detach(Auth::user());
@@ -65,12 +74,12 @@ class TasksController extends Controller
     }
 
     /**
-    * Update the task and set it's status
-    *
-    * @param  \Illuminate\Http\Requests\StudentUpdateTaskStatus  $request
-    * @param  \App\Models\Task  $task
-    * @return \Illuminate\Http\Response
-    */
+     * Update the task and set it's status
+     *
+     * @param \Illuminate\Http\Requests\StudentUpdateTaskStatus $request
+     * @param \App\Models\Task $task
+     * @return \Illuminate\Http\Response
+     */
     public function setStatus(StudentUpdateTaskStatus $request, Task $task)
     {
         $task->status = $request->status;
