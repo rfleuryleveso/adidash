@@ -28,8 +28,17 @@ Route::prefix('')->middleware("auth")->group(function () {
     Route::group(["prefix" => "", "as" => "student."], function () {
         Route::get('', [HomeController::class, 'home'])->name('home');
 
-        Route::get('projects', [ProjectController::class, 'index'])->name('projects');
-        Route::get('project/{project}', [ProjectController::class, 'show'])->name('project');
+        Route::group(["prefix" => "projects", "as" => "projects."], function () {
+            Route::get('', [ProjectController::class, 'index'])->name('list');
+            Route::group(["prefix" => "{project}", "as" => "project."], function () {
+                Route::get('', [ProjectController::class, 'show'])->name('details');
+
+                Route::get('join', [ProjectController::class, 'join'])->name('join');
+                Route::get('leave', [ProjectController::class, 'leave'])->name('leave');
+            });
+
+        });
+
 
         Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
             Route::get('', [StudentTasksController::class, 'index'])->name('index');
@@ -69,7 +78,7 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::post('create-task', [ProjectTasksController::class, 'create'])->name('create-task');
     });
 
-    Route::group(['prefix' => 'committee', 'as' => 'committee.',  'middleware' => 'can:access-committee'], function () {
+    Route::group(['prefix' => 'committee', 'as' => 'committee.', 'middleware' => 'can:access-committee'], function () {
         Route::get('', [CommitteeController::class, 'home'])->name('home');
 
         Route::get('tags', [CommitteeTagsController::class, 'list'])->name('tags.list');
