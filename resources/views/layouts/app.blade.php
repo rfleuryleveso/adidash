@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
-    
+
 </head>
 
 <body>
@@ -26,7 +26,7 @@
             <div><i class="fas fa-tasks"></i></div>
             Tâches
         </a>
-        <a href="{{ route('student.projects') }}">
+        <a href="{{ route('student.projects.list') }}">
             <div><i class="far fa-lightbulb"></i></div>
             Projets
         </a>
@@ -112,13 +112,18 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('error'))
+                <div class="notification is-danger mb-2">
+                    {{ session('error') }}
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
     <script src="/dist/js/choices.min.js"></script>
-    
+
     @stack('scripts')
 </body>
 
