@@ -31,8 +31,8 @@ class ProjectAdminController extends Controller
                 ]
             )->get();
         // Check for tasks within the bounds
-        
-        $members = $project->members;
+
+        $members = $project->members()->withPivot('relation_type')->get();
         $tasksIds = $project->tasks()->pluck('id')->all();
         return view('project-admin.index', ['project' => $project, 'members' => $members, 'tasksIds' => $tasksIds, 'finished_tasks' => $finished_tasks]);
     }
