@@ -108,6 +108,17 @@ class Task extends Model
     }
 
     /**
+     * Scope a query to only include active users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->whereIn('status', ['WAITING', 'STARTED']);
+    }
+
+    /**
      * The "booted" method of the model.
      *
      * @return void
