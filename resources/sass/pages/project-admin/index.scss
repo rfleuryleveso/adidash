@@ -1,0 +1,35 @@
+.project-admin-index {
+    .container {
+        width: 90%;
+        margin: 25px auto;
+    }
+
+    .message {
+        background-color: transparent;
+        color: #7356aa;
+    }
+
+    .message-header {
+        background-color: rgb(148, 107, 227) !important;
+    }
+
+    .message-body {
+        background-color: rgba(148, 107, 227, 0.2);
+        color: #7356aa;
+        border-radius: 0 0 7.5px 7.5px;
+    }
+
+    .card {
+        border-radius: 10px;
+    }
+
+    .columns .card {
+        border-radius: 7.5px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .message-body {
+        color: white !important;
+    }
+}

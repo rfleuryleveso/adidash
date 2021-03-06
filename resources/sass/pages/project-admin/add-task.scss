@@ -1,0 +1,52 @@
+.create-task {
+    .card {
+        width: 75%;
+        margin: 35px auto;
+        border-radius: 15px;
+        overflow: hidden;
+
+        label {
+            font-size: 1.15em;
+        }
+
+        p {
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+    }
+
+    .card-header {
+        border-radius: 15px 15px 0 0;
+        padding: 5px;
+    }
+
+    .card-header-title {
+        font-size: 1.25em;
+    }
+
+    .submit-button {
+        margin-top: 10px;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .create-task {
+        label {
+            color: white !important;
+        }
+
+        .card-header-title {
+            color: white;
+        }
+
+        input,
+        textarea,
+        select {
+            color: rgb(230, 230, 230);
+        }
+
+        .datetimepicker-dummy-input {
+            background-color: transparent !important;
+        }
+    }
+}

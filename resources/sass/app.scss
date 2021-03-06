@@ -1,25 +1,34 @@
-@import "./pages/student.tasks.scss";
 @import "./pages/auth.scss";
 @import "./pages/calendar.scss";
 @import "./pages/projects-list.scss";
 @import "./pages/project.scss";
 @import "./task-modal.scss";
 
+@import "./pages/project-admin/index.scss";
+@import "./pages/project-admin/tasks.scss";
+@import "./pages/project-admin/add-task.scss";
+
+@import "./pages/tasks/student.tasks.scss";
+
+html {
+    background: #f2f4f8;
+}
 body {
     margin: 0;
     padding: 0;
     font-family: "Lato", sans-serif;
-    background: #f2f4f8;
     width: 100%;
     height: 100%;
 }
 
 .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
     margin: 0;
     padding: 0;
     width: 240px;
     background: #36088f;
-    position: fixed;
     height: 100%;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
@@ -117,7 +126,6 @@ div.page-content {
 }
 
 .content {
-    height: 100%;
     .container {
         margin: 25px 0;
     }
@@ -143,12 +151,16 @@ div.page-content {
     }
 
     .summary-container {
-        min-width: 500px;
+        width: 100%;
         margin: 50px auto;
         padding: 25px;
         border-radius: 10px;
         background-color: white;
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+        .container {
+            width: 100%;
+        }
 
         .summary-name {
             margin: 0 !important;
@@ -334,9 +346,54 @@ div.page-content {
     }
 }
 
+.submit-button {
+    color: white;
+    background-color: #5d1ed7;
+    line-height: 1em;
+    display: flex;
+    align-items: center;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    font-size: 1.25em;
+    padding: 15px 25px;
+    border: 0;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+}
+
+.submit-button:hover {
+    background-color: #5121af;
+    transition: 0.1s ease-in-out;
+}
+
+.pagination-link.is-current {
+    background-color: #5d1ed7;
+    border: #5d1ed7;
+}
+
+.button {
+    background-color: #5d1ed7 !important;
+    border: #5d1ed7 !important;
+}
+.button:hover {
+    background-color: #5121af !important;
+    border: #5121af !important;
+}
+
+.is-light {
+    background-color: #eef3fc !important;
+}
+.is-light:hover {
+    background-color: #dfe3e9 !important;
+}
+
 @media (prefers-color-scheme: dark) {
-    body {
+    html {
         background-color: #242222;
+    }
+
+    body {
         color: white !important;
     }
     .sidebar {
@@ -430,6 +487,76 @@ div.page-content {
         color: white !important;
         .summary-name {
             color: white;
+        }
+    }
+
+    .is-light {
+        color: black !important;
+    }
+
+    ::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: #cccccc !important;
+        opacity: 1; /* Firefox */
+    }
+
+    :-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: #cccccc !important;
+    }
+
+    ::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: #cccccc !important;
+    }
+
+    .card {
+        background-color: transparent;
+
+        overflow: hidden;
+
+        input,
+        textarea {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+    }
+
+    .card-header {
+        background-color: rgba(119, 67, 220, 0.75);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header-title {
+        color: white;
+    }
+
+    .card-content {
+        background: rgba(93, 30, 215, 0.35);
+    }
+
+    .card-content * {
+        background: transparent;
+    }
+
+    .datetimepicker {
+        .datetimepicker-header,
+        .datetimepicker-selection-wrapper *,
+        .datetimepicker-selection-date {
+            color: #6a3ebb !important;
+        }
+        button {
+            color: white !important;
+        }
+        .datepicker-nav {
+            background: #5d1ed7 !important  ;
+        }
+
+        .datepicker-date {
+            color: #6a686d !important;
+        }
+
+        button {
+            color: #0f0f0f !important;
         }
     }
 }
