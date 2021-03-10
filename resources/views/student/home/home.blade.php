@@ -13,7 +13,7 @@
                 Vous n'avez pas encore choisi votre classe, veuillez la sélectionner dans votre profil
             </div>
         @endif
-        <div class="index-container">
+        <div class="content-container">
             <section class="summary">
                 <div class="summary-container container">
 

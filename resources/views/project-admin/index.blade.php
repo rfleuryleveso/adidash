@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="columns is-multiline">
+            <div class="columns is-multiline cards-container">
                 <div class="column is-half">
                     <div class="card">
                         <header class="card-header">

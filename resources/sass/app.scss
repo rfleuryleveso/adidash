@@ -2,6 +2,7 @@
 @import "./pages/calendar.scss";
 @import "./pages/projects-list.scss";
 @import "./pages/project.scss";
+@import "./pages/commitee.scss";
 @import "./task-modal.scss";
 
 @import "./pages/project-admin/index.scss";
@@ -125,11 +126,17 @@ div.page-content {
     background-color: #d3d3d3 !important;
 }
 
-.content {
-    .container {
-        margin: 25px 0;
-    }
+.content-container {
+    width: 90% !important;
+    margin: 25px auto;
+}
 
+.task-container {
+    width: 95% !important;
+    margin: 25px auto;
+}
+
+.content {
     .content-separation {
         margin: 0 !important;
     }
@@ -137,12 +144,13 @@ div.page-content {
     .section-line {
         height: 1px !important;
         background-color: #bebebe !important;
-        margin: 5px 0px 0px 0;
+        margin: 5px 0px 25px 0;
     }
 
     .section-title {
         font-size: 1.2em !important;
         margin: 0 !important;
+        margin-top: 25px !important;
     }
 
     .index-container {
@@ -396,6 +404,11 @@ div.page-content {
     body {
         color: white !important;
     }
+
+    .select :is(select, option) {
+        color: #0f0f0f !important;
+    }
+
     .sidebar {
         background: #131212 !important;
         box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
@@ -512,13 +525,16 @@ div.page-content {
 
     .card {
         background-color: transparent;
-
         overflow: hidden;
 
         input,
         textarea {
             border-color: rgba(255, 255, 255, 0.3) !important;
         }
+    }
+
+    .select * {
+        color: #0f0f0f !important;
     }
 
     .card-header {

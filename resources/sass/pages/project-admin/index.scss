@@ -33,3 +33,13 @@
         color: white !important;
     }
 }
+
+@media screen and (max-width: 1440px) {
+    .cards-container {
+        flex-direction: column;
+
+        .is-half {
+            width: 100%;
+        }
+    }
+}

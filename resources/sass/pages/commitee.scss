@@ -1,0 +1,73 @@
+.commitee {
+    padding: 25px;
+    border-radius: 5px;
+
+    background: white !important;
+    box-shadow: 0 0.5em 1em -0.125em rgb(10 10 10 / 10%),
+        0 0px 0 1px rgb(10 10 10 / 2%);
+}
+
+.commitee-projects {
+    padding: 25px;
+    border-radius: 5px;
+}
+
+.commitee-tags {
+    .box {
+        padding: 25px;
+        table {
+            border-radius: 5px;
+        }
+    }
+
+    .button svg {
+        margin-right: 10px;
+    }
+}
+
+.create-project {
+    .card-header {
+        border-radius: 5px 5px 0 0 !important;
+    }
+    .card-content {
+        border-radius: 0 0 5px 5px !important;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .commitee {
+        background: black !important;
+
+        * {
+            color: white !important;
+        }
+
+        table {
+            background-color: black;
+        }
+    }
+
+    .commitee-tags .box {
+        background: black !important;
+
+        * {
+            color: white !important;
+        }
+
+        table {
+            background-color: black;
+        }
+    }
+
+    .commitee-projects {
+        background: black !important;
+
+        * {
+            color: white !important;
+        }
+
+        table {
+            background-color: black;
+        }
+    }
+}

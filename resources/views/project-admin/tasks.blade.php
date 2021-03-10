@@ -5,7 +5,7 @@
 @section('page_name', 'Gestion de projet | ' . $project->name)
 
 @section('content')
-    <div class="tasks-container">
+    <div class="tasks-container content-container">
         <div class="card">
             <header class="card-header">
                 <p class="card-header-title">

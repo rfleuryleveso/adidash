@@ -135,6 +135,22 @@
     }
 }
 
+@media (prefers-color-scheme: dark) {
+    .element-task {
+        .task {
+            background-color: black;
+
+            h2 {
+                color: white;
+            }
+
+            .separation-line {
+                background-color: white;
+            }
+        }
+    }
+}
+
 @media (max-width: 825px) {
     .calendar-icon {
         display: none;

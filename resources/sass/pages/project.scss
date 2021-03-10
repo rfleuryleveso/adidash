@@ -5,3 +5,18 @@
         overflow-wrap: break-word;
     }
 }
+
+.is-size-4 {
+    font-weight: 700;
+}
+
+@media (prefers-color-scheme: dark) {
+    .project-item {
+        color: white;
+        background-color: black;
+
+        .is-size-7 {
+            color: white !important;
+        }
+    }
+}
