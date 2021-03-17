@@ -202,6 +202,7 @@
                                 <th>Classe</th>
                                 <th>Tâches finies</th>
                                 <th>Tâches en cours</th>
+                                <th>Administration</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -213,15 +214,18 @@
                                             {{ $member->fullName }}
                                             @break
                                             @case(1)
-                                            <span class="has-text-info">{{ $member->fullName }} <i class="fas fa-eye"></i></span>
+                                            <span class="has-text-info">{{ $member->fullName }} <i
+                                                    class="fas fa-eye"></i></span>
                                             @break
 
                                             @case(2)
-                                            <span class="has-text-warning">{{ $member->fullName }} <i class="fas fa-tools"></i></span>
+                                            <span class="has-text-warning">{{ $member->fullName }} <i
+                                                    class="fas fa-tools"></i></span>
                                             @break
 
                                             @case(3)
-                                            <span class="has-text-danger">{{ $member->fullName }} <i class="fas fa-user-shield"></i></span>
+                                            <span class="has-text-danger">{{ $member->fullName }} <i
+                                                    class="fas fa-user-shield"></i></span>
                                             @break
 
                                         @endswitch
@@ -234,6 +238,16 @@
                                     </td>
                                     <td>
                                         {{ $member->tasks()->where('status', 'STARTED')->whereIn('tasks.id', $tasksIds)->count() }}
+                                    </td>
+                                    <td>
+                                        @if($member->pivot->relation_type == 0)
+                                            <a data-tooltip="Ce membre pourra créer de nouvelles tâches"
+                                               href="{{route('project-admin.member.set-rank', ['project' => $project->id, 'member' => $member->id, 'rank' => 2])}}">Promouvoir</a>
+                                        @endif
+                                        @if($member->pivot->relation_type == 2)
+                                            <a href="{{route('project-admin.member.set-rank', ['project' => $project->id, 'member' => $member->id, 'rank' => 0])}}">Rétrograder</a>
+                                        @endif
+
                                     </td>
                                 </tr>
                             @endforeach
