@@ -73,6 +73,15 @@
                 Tags
             </a>
         @endif
+
+        @if (Auth::user()->hasAdministrationGroup())
+            <div class="nav-separator"></div>
+            <a href="{{ route('administration.home') }}" class="nav-header">Administration</a>
+            <a href="{{ route('administration.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+        @endif
     </div>
 
     <div class="page-content">
