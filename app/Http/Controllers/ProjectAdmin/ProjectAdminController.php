@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ProjectAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use \Carbon\Carbon;
@@ -42,5 +43,16 @@ class ProjectAdminController extends Controller
         $project->update($request->validated());
         $project->save();
         return redirect()->back()->with('success', 'Projet mis à jour avec succès');
+    }
+
+    public function setMemberRank(Project $project, User $member, $rank)
+    {
+        if ($rank != 0 && $rank != 2) {
+            return redirect()->back()->with('error', 'Rang invalide');
+        }
+        $member->projects()->updateExistingPivot($project->id, [
+            'relation_type' => $rank
+        ]);
+        return redirect()->back()->with('success', 'Membre mis à jour');
     }
 }
