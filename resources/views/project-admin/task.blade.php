@@ -27,9 +27,64 @@
                     @else
                         <span class="tag">Noté</span>
                     @endif
+                    <br/>
+                    <hr/>
 
                 </div>
             </div>
+            <div class="card mt-3">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Editer la tâche
+                    </p>
+                </header>
+                <div class="card-content">
+                    <form method="POST"
+                          action="{{route('project-admin.task', ['project' => $task->project->id, 'task' => $task->id])}}">
+                        @csrf
+                        <div class="field">
+                            <label class="label">Statut</label>
+                            <div class="select is-fullwidth">
+                                <select id="status-selection" name="status">
+                                    <option value="WAITING" @if($task->status === "WAITING") selected @endif > En
+                                        attente
+                                    </option>
+                                    <option value="STARTED" @if($task->status === "STARTED") selected @endif>Démarrée
+                                    </option>
+                                    <option value="FINISHED" @if($task->status === "FINISHED") selected @endif>Finie
+                                    </option>
+                                    <option value="CANCELLED" @if($task->status === "CANCELLED") selected @endif>
+                                        Annulée
+                                    </option>
+                                </select>
+                            </div>
+                            @error('status') <p class="help is-danger">{{ $message }} </p>@enderror
+                        </div>
+                        <div class="field">
+                            <label class="label">Nom</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{$task->name}}" name="name">
+
+                            </div>
+                            @error('name') <p class="help is-danger">{{ $message }} </p>@enderror
+                        </div>
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                <textarea class="textarea"
+                                          placeholder="Normal textarea" name="description">{{ $task->description }}</textarea>
+                            </div>
+                            @error('description') <p class="help is-danger">{{ $message }} </p>@enderror
+                        </div>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link">Mettre à jour</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div class="card mt-5">
                 <header class="card-header">
                     <p class="card-header-title">
@@ -113,7 +168,7 @@
                         <div>
                             <h3 class="is-size-5">Livrable #{{ $deliverable->id }}</h3>
                             Lien vers le livrable: <a
-                                href="{{ $deliverable->url }}">{{ parse_url($deliverable->url)['host'] }}</a><br /><br />
+                                href="{{ $deliverable->url }}">{{ parse_url($deliverable->url)['host'] }}</a><br/><br/>
                             Membres concernés:
                             <ul>
                                 @foreach ($deliverable
@@ -121,14 +176,16 @@
             ->withPivot('level')
             ->get()
         as $user)
-                                    <li><i class="fas fa-user"></i> {{ $user->fullName }} - {{ $user->pivot->level }}</li>
+                                    <li><i class="fas fa-user"></i> {{ $user->fullName }} - {{ $user->pivot->level }}
+                                    </li>
                                 @endforeach
-                            </ul><br />
-                            Commentaires: <br />
+                            </ul>
+                            <br/>
+                            Commentaires: <br/>
                             {{ $deliverable->comments }}
                         </div>
                         @if (!$loop->last)
-                            <hr />
+                            <hr/>
                         @endif
                     @endforeach
                 </div>

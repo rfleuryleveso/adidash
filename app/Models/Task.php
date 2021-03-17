@@ -62,7 +62,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'starts_at', 'ends_at', 'started_at', 'parent_task'];
+    protected $fillable = ['name', 'description', 'starts_at', 'ends_at', 'started_at', 'parent_task', 'status'];
 
 
     /**

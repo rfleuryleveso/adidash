@@ -73,9 +73,12 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::match(['GET', 'POST'], 'tasks', [ProjectTasksController::class, 'home'])->name('tasks');
         Route::get('tasks/{task}', [ProjectTasksController::class, 'task'])->name('task');
         Route::post('tasks/{task}/grades', [ProjectTasksController::class, 'taskUpdateNotation'])->name('task.update-grades');
+        Route::post('tasks/{task}', [ProjectTasksController::class, 'update'])->name('task');
 
         Route::view('create-task', 'project-admin.create-task')->name('create-task');
         Route::post('create-task', [ProjectTasksController::class, 'create'])->name('create-task');
+
+        Route::get('members/{member}/set-rank/{rank}', [ProjectAdminController::class, 'setMemberRank'])->name('member.set-rank');
     });
 
     Route::group(['prefix' => 'committee', 'as' => 'committee.', 'middleware' => 'can:access-committee'], function () {
