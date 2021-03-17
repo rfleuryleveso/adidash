@@ -29,15 +29,20 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        
+
         Gate::before(function ($user, $ability) {
             if ($user->isAdministrator()) {
                 return true;
             }
         });
-        
+
         Gate::define('access-committee', function (User $user) {
             return $user->hasCommitteeGroup();
+        });
+
+        Gate::define('access-administration', function (User $user) {
+
+            return $user->hasAdministrationGroup();
         });
     }
 }

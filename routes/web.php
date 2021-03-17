@@ -11,6 +11,7 @@ use App\Http\Controllers\Student\DeliverableController as StudentDeliverableCont
 use App\Http\Controllers\Student\HomeController;
 use App\Http\Controllers\Student\ProjectController;
 use App\Http\Controllers\Student\TasksController as StudentTasksController;
+use App\Http\Controllers\Admin\AdminController as AdministrationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -100,5 +101,10 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::get('project/{project}/team', [CommitteeProjectController::class, 'project_team'])->name('project_team');
 
         Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
+    });
+
+    Route::group(['prefix' => 'administration', 'as' => 'administration.', 'middleware' => 'can:access-administration'], function () {
+        Route::get('', [AdministrationController::class, 'home'])->name('home');
+
     });
 });
