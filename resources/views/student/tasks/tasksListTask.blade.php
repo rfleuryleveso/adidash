@@ -1,5 +1,5 @@
 <li class="task">
-    <a href="">
+    <a href="{{route('student.tasks.task', ['task' => $task->id])}}">
         <div class="task-button"></div>
         <h2 class="task-title">{{$task->name}}</h2>
         <div class="separation-line"></div>
