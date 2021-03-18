@@ -36,6 +36,55 @@
             Agenda
         </a>
 
+<!--
+///////////////////////////////////////////
+////////////proto instance prof////////////
+///////////////////////////////////////////
+
+///Accueil spécial prof :
+///Tâches (mode prof aka notation)
+///Projets (mode prof aka notation)
+///Elèves (mode prof aka notation)
+-->
+
+        @if (Auth::user()->hasStaffGroup())
+        <div class="nav-separator"></div>
+        
+            <a href="{{ route('staff.home') }}" class="nav-header">Staff</a>
+            <a href="{{ route('staff.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+
+            <a href="{{ route('staff.tasks.home') }}">
+                <div><i class="fas fa-tasks"></i></div>
+                Tâches
+            </a>
+
+            <a href="{{ route('staff.students.home') }}">
+                <div><i class="fas fa-users"></i></div>
+                Élèves
+            </a>
+                <!--
+
+            <a href="@{{ route('staff.projects') }}">
+                <div> <i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+
+         
+            <a href="@{{ route('staff.settings') }}">
+                <div><i class="fas fa-cogs"></i></div>
+                Paramètres
+            </a>-->
+        @endif
+    
+    <!--
+///////////////////////////////////////////
+////////////fin proto instance prof////////////
+///////////////////////////////////////////
+-->
+
         @foreach (Auth::user()->ownedProjects as $project)
             <div class="nav-separator"></div>
             <a href="#" class="nav-header">{{ $project->name }}</a>
