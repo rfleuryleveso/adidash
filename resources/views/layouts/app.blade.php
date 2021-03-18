@@ -53,27 +53,24 @@
             <a href="{{ route('staff.home') }}">
                 <div><i class="fas fa-home"></i></div>
                 Accueil
+            </a>
 
             <a href="{{ route('staff.tasks.home') }}">
                 <div><i class="fas fa-tasks"></i></div>
                 Tâches
             </a>
+
+            <a href="{{ route('staff.students.home') }}">
+                <div><i class="fas fa-users"></i></div>
+                Élèves
+            </a>
                 <!--
 
-            </a>
-            <a href="@{{ route('staff.students') }}">
-                <div><i class="fas fa-users"></i></div>
-                Elèves
-            </a>
             <a href="@{{ route('staff.projects') }}">
                 <div> <i class="far fa-lightbulb"></i></div>
                 Projets
             </a>
-         
-            <a href="@{{ route('staff.tasks') }}">
-                <div><i class="fas fa-tasks"></i></div>
-                Tâches
-            </a>
+
          
             <a href="@{{ route('staff.settings') }}">
                 <div><i class="fas fa-cogs"></i></div>

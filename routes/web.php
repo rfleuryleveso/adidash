@@ -14,7 +14,7 @@ use App\Http\Controllers\Student\TasksController as StudentTasksController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
-//use App\Http\Controllers\Staff\StaffStudentsControllers as StaffStudentsController;
+use App\Http\Controllers\Staff\StaffStudentsController as StaffStudentsController;
 //use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
 use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
 //use App\Http\Controllers\Staff\StaffSettingsController as StaffSettingsController;
@@ -50,31 +50,18 @@ Route::prefix('')->middleware("auth")->group(function () {
             Route::post('update', [StaffTasksController::class, 'update'])->name('update');
         });
 
+        //Elèves
+        Route::group(["prefix" => "students", "as" => "students."], function () {  
+            Route::get('', [StaffStudentsController::class, 'home'])->name('home');  
 
- 
-        
-        
+        });
 
-        //Affichage par défaut des tâches en attente de notation
-        /*Route::get('tasks', [StaffTasksController::class, 'list'])->name('tasks.list');
-        Route::get('tasks/{task}', [StaffTasksController::class, 'show'])->name('task');
-        //Commenter les tâches
-        Route::get('tasks/{task}/comment', [StaffTasksController::class, 'comment'])->name('tasks.comment');
-        //Notation des tâches
-        Route::get('tasks/{task}/grade', [StaffTasksController::class, 'grade'])->name('tasks.grade'); 
-        //Accès au filtre d’affichage des tâches
-
-       
-*/
-
-        //Route::get('tasks/{task}', [StaffController::class, 'show'])->name('tasks');
-/*
+ /*
         ///Projets (mode prof aka notation)
         Route::get('notation', [StaffGradeController::class, 'projectNotation'])->name('projectNotation');
         ///Elèves (mode prof aka notation)
         Route::get('notation_deux', [StaffController::class, 'studentNotation'])->name('studentNotation');*
         Route::get('tasks', [StaffTasksController::class, 'tasks'])->name('tasks');
-
 
     //// EN DESSOUS A MODIFIER
 
@@ -89,7 +76,7 @@ Route::prefix('')->middleware("auth")->group(function () {
 
         ///GROUPS
         Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
-*/
+ */
 
     /////////////////////
     ////FIN PROTO ROUTE PROF///
