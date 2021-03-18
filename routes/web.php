@@ -163,6 +163,11 @@ Route::prefix('')->middleware("auth")->group(function () {
 
     Route::group(['prefix' => 'administration', 'as' => 'administration.', 'middleware' => 'can:access-administration'], function () {
         Route::get('', [AdministrationController::class, 'home'])->name('home');
+        Route::group(['prefix' => 'groups', 'as' => 'groups.'], function () {
+            Route::get('', [AdminGroupsController::class, 'home'])->name('list');
+            Route::group(['prefix' => '{group}', 'as' => 'group.'], function () {
+                Route::get('', [AdminGroupsController::class, 'edit'])->name('edit');
+                Route::post('toggleUser', [AdminGroupsController::class, 'toggleUser'])->name('toggleUser');
 
     });
 });
