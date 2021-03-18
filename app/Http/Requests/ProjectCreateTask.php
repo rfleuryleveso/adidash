@@ -3,8 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\Project;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 
 class ProjectCreateTask extends FormRequest
@@ -31,6 +29,7 @@ class ProjectCreateTask extends FormRequest
             'name' => 'required|max:255',
             'description' => 'required|max:8192',
             'tags' => 'sometimes|required|array',
+            'status' => 'sometimes|required|in:STARTED,WAITING,FINISHED,CANCELLED',
             'parent_task' => ['sometimes', 'required', 'integer', Rule::exists('tasks', 'id')->where(function ($query) {
                 $query->where('project_id', $this->route('project')->id);
             })],

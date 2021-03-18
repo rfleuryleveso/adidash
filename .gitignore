@@ -28,3 +28,7 @@ storage/
 public/dist/css
 public/dist/js
 public/mix-manifest.json
+
+.idea/
+_ide_helper.php
+.phpstorm.meta.php
