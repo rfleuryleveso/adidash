@@ -169,5 +169,8 @@ Route::prefix('')->middleware("auth")->group(function () {
                 Route::get('', [AdminGroupsController::class, 'edit'])->name('edit');
                 Route::post('toggleUser', [AdminGroupsController::class, 'toggleUser'])->name('toggleUser');
 
+            });
+
+        });
     });
 });
