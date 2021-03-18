@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminGroupToggleUser;
+use App\Http\Requests\AdminUpdateGroup;
 use App\Models\Group;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -34,5 +35,26 @@ class AdminGroupsController extends Controller
             return redirect()->back()->with('success', 'Utilisateur supprimé avec succès');
         }
 
+    }
+
+    public function update(Group $group, AdminUpdateGroup $request)
+    {
+        $group->update($request->validated());
+
+        if($request->has('is_class') && $request->get('is_class') === 'on') {
+            $group->is_class = true;
+        }
+        else {
+            $group->is_class = false;
+        }
+
+        $group->save();
+        return redirect()->back()->with('success', 'Groupe édité avec succès');
+    }
+
+    public function delete(Group $group) {
+        $group->users()->detach();
+        $group->delete();
+        return redirect()->route('administration.home');
     }
 }

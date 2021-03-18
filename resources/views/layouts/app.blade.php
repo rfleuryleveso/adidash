@@ -49,7 +49,7 @@
 
         @if (Auth::user()->hasStaffGroup())
         <div class="nav-separator"></div>
-        
+
             <a href="{{ route('staff.home') }}" class="nav-header">Staff</a>
             <a href="{{ route('staff.home') }}">
                 <div><i class="fas fa-home"></i></div>
@@ -72,13 +72,13 @@
                 Projets
             </a>
 
-         
+
             <a href="@{{ route('staff.settings') }}">
                 <div><i class="fas fa-cogs"></i></div>
                 Paramètres
             </a>-->
         @endif
-    
+
     <!--
 ///////////////////////////////////////////
 ////////////fin proto instance prof////////////
@@ -129,6 +129,10 @@
             <a href="{{ route('administration.home') }}">
                 <div><i class="fas fa-home"></i></div>
                 Accueil
+            </a>
+            <a href="{{ route('administration.groups.list') }}">
+                <div><i class="fas fa-users"></i></div>
+                Groupes
             </a>
         @endif
     </div>
