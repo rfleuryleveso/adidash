@@ -10,7 +10,7 @@
         @foreach ($groups as $group)
             @foreach ($group->projects as $project)
                 <div class="column is-one-quarter ">
-                    <a href="{{ route('student.project', ['project' => $project->id]) }}">
+                    <a href="{{ route('student.projects.project.details', ['project' => $project->id]) }}">
                         <div class="box @if ($project->background_image) project-has-background has-text-white @endif" @if ($project->background_image) style="background-image:
                                 url('{{ $project->background_image }}')" @endif>
                             <p class="is-size-4">{{ $project->name }}</p>

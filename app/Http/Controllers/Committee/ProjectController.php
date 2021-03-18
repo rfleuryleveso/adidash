@@ -68,7 +68,7 @@ class ProjectController extends CommitteeController
     * @return \Illuminate\Http\Response
     */
     public function createProject(CommitteeCreateProjectRequest $request)
-    {   
+    {
         $project = new Project;
         $project->name = $request->get('name');
         $project->save();
@@ -78,15 +78,15 @@ class ProjectController extends CommitteeController
             $group = Group::find($groupId);
             $group->projects()->attach($project);
         }
-        
+
         foreach ($request->get('project-chiefs') as $chiefId) {
             // Create the relation and notify the chief
             $chief = User::find($chiefId);
-            $chief->linkedProjects()->attach($project, ['relation_type' => 3]);
+            $chief->ownedProjects()->attach($project, ['relation_type' => 3]);
             $chief->notify(new ProjectAwaitingConfiguration($project));
         }
 
-        
+
 
         return redirect()->route('committee.project', ['project' => $project->id])->with('success', "Projet {$project->name} créer avec succès");
     }

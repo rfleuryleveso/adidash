@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="/dist/css/bulma.css" />
     <link rel="stylesheet" href="/dist/css/app.css" />
     <link rel="stylesheet" href="/dist/css/choices.min.css" />
+    <link rel="stylesheet" href="/dist/css/bulma-tooltip.min.css" />
     @stack('styles')
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
         rel="stylesheet" />
-    
+
 </head>
 
 <body>
@@ -26,7 +27,7 @@
             <div><i class="fas fa-tasks"></i></div>
             Tâches
         </a>
-        <a href="{{ route('student.projects') }}">
+        <a href="{{ route('student.projects.list') }}">
             <div><i class="far fa-lightbulb"></i></div>
             Projets
         </a>
@@ -121,6 +122,15 @@
                 Tags
             </a>
         @endif
+
+        @if (Auth::user()->hasAdministrationGroup())
+            <div class="nav-separator"></div>
+            <a href="{{ route('administration.home') }}" class="nav-header">Administration</a>
+            <a href="{{ route('administration.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+        @endif
     </div>
 
     <div class="page-content">
@@ -161,13 +171,18 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('error'))
+                <div class="notification is-danger mb-2">
+                    {{ session('error') }}
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <script src="/dist/js/app.js"></script>
     <script src="/dist/js/choices.min.js"></script>
-    
+
     @stack('scripts')
 </body>
 

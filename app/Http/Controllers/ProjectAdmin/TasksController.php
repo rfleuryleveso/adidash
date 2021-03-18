@@ -26,13 +26,12 @@ class TasksController extends Controller
                 $tasksQuery->whereIn('status', $request->input('status'));
             }
             if ($request->has('name')) {
-                $tasksQuery->where('name', 'LIKE', '%'. $request->input('name') . '%');
+                $tasksQuery->where('name', 'LIKE', '%' . $request->input('name') . '%');
             }
         }
         $tasks = $tasksQuery->paginate(10);
         return view('project-admin.tasks', ['project' => $project, 'tasks' => $tasks]);
     }
-
 
 
     public function create(ProjectCreateTask $request)
@@ -70,4 +69,10 @@ class TasksController extends Controller
         }
         return redirect()->back()->with('success', 'Notes mises à jour');
     }
+
+    public function update(ProjectCreateTask $request) {
+        $request->task->update($request->validated());
+        return redirect()->back()->with('success', 'Tâche mise à jour');
+    }
+
 }
