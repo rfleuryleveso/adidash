@@ -1,6 +1,7 @@
 require("./bootstrap");
 require("./taskModal");
 require("./calendar");
+require("./header");
 
 const dropdown = document.querySelector(".dropdown");
 const dropdownMenu = document.querySelector(".dropdown-menu");
@@ -19,3 +20,19 @@ dropdownMenu.addEventListener("mouseleave", function(event) {
         hovered = false;
     }
 });
+
+burgerBtn = document.querySelector(".mobile-btn");
+closeBtn = document.querySelector(".mobile-close-btn");
+
+sidebar = document.querySelector(".sidebar")
+
+
+burgerBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    sidebar.classList.toggle("slide-in");
+})
+closeBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    sidebar.classList.toggle("slide-in");
+
+})

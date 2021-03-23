@@ -11,7 +11,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .project-item {
+    .project-item:not(.has-text-danger, .has-text-warning, .has-text-info) {
         color: white;
         background-color: black;
 

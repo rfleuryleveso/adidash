@@ -66,9 +66,9 @@
 
 @media (prefers-color-scheme: dark) {
     .card-content,
-    .card-content * {
-        color: white !important;
-        background: black;
+    .card-content
+        *:not(.has-text-danger, .has-text-warning, .has-text-info, svg, .error-message) {
+        color: white;
     }
 
     .pagination-previous span,

@@ -38,7 +38,7 @@
     .commitee {
         background: black !important;
 
-        * {
+        *:not(.has-text-danger, .has-text-warning, .has-text-info) {
             color: white !important;
         }
 
@@ -50,7 +50,7 @@
     .commitee-tags .box {
         background: black !important;
 
-        * {
+        *:not(.has-text-danger, .has-text-warning, .has-text-info) {
             color: white !important;
         }
 
@@ -62,7 +62,7 @@
     .commitee-projects {
         background: black !important;
 
-        * {
+        *:not(.has-text-danger, .has-text-warning, .has-text-info) {
             color: white !important;
         }
 
