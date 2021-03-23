@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ProjectAdmin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
 use \Carbon\Carbon;
@@ -31,8 +32,8 @@ class ProjectAdminController extends Controller
                 ]
             )->get();
         // Check for tasks within the bounds
-        
-        $members = $project->members;
+
+        $members = $project->members()->withPivot('relation_type')->get();
         $tasksIds = $project->tasks()->pluck('id')->all();
         return view('project-admin.index', ['project' => $project, 'members' => $members, 'tasksIds' => $tasksIds, 'finished_tasks' => $finished_tasks]);
     }
@@ -42,5 +43,16 @@ class ProjectAdminController extends Controller
         $project->update($request->validated());
         $project->save();
         return redirect()->back()->with('success', 'Projet mis à jour avec succès');
+    }
+
+    public function setMemberRank(Project $project, User $member, $rank)
+    {
+        if ($rank != 0 && $rank != 2) {
+            return redirect()->back()->with('error', 'Rang invalide');
+        }
+        $member->projects()->updateExistingPivot($project->id, [
+            'relation_type' => $rank
+        ]);
+        return redirect()->back()->with('success', 'Membre mis à jour');
     }
 }

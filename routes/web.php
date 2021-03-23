@@ -11,7 +11,18 @@ use App\Http\Controllers\Student\DeliverableController as StudentDeliverableCont
 use App\Http\Controllers\Student\HomeController;
 use App\Http\Controllers\Student\ProjectController;
 use App\Http\Controllers\Student\TasksController as StudentTasksController;
+use App\Http\Controllers\Admin\AdminController as AdministrationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminGroupsController;
+
+use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
+use App\Http\Controllers\Staff\StaffStudentsController as StaffStudentsController;
+
+//use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
+use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
+
+//use App\Http\Controllers\Staff\StaffSettingsController as StaffSettingsController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,15 +35,51 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::prefix('')->middleware("auth")->group(function () {
+    /////////////////////
+    ///PROTO ROUTE PROF//
+    /////////////////////
+    Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => 'can:access-staff'], function () {
+
+        //Accueil
+        Route::get('', [StaffHomeController::class, 'home'])->name('home');
+
+        //Tâches
+        Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
+            Route::get('', [StaffTasksController::class, 'home'])->name('home');
+            Route::match(['GET', 'POST'], 'tasks', [StaffTasksController::class, 'home'])->name('home');
+            Route::get('{task}', [StaffTasksController::class, 'task'])->name('task');
+            Route::post('{task}/grades', [StaffTasksController::class, 'StaffUpdateNotation'])->name('task.update-grades');
+            Route::post('update', [StaffTasksController::class, 'update'])->name('update');
+        });
+
+        //Elèves
+        Route::group(["prefix" => "students", "as" => "students."], function () {
+            Route::get('', [StaffStudentsController::class, 'home'])->name('home');
+
+        });
+
+
+    });
     Route::group(["prefix" => "", "as" => "student."], function () {
         Route::get('', [HomeController::class, 'home'])->name('home');
 
-        Route::get('projects', [ProjectController::class, 'index'])->name('projects');
-        Route::get('project/{project}', [ProjectController::class, 'show'])->name('project');
+        Route::group(["prefix" => "projects", "as" => "projects."], function () {
+            Route::get('', [ProjectController::class, 'index'])->name('list');
+            Route::group(["prefix" => "{project}", "as" => "project."], function () {
+                Route::get('', [ProjectController::class, 'show'])->name('details');
+
+                Route::get('join', [ProjectController::class, 'join'])->name('join');
+                Route::get('leave', [ProjectController::class, 'leave'])->name('leave');
+            });
+
+        });
+
 
         Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
             Route::get('', [StudentTasksController::class, 'index'])->name('index');
+
             Route::get('{task}', [StudentTasksController::class, 'show'])->name('task');
 
             Route::get('{task}/join', [StudentTasksController::class, 'join'])->name('task.join');
@@ -64,12 +111,15 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::match(['GET', 'POST'], 'tasks', [ProjectTasksController::class, 'home'])->name('tasks');
         Route::get('tasks/{task}', [ProjectTasksController::class, 'task'])->name('task');
         Route::post('tasks/{task}/grades', [ProjectTasksController::class, 'taskUpdateNotation'])->name('task.update-grades');
+        Route::post('tasks/{task}', [ProjectTasksController::class, 'update'])->name('task');
 
         Route::view('create-task', 'project-admin.create-task')->name('create-task');
         Route::post('create-task', [ProjectTasksController::class, 'create'])->name('create-task');
+
+        Route::get('members/{member}/set-rank/{rank}', [ProjectAdminController::class, 'setMemberRank'])->name('member.set-rank');
     });
 
-    Route::group(['prefix' => 'committee', 'as' => 'committee.',  'middleware' => 'can:access-committee'], function () {
+    Route::group(['prefix' => 'committee', 'as' => 'committee.', 'middleware' => 'can:access-committee'], function () {
         Route::get('', [CommitteeController::class, 'home'])->name('home');
 
         Route::get('tags', [CommitteeTagsController::class, 'list'])->name('tags.list');
@@ -88,5 +138,19 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::get('project/{project}/team', [CommitteeProjectController::class, 'project_team'])->name('project_team');
 
         Route::get('groups', [CommitteeController::class, 'groups'])->name('groups');
+    });
+
+    Route::group(['prefix' => 'administration', 'as' => 'administration.', 'middleware' => 'can:access-administration'], function () {
+        Route::get('', [AdministrationController::class, 'home'])->name('home');
+        Route::group(['prefix' => 'groups', 'as' => 'groups.'], function () {
+            Route::get('', [AdminGroupsController::class, 'home'])->name('list');
+            Route::group(['prefix' => '{group}', 'as' => 'group.'], function () {
+                Route::get('', [AdminGroupsController::class, 'edit'])->name('edit');
+                Route::post('toggleUser', [AdminGroupsController::class, 'toggleUser'])->name('toggleUser');
+                Route::post('update', [AdminGroupsController::class, 'update'])->name('update');
+                Route::get('delete', [AdminGroupsController::class, 'delete'])->name('delete');
+            });
+
+        });
     });
 });

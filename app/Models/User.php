@@ -225,6 +225,28 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's administration group
+     *
+     * @return Group
+     */
+    public function getAdministrationGroups()
+    {
+        return $this->groups()->where('rank', 4);
+    }
+
+    /**
+     * Check if the user has an administration group
+     *
+     * @return Boolean
+     */
+    public function hasAdministrationGroup()
+    {
+        return $this->getAdministrationGroups()->first() != null;
+    }
+
+
+
+    /**
      * Checks if the user is an administrator.
      * Currently unused
      *

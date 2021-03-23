@@ -48,7 +48,7 @@ class ProjectPolicy {
 	 * @return mixed
 	 */
 	public function update(User $user, Project $project) {
-		return $user->ownedProjects()->find($project->id) != null || $user->hasComityGroup() || $user->hasStaffGroup();
+		return $user->ownedProjects()->find($project->id) != null || $user->hasCommitteeGroup() || $user->hasStaffGroup();
 	}
 
 	/**

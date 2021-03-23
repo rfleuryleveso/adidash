@@ -62,7 +62,7 @@ class Task extends Model
      *
      * @var array
      */
-    protected $fillable = ['name', 'description', 'starts_at', 'ends_at', 'started_at', 'parent_task'];
+    protected $fillable = ['name', 'description', 'starts_at', 'ends_at', 'started_at', 'parent_task', 'status'];
 
 
     /**
@@ -105,6 +105,17 @@ class Task extends Model
     public function grades()
     {
         return $this->hasMany(Grade::class);
+    }
+
+    /**
+     * Scope a query to only include active users.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeAvailable($query)
+    {
+        return $query->whereIn('status', ['WAITING', 'STARTED']);
     }
 
     /**

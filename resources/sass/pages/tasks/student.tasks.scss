@@ -1,128 +1,134 @@
-.tasks-list {
-    .tasks-title-row {
-        display: flex;
-        width: fit-content;
-        align-items: center;
+.page-student-tasks-tasks {
+    .tasks-list {
+        .tasks-title-row {
+            display: flex;
+            width: fit-content;
+            align-items: center;
+            justify-content: flex-start;
+            cursor: pointer;
+        }
+    }
+
+    .rotate-right {
+        transform: rotate(90deg);
+        transition: All 0.25s ease-in-out;
+    }
+
+    .task-section-title {
+        text-transform: none !important;
+        font-weight: 700 !important;
+        margin: 10px 0 !important;
+        margin-left: 10px !important;
+    }
+
+    .element-task {
         justify-content: flex-start;
-        cursor: pointer;
-    }
-}
-
-.rotate-right {
-    animation: rotate-right 0.2s forwards;
-}
-
-.rotate-back {
-    animation: rotate-right 0.2s reverse;
-}
-
-.task-section-title {
-    text-transform: none !important;
-    font-size: 1.5em;
-    font-weight: 700 !important;
-    margin: 10px 0 !important;
-    margin-left: 10px !important;
-}
-
-.element-task {
-    justify-content: flex-start;
-    padding-left: 25px;
-    flex-direction: column;
-    margin: 0 !important;
-    display: none;
-}
-
-.show-flex {
-    display: flex;
-}
-
-.task {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px 10px;
-    margin-bottom: 10px;
-    width: 90%;
-    max-width: 900px;
-    height: fit-content;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    .task-title {
-        color: rgb(0, 0, 0);
-        text-transform: none;
-        width: 35%;
-        margin: 0 !important;
-        font-size: 1em;
-        font-weight: 700;
-    }
-
-    .task-button {
-        width: 35px;
-        height: 35px;
-        border-radius: 7.5px;
-        border: 1px solid rgb(125, 125, 125);
-        cursor: pointer;
-    }
-
-    .first-separation-line,
-    .separation-line {
-        width: 2px;
-        height: 30px;
-        background-color: black;
-    }
-    .task-deadline-box {
-        display: flex;
-        justify-content: space-between !important;
         align-items: center;
-        font-weight: 600;
-    }
-    .calendar-icon {
-        font-size: 1.25em;
-        margin-right: 10px;
-    }
-
-    .project-title {
-        width: 20%;
-        min-width: 75px;
+        flex-direction: column;
         margin: 0 !important;
-        display: flex;
-        height: 100%;
-        align-items: center;
-        font-size: 1.25em;
-        text-transform: none;
-        font-weight: 700;
+        display: none;
     }
-}
 
-.element-task li {
-    transform-origin: top center;
-    opacity: 0;
-    animation: dropdowntasks 0.15s ease-in-out forwards;
-}
+    .show-flex {
+        display: flex;
+    }
 
-.no-select {
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Old versions of Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
-}
+    .task {
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 0 0 10px rgb(200, 200, 200);
+        display: block;
+        width: 100%;
+        height: 50px;
+        & > a {
+            padding: 0 5px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            line-height: 50px;
+            text-decoration: none;
+            color: black;
 
-@keyframes dropdowntasks {
-    0% {
+            & > {
+                .task-title {
+                    color: rgb(0, 0, 0);
+                    text-transform: none;
+                    margin: 0 !important;
+
+                    font-size: 1.25em;
+                    font-weight: 700;
+                }
+
+                .task-button {
+                    width: 35px;
+                    height: 35px;
+                    border-radius: 10px;
+                    border: 1px solid rgb(125, 125, 125);
+                    cursor: pointer;
+                }
+
+                .separation-line {
+                    width: 2px;
+                    height: 60%;
+                    background-color: black;
+                }
+
+                .task-deadline-box {
+                    display: flex;
+                    align-items: center;
+                    font-weight: 600;
+                }
+
+                .calendar-icon {
+                    font-size: 1.25em;
+                    margin: 0 10px;
+                }
+
+                .project-title {
+                    width: 20%;
+                    margin: 0 !important;
+                    font-size: 1.25em;
+                    text-transform: none;
+                    font-weight: 700;
+                }
+            }
+        }
+
+
+
+    }
+
+    .element-task li {
+        transform-origin: top center;
         opacity: 0;
+        animation: dropdowntasks 0.15s ease-in-out forwards;
     }
 
-    50% {
-        opacity: 50%;
+    .no-select {
+        -webkit-touch-callout: none; /* iOS Safari */
+        -webkit-user-select: none; /* Safari */
+        -khtml-user-select: none; /* Konqueror HTML */
+        -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                         supported by Chrome, Edge, Opera and Firefox */
     }
-    100% {
-        opacity: 100%;
+
+    @keyframes dropdowntasks {
+        0% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 50%;
+        }
+        100% {
+            opacity: 100%;
+        }
     }
+
 }
 
 @keyframes rotate-right {

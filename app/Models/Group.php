@@ -48,6 +48,8 @@ class Group extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $fillable = ['name', 'parent_group', 'rank', 'auto_expire'];
+
     public function users()
     {
         return $this->belongsToMany(User::class)->using(GroupUser::class);

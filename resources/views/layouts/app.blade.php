@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/dist/css/bulma.css" />
     <link rel="stylesheet" href="/dist/css/app.css" />
     <link rel="stylesheet" href="/dist/css/choices.min.css" />
+    <link rel="stylesheet" href="/dist/css/bulma-tooltip.min.css" />
     @stack('styles')
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
@@ -26,7 +27,7 @@
             <div><i class="fas fa-tasks"></i></div>
             Tâches
         </a>
-        <a href="{{ route('student.projects') }}">
+        <a href="{{ route('student.projects.list') }}">
             <div><i class="far fa-lightbulb"></i></div>
             Projets
         </a>
@@ -34,6 +35,55 @@
             <div><i class="fas fa-calendar"></i></div>
             Agenda
         </a>
+
+<!--
+///////////////////////////////////////////
+////////////proto instance prof////////////
+///////////////////////////////////////////
+
+///Accueil spécial prof :
+///Tâches (mode prof aka notation)
+///Projets (mode prof aka notation)
+///Elèves (mode prof aka notation)
+-->
+
+        @if (Auth::user()->hasStaffGroup())
+        <div class="nav-separator"></div>
+
+            <a href="{{ route('staff.home') }}" class="nav-header">Staff</a>
+            <a href="{{ route('staff.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+
+            <a href="{{ route('staff.tasks.home') }}">
+                <div><i class="fas fa-tasks"></i></div>
+                Tâches
+            </a>
+
+            <a href="{{ route('staff.students.home') }}">
+                <div><i class="fas fa-users"></i></div>
+                Élèves
+            </a>
+                <!--
+
+            <a href="@{{ route('staff.projects') }}">
+                <div> <i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+
+
+            <a href="@{{ route('staff.settings') }}">
+                <div><i class="fas fa-cogs"></i></div>
+                Paramètres
+            </a>-->
+        @endif
+
+    <!--
+///////////////////////////////////////////
+////////////fin proto instance prof////////////
+///////////////////////////////////////////
+-->
 
         @foreach (Auth::user()->ownedProjects as $project)
             <div class="nav-separator"></div>
@@ -70,6 +120,19 @@
             <a href="{{ route('committee.tags.list') }}">
                 <div><i class="fas fa-tags"></i></div>
                 Tags
+            </a>
+        @endif
+
+        @if (Auth::user()->hasAdministrationGroup())
+            <div class="nav-separator"></div>
+            <a href="{{ route('administration.home') }}" class="nav-header">Administration</a>
+            <a href="{{ route('administration.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+            <a href="{{ route('administration.groups.list') }}">
+                <div><i class="fas fa-users"></i></div>
+                Groupes
             </a>
         @endif
     </div>
@@ -111,6 +174,11 @@
             @if (session('success'))
                 <div class="notification is-success mb-2">
                     {{ session('success') }}
+                </div>
+            @endif
+            @if (session('error'))
+                <div class="notification is-danger mb-2">
+                    {{ session('error') }}
                 </div>
             @endif
             @yield('content')
