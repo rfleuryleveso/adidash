@@ -5,8 +5,10 @@
 @section('page_name', 'Comité de projets')
 
 @section('content')
-    <div>
-        Utilisateurs: {{$users->count()}}<br/>
-        Projects: {{$projects->count()}}
+    <div class="content-container">
+        <div>
+            Utilisateurs: {{ $users->count() }}<br />
+            Projects: {{ $projects->count() }}
+        </div>
     </div>
 @endsection

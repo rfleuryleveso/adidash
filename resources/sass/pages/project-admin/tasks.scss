@@ -1,0 +1,78 @@
+.tasks-container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 50px auto;
+
+    .card {
+        width: 65%;
+        border-radius: 10px;
+    }
+
+    .card-header {
+        height: 50px;
+    }
+    .card-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        height: calc(100% - 50px);
+    }
+
+    .tag * {
+        background-color: transparent;
+    }
+
+    .filters-add {
+        width: 35%;
+        max-width: 300px;
+        .card {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            border-radius: 10px 10px 0 0;
+        }
+
+        .card-content {
+            border-radius: 0 0 10px 10px;
+        }
+
+        .select,
+        select {
+            color: black;
+            width: 100%;
+
+            option {
+                color: black !important;
+            }
+        }
+
+        .submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+            font-size: 1.15em;
+        }
+        .submit-button:hover {
+            color: white;
+        }
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .card-content,
+    .card-content
+        *:not(.has-text-danger, .has-text-warning, .has-text-info, svg, .error-message) {
+        color: white;
+    }
+
+    .pagination-previous span,
+    .pagination-next span {
+        background-color: transparent;
+    }
+}

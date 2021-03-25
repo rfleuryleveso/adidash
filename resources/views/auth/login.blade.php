@@ -3,53 +3,45 @@
 @section('title', 'Login')
 
 @section('content')
-    <div class="auth-form-box">
-        <h1 class="auth-title">Connexion :</h1>
-        <form action="/login" method="POST">
-            @csrf
 
-            <div>
-                <label for="email">Email:</label><br>
-                @if ($errors->has('email'))
-                    <div class="auth-form-input red-input">
-                    @else
-                        <div class="auth-form-input">
-                @endif
+    <div class="auth-container">
+        <div class="auth-form-box">
+            <h1 class="auth-title">Connexion :</h1>
 
-                <i class="far fa-envelope auth-icon"></i><input class="auth-field" type="text" id="email" name="email"
-                    placeholder="prenom.nom@yncrea.fr">
+            <form action="{{ route('login') }}" method="POST">
+                @csrf
+                <div class="auth-section">
+                    <label for="email">Email:</label>
+                    <input type="mail" name="email" placeholder="Adresse email" class="auth-input-field" />
+                </div>
                 @error('email')
                     <p class="error-message">{{ $message }}</p>
                 @enderror
-            </div>
-            <div>
 
-                <label for="password">Mot de passe:</label><br>
-                @if ($errors->any())
-                    <div class="auth-form-input red-input">
-                    @else
-                        <div class="auth-form-input">
-                @endif
-
-                <i class="far fa-lock auth-icon"></i><input class="auth-field" type="password" id="password" name="password"
-                    placeholder="Mot de passe">
-
+                <div class="auth-section">
+                    <label for="password">Mot de passe:</label>
+                    <input type="password" name="password" placeholder="Mot de passe" class="auth-input-field" />
+                </div>
+                <a href="#" class="forgot-password">Mot de passe oublié ?</a>
                 @error('password')
                     <p class="error-message">{{ $message }}</p>
                 @enderror
-            </div>
 
 
-            <div class="remember">
-                <label for="remember">Rester connecté ?</label>
-                <input type="checkbox" id="remember" name="remember">
-            </div>
-            <div class="form-bottom">
-                <button type="submit" class="submit-button">Se connecter</button>
-                <p class="switch-button">Pas encore inscrit ? <a href="{{ route('register') }}">Créer un compte</a>
-                </p>
-            </div>
-        </form>
+                <div class="row">
+                    <div class="remember">
+                        <input class="remember-me" name="remember" type="checkbox" />
+                        <label for="rememeber-me"> Se souvenir de moi </label>
+                    </div>
+                    <button type="submit" class="submit-button">Se connecter</button>
+                </div>
+
+
+            </form>
+            <hr class="auth-separation" />
+            <h1 class="auth-link-title">Pas encore de compte ?</h1>
+            <a href="{{ route('register') }}" class="auth-link-btn">S'inscrire sur Adidash</a>
+        </div>
     </div>
 
 

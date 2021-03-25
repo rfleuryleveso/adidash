@@ -1,4 +1,8 @@
 .page-student-tasks-tasks {
+    .student-tasks-container {
+        width: 90%;
+        margin: auto;
+    }
     .tasks-list {
         .tasks-title-row {
             display: flex;
@@ -10,8 +14,10 @@
     }
 
     .rotate-right {
-        transform: rotate(90deg);
-        transition: All 0.25s ease-in-out;
+        animation: rotate-right 0.25s forwards;
+    }
+    .rotate-back {
+        animation: rotate-back 0.25s forwards;
     }
 
     .task-section-title {
@@ -23,7 +29,6 @@
 
     .element-task {
         justify-content: flex-start;
-        align-items: center;
         flex-direction: column;
         margin: 0 !important;
         display: none;
@@ -35,11 +40,15 @@
 
     .task {
         background-color: white;
-        border-radius: 15px;
-        box-shadow: 0 0 10px rgb(200, 200, 200);
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
         display: block;
-        width: 100%;
+        width: 75%;
+        max-width: 1000px;
+        min-width: 650px;
         height: 50px;
+        margin-bottom: 10px;
+
         & > a {
             padding: 0 5px;
             width: 100%;
@@ -51,13 +60,16 @@
             color: black;
 
             & > {
-                .task-title {
-                    color: rgb(0, 0, 0);
-                    text-transform: none;
-                    margin: 0 !important;
+                .task-title-container {
+                    width: 200px;
 
-                    font-size: 1.25em;
-                    font-weight: 700;
+                    .task-title {
+                        color: rgb(0, 0, 0);
+                        text-transform: none;
+                        margin: 0;
+                        font-size: 1.25em;
+                        font-weight: 700;
+                    }
                 }
 
                 .task-button {
@@ -76,8 +88,10 @@
 
                 .task-deadline-box {
                     display: flex;
+                    justify-content: space-evenly;
                     align-items: center;
                     font-weight: 600;
+                    width: 100px;
                 }
 
                 .calendar-icon {
@@ -85,18 +99,18 @@
                     margin: 0 10px;
                 }
 
-                .project-title {
-                    width: 20%;
-                    margin: 0 !important;
-                    font-size: 1.25em;
-                    text-transform: none;
-                    font-weight: 700;
+                .project-title-container {
+                    width: 100px;
+
+                    .project-title {
+                        margin: 0 !important;
+                        font-size: 1.25em;
+                        text-transform: none;
+                        font-weight: 700;
+                    }
                 }
             }
         }
-
-
-
     }
 
     .element-task li {
@@ -128,5 +142,56 @@
             opacity: 100%;
         }
     }
+}
 
+@keyframes rotate-right {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(90deg);
+    }
+}
+
+@keyframes rotate-back {
+    0% {
+        transform: rotate(90deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .element-task {
+        .task {
+            background-color: black;
+
+            h2 {
+                color: white;
+            }
+
+            .separation-line {
+                background-color: white;
+            }
+        }
+    }
+}
+
+@media (max-width: 825px) {
+    .calendar-icon {
+        display: none;
+    }
+}
+
+@media (max-width: 450px) {
+    .task-deadline-box {
+        display: none !important;
+    }
+
+    .first-separation-line {
+        display: none !important;
+    }
 }
