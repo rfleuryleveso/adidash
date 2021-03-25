@@ -18,25 +18,31 @@
 
 <body>
     <div class="sidebar">
-        <h1>ADIDASH</h1>
-        <a class="active" href="{{ route('student.home') }}">
-            <div><i class="fas fa-home"></i></div>
-            Accueil
-        </a>
-        <a href="{{ route('student.tasks.index') }}">
-            <div><i class="fas fa-tasks"></i></div>
-            Tâches
-        </a>
-        <a href="{{ route('student.projects.list') }}">
-            <div><i class="far fa-lightbulb"></i></div>
-            Projets
-        </a>
-        <a href="{{ route('meetings.index') }}">
-            <div><i class="fas fa-calendar"></i></div>
-            Agenda
-        </a>
+        <div class="mobile-close-btn">
+            <div class="mobile-close-btn-line1"></div>
+            <div class="mobile-close-btn-line2"></div>
+        </div>
+        <img class="logo" src="dist/img/watermarks/purple/watermark-whitetext.svg">
 
-<!--
+        <nav>
+            <a class="active" href="{{ route('student.home') }}">
+                <div><i class="fas fa-home"></i></div>
+                Accueil
+            </a>
+            <a href="{{ route('student.tasks.index') }}">
+                <div><i class="fas fa-tasks"></i></div>
+                Tâches
+            </a>
+            <a href="{{ route('student.projects.list') }}">
+                <div><i class="far fa-lightbulb"></i></div>
+                Projets
+            </a>
+            <a href="{{ route('meetings.index') }}">
+                <div><i class="fas fa-calendar"></i></div>
+                Agenda
+            </a>
+
+            <!--
 ///////////////////////////////////////////
 ////////////proto instance prof////////////
 ///////////////////////////////////////////
@@ -47,24 +53,24 @@
 ///Elèves (mode prof aka notation)
 -->
 
-        @if (Auth::user()->hasStaffGroup())
-        <div class="nav-separator"></div>
+            @if (Auth::user()->hasStaffGroup())
+                <div class="nav-separator"></div>
 
-            <a href="{{ route('staff.home') }}" class="nav-header">Staff</a>
-            <a href="{{ route('staff.home') }}">
-                <div><i class="fas fa-home"></i></div>
-                Accueil
-            </a>
+                <a href="{{ route('staff.home') }}" class="nav-header">Staff</a>
+                <a href="{{ route('staff.home') }}">
+                    <div><i class="fas fa-home"></i></div>
+                    Accueil
+                </a>
 
-            <a href="{{ route('staff.tasks.home') }}">
-                <div><i class="fas fa-tasks"></i></div>
-                Tâches
-            </a>
+                <a href="{{ route('staff.tasks.home') }}">
+                    <div><i class="fas fa-tasks"></i></div>
+                    Tâches
+                </a>
 
-            <a href="{{ route('staff.students.home') }}">
-                <div><i class="fas fa-users"></i></div>
-                Élèves
-            </a>
+                <a href="{{ route('staff.students.home') }}">
+                    <div><i class="fas fa-users"></i></div>
+                    Élèves
+                </a>
                 <!--
 
             <a href="@{{ route('staff.projects') }}">
@@ -77,68 +83,74 @@
                 <div><i class="fas fa-cogs"></i></div>
                 Paramètres
             </a>-->
-        @endif
+            @endif
 
-    <!--
+            <!--
 ///////////////////////////////////////////
 ////////////fin proto instance prof////////////
 ///////////////////////////////////////////
 -->
 
-        @foreach (Auth::user()->ownedProjects as $project)
-            <div class="nav-separator"></div>
-            <a href="#" class="nav-header">{{ $project->name }}</a>
-            <a href="{{ route('project-admin.home', ['project' => $project->id]) }}">
-                <div><i class="fas fa-tools"></i></div>
-                Gestion du projet
-            </a>
-            <a href="{{ route('project-admin.tasks', ['project' => $project->id]) }}">
-                <div><i class="fas fa-tasks"></i></div>
-                Tâches
-            </a>
-            <a href="#news">
-                <div><i class="fas fa-users"></i></div>
-                Membres de l'équipe
-            </a>
-        @endforeach
+            @foreach (Auth::user()->ownedProjects as $project)
+                <div class="nav-separator"></div>
+                <a href="#" class="nav-header">{{ $project->name }}</a>
+                <a href="{{ route('project-admin.home', ['project' => $project->id]) }}">
+                    <div><i class="fas fa-tools"></i></div>
+                    Gestion du projet
+                </a>
+                <a href="{{ route('project-admin.tasks', ['project' => $project->id]) }}">
+                    <div><i class="fas fa-tasks"></i></div>
+                    Tâches
+                </a>
+                <a href="#news">
+                    <div><i class="fas fa-users"></i></div>
+                    Membres de l'équipe
+                </a>
+            @endforeach
 
-        @if (Auth::user()->hasCommitteeGroup())
-            <div class="nav-separator"></div>
-            <a href="{{ route('committee.home') }}" class="nav-header">Comité de projet</a>
-            <a href="{{ route('committee.home') }}">
-                <div><i class="fas fa-home"></i></div>
-                Accueil
-            </a>
-            <a href="{{ route('committee.users') }}">
-                <div><i class="fas fa-users"></i></div>
-                Utilisateurs
-            </a>
-            <a href="{{ route('committee.projects') }}">
-                <div><i class="far fa-lightbulb"></i></div>
-                Projets
-            </a>
-            <a href="{{ route('committee.tags.list') }}">
-                <div><i class="fas fa-tags"></i></div>
-                Tags
-            </a>
-        @endif
+            @if (Auth::user()->hasCommitteeGroup())
+                <div class="nav-separator"></div>
+                <a href="{{ route('committee.home') }}" class="nav-header">Comité de projet</a>
+                <a href="{{ route('committee.home') }}">
+                    <div><i class="fas fa-home"></i></div>
+                    Accueil
+                </a>
+                <a href="{{ route('committee.users') }}">
+                    <div><i class="fas fa-users"></i></div>
+                    Utilisateurs
+                </a>
+                <a href="{{ route('committee.projects') }}">
+                    <div><i class="far fa-lightbulb"></i></div>
+                    Projets
+                </a>
+                <a href="{{ route('committee.tags.list') }}">
+                    <div><i class="fas fa-tags"></i></div>
+                    Tags
+                </a>
+            @endif
 
-        @if (Auth::user()->hasAdministrationGroup())
-            <div class="nav-separator"></div>
-            <a href="{{ route('administration.home') }}" class="nav-header">Administration</a>
-            <a href="{{ route('administration.home') }}">
-                <div><i class="fas fa-home"></i></div>
-                Accueil
-            </a>
-            <a href="{{ route('administration.groups.list') }}">
-                <div><i class="fas fa-users"></i></div>
-                Groupes
-            </a>
-        @endif
+            @if (Auth::user()->hasAdministrationGroup())
+                <div class="nav-separator"></div>
+                <a href="{{ route('administration.home') }}" class="nav-header">Administration</a>
+                <a href="{{ route('administration.home') }}">
+                    <div><i class="fas fa-home"></i></div>
+                    Accueil
+                </a>
+                <a href="{{ route('administration.groups.list') }}">
+                    <div><i class="fas fa-users"></i></div>
+                    Groupes
+                </a>
+            @endif
+        </nav>
     </div>
 
     <div class="page-content">
         <div class="topbar">
+            <div class="mobile-btn">
+                <div class="mobile-btn-line"></div>
+                <div class="mobile-btn-line"></div>
+                <div class="mobile-btn-line"></div>
+            </div>
             <div class="notifications">
                 <p></p>
             </div>
@@ -170,6 +182,7 @@
             <h2 class="page-title">
                 @yield('page_name')
             </h2>
+            <hr class="section-separation" />
             @if (session('success'))
                 <div class="notification is-success mb-2">
                     {{ session('success') }}
@@ -181,6 +194,7 @@
                 </div>
             @endif
             @yield('content')
+
         </div>
     </div>
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>

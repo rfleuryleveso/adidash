@@ -1,6 +1,7 @@
 require("./bootstrap");
 require("./taskModal");
 require("./calendar");
+require("./header");
 
 const dropdown = document.querySelector(".dropdown");
 const dropdownMenu = document.querySelector(".dropdown-menu");
@@ -20,28 +21,18 @@ dropdownMenu.addEventListener("mouseleave", function(event) {
     }
 });
 
-// Tasks list chevron
-const myTaskListTitle = document.querySelector("#my-tasks-title");
-const myTaskList = document.querySelector("#my-tasks-list");
+burgerBtn = document.querySelector(".mobile-btn");
+closeBtn = document.querySelector(".mobile-close-btn");
 
-const availableTaskListTitle = document.querySelector("#available-tasks-title");
-const availableTaskList = document.querySelector("#available-tasks-list");
+sidebar = document.querySelector(".sidebar")
 
-if (
-    myTaskList &&
-    myTaskListTitle &&
-    availableTaskList &&
-    availableTaskListTitle
-) {
-    myTaskListTitle.addEventListener("click", function() {
-        const chevron = document.querySelector("#my-tasks-chevron");
-        chevron.classList.toggle("rotate-right");
-        myTaskList.classList.toggle("show-flex");
-    });
 
-    availableTaskListTitle.addEventListener("click", function() {
-        const chevron = document.querySelector("#available-tasks-chevron");
-        chevron.classList.toggle("rotate-right");
-        availableTaskList.classList.toggle("show-flex");
-    });
-}
+burgerBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    sidebar.classList.toggle("slide-in");
+})
+closeBtn.addEventListener("click", function(e){
+    e.preventDefault();
+    sidebar.classList.toggle("slide-in");
+
+})
