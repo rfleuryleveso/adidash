@@ -67,10 +67,21 @@ class TasksController extends Controller
                 ['grade' => $grade['grade'], 'evaluator_id' => Auth::id(), 'comments' => $grade['comments']]
             );
         }
+        $task = $request->task;
+
+        if ($request->has('notation_finished') && $request->get('notation_finished') === "on") {
+            $task->notation_status = "WAITING_FOR_STAFF";
+        } else {
+            $task->notation_status = "WAITING_FOR_CHIEF";
+        }
+
+        $task->save();
+
         return redirect()->back()->with('success', 'Notes mises à jour');
     }
 
-    public function update(ProjectCreateTask $request) {
+    public function update(ProjectCreateTask $request)
+    {
         $request->task->update($request->validated());
         return redirect()->back()->with('success', 'Tâche mise à jour');
     }

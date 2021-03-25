@@ -47,10 +47,9 @@ Route::prefix('')->middleware("auth")->group(function () {
 
         //Tâches
         Route::group(["prefix" => "tasks", "as" => "tasks."], function () {
-            Route::get('', [StaffTasksController::class, 'home'])->name('home');
             Route::match(['GET', 'POST'], 'tasks', [StaffTasksController::class, 'home'])->name('home');
             Route::get('{task}', [StaffTasksController::class, 'task'])->name('task');
-            Route::post('{task}/grades', [StaffTasksController::class, 'StaffUpdateNotation'])->name('task.update-grades');
+            Route::post('{task}/grades', [StaffTasksController::class, 'updateNotation'])->name('task.update-grades');
             Route::post('update', [StaffTasksController::class, 'update'])->name('update');
         });
 
@@ -144,11 +143,14 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::get('', [AdministrationController::class, 'home'])->name('home');
         Route::group(['prefix' => 'groups', 'as' => 'groups.'], function () {
             Route::get('', [AdminGroupsController::class, 'home'])->name('list');
+            Route::get('create', [AdminGroupsController::class, 'creation'])->name('create');
+            Route::post('create', [AdminGroupsController::class, 'create'])->name('create');
             Route::group(['prefix' => '{group}', 'as' => 'group.'], function () {
                 Route::get('', [AdminGroupsController::class, 'edit'])->name('edit');
                 Route::post('toggleUser', [AdminGroupsController::class, 'toggleUser'])->name('toggleUser');
                 Route::post('update', [AdminGroupsController::class, 'update'])->name('update');
                 Route::get('delete', [AdminGroupsController::class, 'delete'])->name('delete');
+
             });
 
         });

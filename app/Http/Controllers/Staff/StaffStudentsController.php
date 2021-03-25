@@ -17,8 +17,9 @@ use Auth;
 
 class StaffStudentsController extends Controller
 {
-    public function home(User $user, GroupUser $groupUser)
+    public function home()
     {
-        return view('staff.students.students', ['user' => $user]);
+        $users = User::all();
+        return view('staff.students.students', ['users' => $users]);
     }
 }

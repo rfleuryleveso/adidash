@@ -28,7 +28,8 @@ class StaffUpdateNotation extends FormRequest
             'grades' => ['required', 'array'],
             'grades.*.grade' => ['required', Rule::in(['-1', '0', '1', '2'])],
             'grades.*.user' => ['required', 'exists:App\Models\User,id'],
-            'grades.*.comments' => ['nullable', 'string']
+            'grades.*.comments' => ['nullable', 'string'],
+            'notation_finished' => ['nullable', 'in:on'],
         ];
     }
 }

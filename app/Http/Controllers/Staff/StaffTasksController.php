@@ -17,30 +17,37 @@ class StaffTasksController extends Controller
 {
 
     //TODO : ADD NOTATION STATUS FILTER (WAITING FOR STAFF)
-    //TODO : CHECK FILTER FUNCTIONNALITY 
+    //TODO : CHECK FILTER FUNCTIONNALITY
 
-    public function home(StaffSearchTasks $request, Project $project)
+    public function home(StaffSearchTasks $request)
     {
         $tasksQuery = (new Task)->newQuery();
-        //Building the Query block by block
+
         if ($request->ajax()) {
             return TaskResource::collection($tasksQuery->where('status', ['FINISHED'])->get());
         }
+
         if ($request->isMethod('post')) {
             if ($request->has('status')) {
                 $tasksQuery->whereIn('status', $request->input('status'));
             }
             if ($request->has('name')) {
-                $tasksQuery->where('name', 'LIKE', '%'. $request->input('name') . '%');
+                $tasksQuery->where('name', 'LIKE', '%' . $request->input('name') . '%');
             }
-            if($request->has('notation_status')) {
-                $tasksQuery->where('notation_status', 'WAITING_FOR_STAFF');
+            if ($request->has('notation_status')) {
+                $tasksQuery->whereIn('notation_status', $request->input('notation_status'));
             }
-            
+            if ($request->has('projects')) {
+                $tasksQuery->whereIn('project_id', $request->input('projects'));
+            }
+
+        }
+        else {
+            $tasksQuery->where('notation_status', 'WAITING_FOR_STAFF');
         }
         $tasks = $tasksQuery->paginate(10);
-
-        return view('staff.tasks.tasks',['project' => $project], ['tasks' => $tasks]);
+        $projects = Project::all();
+        return view('staff.tasks.tasks', ['projects' => $projects, 'tasks' => $tasks]);
     }
 
     public function task(Project $project, Task $task)
@@ -50,12 +57,12 @@ class StaffTasksController extends Controller
         return view('staff.tasks.task', ['project' => $project, 'task' => $task, 'grades' => $grades, 'canChangeGrades' => $canChangeGrades]);
     }
 
-    public function StaffUpdateNotation(StaffUpdateNotation $request)
+    public function updateNotation(StaffUpdateNotation $request)
     {
         foreach ($request->grades as $grade) {
             Grade::updateOrCreate(
-                ['task_id' => $request->task->id, 'user_id' => $grade['user'], 'evaluation_type' => 'STAFF'],
-                ['grade' => $grade['grade'], 'evaluator_id' => Auth::id(), 'comments' => $grade['comments']]
+                ['task_id' => $request->task->id, 'user_id' => $grade['user']],
+                ['grade' => $grade['grade'], 'evaluator_id' => Auth::id(), 'comments' => $grade['comments'], 'evaluation_type' => 'STAFF']
             );
         }
         return redirect()->back()->with('success', 'Notes mises à jour');

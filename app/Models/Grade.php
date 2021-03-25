@@ -41,7 +41,7 @@ class Grade extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'task_id', 'evaluator_id', 'grade', 'comments'];
+    protected $fillable = ['user_id', 'task_id', 'evaluator_id', 'grade', 'comments', 'evaluation_type'];
 
     public function task()
     {

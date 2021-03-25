@@ -72,10 +72,12 @@
                             <label class="label">Description</label>
                             <div class="control">
                                 <textarea class="textarea"
-                                          placeholder="Normal textarea" name="description">{{ $task->description }}</textarea>
+                                          placeholder="Normal textarea"
+                                          name="description">{{ $task->description }}</textarea>
                             </div>
                             @error('description') <p class="help is-danger">{{ $message }} </p>@enderror
                         </div>
+
                         <div class="field is-grouped">
                             <div class="control">
                                 <button class="button is-link">Mettre à jour</button>
@@ -92,6 +94,12 @@
                     </p>
                 </header>
                 <div class="card-content">
+                    @if($task->notation_status === "FINISHED")
+                        <div class="notification is-warning">
+                            Attention, la tâche à déja été notée par le staff. Modifier la notation renverra la tâche au
+                            staff pour notation.
+                        </div>
+                    @endif
                     <form method="post"
                           action="{{ route('project-admin.task.update-grades', ['task' => $task->id, 'project' => $project->id]) }}">
                         @csrf
@@ -111,42 +119,55 @@
                                     ->where('user_id', $user->id)
                                     ->where('evaluation_type', 'PROJETCHIEF')
                                     ->first();
+                                    $staffGrade = $grades
+                                    ->where('user_id', $user->id)
+                                    ->where('evaluation_type', 'STAFF')
+                                    ->first();
                                 @endphp
-                                @if ($canChangeGrades)
-                                    <input type="hidden" name="grades[{{$loop->index}}][user]" value="{{ $user->id }}">
-                                    <div class="select is-small">
-                                        <select name="grades[{{$loop->index}}][grade]">
-                                            <option @if (!$projectChiefGrade) selected @endif value="-1">Non noté
-                                            </option>
-                                            <option @if ($projectChiefGrade && $projectChiefGrade->grade == 0) selected
-                                                    @endif value="0">0 étoiles
-                                            </option>
-                                            <option @if ($projectChiefGrade && $projectChiefGrade->grade == 1) selected
-                                                    @endif value="1">1 étoile
-                                            </option>
-                                            <option @if ($projectChiefGrade && $projectChiefGrade->grade == 2) selected
-                                                    @endif value="2">2 étoiles
-                                            </option>
-                                        </select>
-                                    </div>
-                                @endif
+                                <input type="hidden" name="grades[{{$loop->index}}][user]" value="{{ $user->id }}">
+                                <div class="select is-small">
+                                    <select name="grades[{{$loop->index}}][grade]">
+                                        <option @if (!$projectChiefGrade) selected @endif value="-1">Non noté
+                                        </option>
+                                        <option @if ($projectChiefGrade && $projectChiefGrade->grade == 0) selected
+                                                @endif value="0">0 étoiles
+                                        </option>
+                                        <option @if ($projectChiefGrade && $projectChiefGrade->grade == 1) selected
+                                                @endif value="1">1 étoile
+                                        </option>
+                                        <option @if ($projectChiefGrade && $projectChiefGrade->grade == 2) selected
+                                                @endif value="2">2 étoiles
+                                        </option>
+                                    </select>
+                                </div>
+
                                 <textarea class="textarea mt-1" rows="2" placeholder="Entrez vos commentaires"
                                           name="grades[{{$loop->index}}][comments]">{{$projectChiefGrade ? $projectChiefGrade->comments : ''}}</textarea>
 
                                 <br/>
 
-                                <i class="fas fa-user-shield"></i> Staff: @if ($grades
-            ->where('user_id', $user->id)
-            ->where('evaluation_type', 'STAFF')
-            ->first())
-                                    {{ $grades->where('user_id', $user->id)->where('evaluation_type', 'STAFF')->first()->grade }}
+                                <i class="fas fa-user-shield"></i> Staff: @if ($staffGrade)
+                                    {{ $staffGrade->grade }}
                                     étoiles
+                                    <p>{{$staffGrade->comments}}</p>
                                 @else
                                     Pas encore noté
                                 @endif
                             </div>
                         @endforeach
+                        <hr/>
 
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input name="notation_finished"
+                                           @if($task->notation_status === "WAITING_FOR_STAFF" || $task->notation_status === "FINISHED") checked
+                                           @endif type="checkbox">
+                                    Notation finie
+                                </label>
+                            </div>
+                            <p class="help">Si vous cochez cette case, le staff pourra noter cette tache</p>
+                        </div>
                         <div class="field is-grouped mt-5">
                             <div class="control">
                                 <button class="button is-link is-small">Mettre à jour la notation</button>

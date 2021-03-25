@@ -25,12 +25,19 @@ class StaffSearchTasks extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['sometimes', 'required', 'string', 'max:255'],
+            'name' => ['sometimes', 'nullable', 'string', 'max:255'],
             'status' => ['sometimes', 'required', 'array'],
             'status.*' => [
                 'required',
                 Rule::in(['WAITING_FOR_PARENT_TASK', 'WAITING', 'STARTED', 'FINISHED', 'CANCELLED'])
-            ]
+            ],
+            'notation_status' => ['sometimes', 'required', 'array'],
+            'notation_status.*' => [
+                'required',
+                Rule::in(['WAITING_FOR_CHIEF', 'WAITING_FOR_STAFF', 'FINISHED'])
+            ],
+            'projects' => ['sometimes', 'required', 'array'],
+            'projects.*' => ['required', 'exists:App\Models\Project,id']
         ];
     }
 }

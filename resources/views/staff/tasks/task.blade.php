@@ -54,44 +54,62 @@
                                 @php
                                     $projectChiefGrade = $grades
                                     ->where('user_id', $user->id)
+                                    ->where('task_id', $task->id)
                                     ->where('evaluation_type', 'PROJETCHIEF')
                                     ->first();
+
+                                    $staffGrade = $grades
+                                    ->where('user_id', $user->id)
+                                    ->where('task_id', $task->id)
+                                    ->where('evaluation_type', 'STAFF')
+                                    ->first();
                                 @endphp
-                                @if ($canChangeGrades)
-                                    <input type="hidden" name="grades[{{$loop->index}}][user]" value="{{ $user->id }}">
-                                    <div class="select is-small">
-                                        <select name="grades[{{$loop->index}}][grade]">
-                                            <option @if (!$projectChiefGrade) selected @endif value="-1">Non noté
-                                            </option>
-                                            <option @if ($projectChiefGrade && $projectChiefGrade->grade == 0) selected
-                                                    @endif value="0">0 étoiles
-                                            </option>
-                                            <option @if ($projectChiefGrade && $projectChiefGrade->grade == 1) selected
-                                                    @endif value="1">1 étoile
-                                            </option>
-                                            <option @if ($projectChiefGrade && $projectChiefGrade->grade == 2) selected
-                                                    @endif value="2">2 étoiles
-                                            </option>
-                                        </select>
-                                    </div>
-                                @endif
-                                <textarea class="textarea mt-1" rows="2" placeholder="Entrez vos commentaires"
-                                          name="grades[{{$loop->index}}][comments]">{{$projectChiefGrade ? $projectChiefGrade->comments : ''}}</textarea>
+                                <p>{{$projectChiefGrade ? $projectChiefGrade->comments : ''}}</p>
 
                                 <br/>
 
-                                <i class="fas fa-user-shield"></i> Staff: @if ($grades
-            ->where('user_id', $user->id)
-            ->where('evaluation_type', 'STAFF')
-            ->first())
-                                    {{ $grades->where('user_id', $user->id)->where('evaluation_type', 'STAFF')->first()->grade }}
-                                    étoiles
-                                @else
-                                    Pas encore noté
-                                @endif
+                                <i class="fas fa-user-shield"></i> Staff:
+                                <input type="hidden" name="grades[{{$loop->index}}][user]" value="{{ $user->id }}">
+                                <div class="select is-small">
+                                    <select name="grades[{{$loop->index}}][grade]">
+                                        <option @if (!$staffGrade) selected @endif value="-1">Non noté
+                                        </option>
+                                        <option @if ($staffGrade && $staffGrade->grade == 0) selected
+                                                @endif value="0">0 étoiles
+                                        </option>
+                                        <option @if ($staffGrade && $staffGrade->grade == 1) selected
+                                                @endif value="1">1 étoile
+                                        </option>
+                                        <option @if ($staffGrade && $staffGrade->grade == 2) selected
+                                                @endif value="2">2 étoiles
+                                        </option>
+                                    </select>
+                                </div>
+
+                                <textarea class="textarea mt-1" rows="2" placeholder="Entrez vos commentaires"
+                                          name="grades[{{$loop->index}}][comments]">{{$staffGrade ? $staffGrade->comments : ''}}</textarea>
+
                             </div>
                         @endforeach
-
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+                        <div class="field">
+                            <div class="control">
+                                <label class="checkbox">
+                                    <input name="notation_finished"
+                                           @if($task->notation_status === "FINISHED") checked
+                                           @endif type="checkbox">
+                                    Notation finie
+                                </label>
+                            </div>
+                        </div>
                         <div class="field is-grouped mt-5">
                             <div class="control">
                                 <button class="button is-link is-small">Mettre à jour la notation</button>
@@ -113,7 +131,7 @@
                         <div>
                             <h3 class="is-size-5">Livrable #{{ $deliverable->id }}</h3>
                             Lien vers le livrable: <a
-                                href="{{ $deliverable->url }}">{{ parse_url($deliverable->url)['host'] }}</a><br /><br />
+                                href="{{ $deliverable->url }}">{{ parse_url($deliverable->url)['host'] }}</a><br/><br/>
                             Membres concernés:
                             <ul>
                                 @foreach ($deliverable
@@ -121,14 +139,16 @@
             ->withPivot('level')
             ->get()
         as $user)
-                                    <li><i class="fas fa-user"></i> {{ $user->fullName }} - {{ $user->pivot->level }}</li>
+                                    <li><i class="fas fa-user"></i> {{ $user->fullName }} - {{ $user->pivot->level }}
+                                    </li>
                                 @endforeach
-                            </ul><br />
-                            Commentaires: <br />
+                            </ul>
+                            <br/>
+                            Commentaires: <br/>
                             {{ $deliverable->comments }}
                         </div>
                         @if (!$loop->last)
-                            <hr />
+                            <hr/>
                         @endif
                     @endforeach
                 </div>

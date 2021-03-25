@@ -57,4 +57,23 @@ class AdminGroupsController extends Controller
         $group->delete();
         return redirect()->route('administration.home');
     }
+
+    public function creation() {
+        return view('administration.group-create');
+    }
+
+    public function create(AdminUpdateGroup $request) {
+        $group = new Group($request->validated());
+
+        if($request->has('is_class') && $request->get('is_class') === 'on') {
+            $group->is_class = true;
+        }
+        else {
+            $group->is_class = false;
+        }
+
+        $group->save();
+
+        return redirect()->route('administration.groups.group.edit', ['group' => $group->id]);
+    }
 }
