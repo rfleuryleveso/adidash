@@ -6,13 +6,6 @@
 
 @section('content')
 
-    @if(!Auth::user()->hasStaffGroup())
-        <div class="notification is-warning">
-            Bonjour {{Auth::user()->fullName}}, <br/>
-            Merci de confirmer votre profil auprès de l'administrateur.
-        </div>
-    @endif
-
     <div class="columns">
         <div class="column is-two-third">
             <div class="card">
@@ -32,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        
+
                             @foreach ($user as $user)
                                 <tr>
                                     <th>{{ $user->first_name }}</th>
