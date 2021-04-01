@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StaffGenerateNotationSpreadsheetRequest;
 use App\Http\Requests\StaffSearchTasks;
 use App\Http\Resources\Task as TaskResource;
 use App\Http\Requests\StaffUpdateNotation;
@@ -65,6 +66,28 @@ class StaffTasksController extends Controller
                 ['grade' => $grade['grade'], 'evaluator_id' => Auth::id(), 'comments' => $grade['comments'], 'evaluation_type' => 'STAFF']
             );
         }
-        return redirect()->back()->with('success', 'Notes mises à jour');
+
+        $task = $request->task;
+
+        if ($request->has('notation_finished') && $request->get('notation_finished') === "on") {
+            $task->notation_status = "FINISHED";
+        } else {
+            $task->notation_status = "WAITING_FOR_CHIEF";
+        }
+
+        $task->save();
+
+        if($task->notation_status == "FINISHED") {
+            return redirect()->route('staff.tasks.home')->with('success', 'Notes mises à jour');
+        }
+        else {
+            return redirect()->back()->with('success', 'Notes mises à jour');
+        }
+
+
+    }
+
+    public function generateSpreadSheet(StaffGenerateNotationSpreadsheetRequest $request) {
+
     }
 }
