@@ -32,6 +32,16 @@ services:
     networks:
       - adidash
 
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8001:80
+    environment:
+      PMA_ARBITRARY: "0"
+    networks:
+      - adidash
+
   nginx:
     image: nginx:alpine
     container_name: adidash-nginx
@@ -43,7 +53,6 @@ services:
       - ./docker-compose/nginx:/etc/nginx/conf.d/
     networks:
       - adidash
-
 networks:
   adidash:
     driver: bridge
