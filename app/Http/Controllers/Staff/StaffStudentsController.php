@@ -19,7 +19,7 @@ class StaffStudentsController extends Controller
 {
     public function home()
     {
-        $users = User::all();
+        $users = User::paginate(100);
         return view('staff.students.students', ['users' => $users]);
     }
 }
