@@ -32,12 +32,16 @@
                     <hr/>
                     @if(!$project->members->contains(Auth::user()))
                         @if($project->allow_new_member)
-                            <a class="button is-info" href="{{route('student.projects.project.join', ['project' => $project->id])}}">Rejoindre le projet</a>
+                            <a class="button is-info"
+                               href="{{route('student.projects.project.join', ['project' => $project->id])}}">Rejoindre
+                                le projet</a>
                         @else
                             Ce projet n'accepte pas de nouveaux membres
                         @endif
                     @else
-                        <a class="button is-warning"  href="{{route('student.projects.project.leave', ['project' => $project->id])}}">Quitter le projet</a>
+                        <a class="button is-warning"
+                           href="{{route('student.projects.project.leave', ['project' => $project->id])}}">Quitter le
+                            projet</a>
                     @endif
                 </div>
             </div>
@@ -90,7 +94,7 @@
                                         @endif
                                     </td>
                                     <td><a href="{{ route('student.tasks.task', ['task' => $task->id]) }}"
-                                           data-dashrole="taskModal" data-task="{{ $task->id }}"><i
+                                           data-task="{{ $task->id }}"><i
                                                 class="far fa-eye"></i></a></td>
                                 </tr>
                             @endforeach
@@ -104,16 +108,5 @@
 @endsection
 
 @push('scripts')
-    <script>
-        Array.from(document.querySelectorAll('a[data-dashrole="taskModal"]')).forEach(el => {
-            el.addEventListener("click", (event) => {
-                return 2 === event.which || event.metaKey || event.ctrlKey ? true : (() => {
-                    event.preventDefault();
-                    openTaskModal(parseInt(el.dataset.task, 10))
-                })();
-            });
-        })
-
-    </script>
 
 @endpush
