@@ -22,7 +22,7 @@
             <div class="mobile-close-btn-line1"></div>
             <div class="mobile-close-btn-line2"></div>
         </div>
-        <img class="logo" src="dist/img/watermarks/purple/watermark-whitetext.svg">
+        <img class="logo" src="/dist/image/logo.png">
 
         <nav>
             <a class="active" href="{{ route('student.home') }}">
@@ -37,21 +37,11 @@
                 <div><i class="far fa-lightbulb"></i></div>
                 Projets
             </a>
-            <a href="{{ route('meetings.index') }}">
+            <!-- <a href="{{ route('meetings.index') }}">
                 <div><i class="fas fa-calendar"></i></div>
                 Agenda
-            </a>
+            </a> -->
 
-            <!--
-///////////////////////////////////////////
-////////////proto instance prof////////////
-///////////////////////////////////////////
-
-///Accueil spécial prof :
-///Tâches (mode prof aka notation)
-///Projets (mode prof aka notation)
-///Elèves (mode prof aka notation)
--->
 
             @if (Auth::user()->hasStaffGroup())
                 <div class="nav-separator"></div>
@@ -73,12 +63,13 @@
                 </a>
                 <!--
 
-            <a href="@{{ route('staff.projects') }}">
+
+            <a href="{{ route('staff.projects.home') }}">
                 <div> <i class="far fa-lightbulb"></i></div>
                 Projets
             </a>
 
-
+<!--
             <a href="@{{ route('staff.settings') }}">
                 <div><i class="fas fa-cogs"></i></div>
                 Paramètres
