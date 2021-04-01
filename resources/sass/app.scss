@@ -163,10 +163,20 @@ div.page-content {
 }
 
 .inner {
-    padding-top: 64px;
+    padding: 64px 0 0 0;
+    width: 100%;
+    display: block;
+
+    .page-inner-body {
+        display: block;
+        width: 90%;
+        margin: 3px auto 0 auto;
+    }
 }
 
+
 .content {
+
     .content-separation {
         margin: 0 !important;
     }
