@@ -58,7 +58,7 @@
                             {{$childGroup->users()->count()}}
                         </div>
                         <div class="column">
-                            <a href="{{route('administration.groups.group.edit', ['group' => $group->id])}}"><i
+                            <a href="{{route('administration.groups.group.edit', ['group' => $childGroup->id])}}"><i
                                     class="fas fa-edit"></i> Editer</a>
                         </div>
                     </div>
