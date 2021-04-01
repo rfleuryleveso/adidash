@@ -184,7 +184,11 @@
                     {{ session('error') }}
                 </div>
             @endif
-            @yield('content')
+            <div class="page-inner-body">
+                @yield('content')
+            </div>
+
+
 
         </div>
     </div>
