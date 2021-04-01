@@ -1,0 +1,115 @@
+@media (prefers-color-scheme: dark) {
+    html {
+        background-color: #242222;
+    }
+
+    body {
+        color: white !important;
+    }
+
+    :is(select, option) .select {
+        color: #0f0f0f !important;
+    }
+
+    .sidebar {
+        background: #131212 !important;
+        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .topbar {
+        background-color: #0f0f0f;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+
+        .profile {
+            a {
+                text-decoration: none;
+                color: white;
+            }
+        }
+
+        .section-title {
+            color: white !important;
+        }
+
+        .dropdown-content {
+            background-color: #0f0f0f;
+        }
+
+        .dropdown-item:hover {
+            background-color: #242222;
+        }
+    }
+
+
+    .is-light {
+        color: black !important;
+    }
+
+    ::placeholder {
+        color: #cccccc !important;
+        opacity: 1;
+    }
+
+    :-ms-input-placeholder {
+        color: #cccccc !important;
+    }
+
+    ::-ms-input-placeholder {
+        color: #cccccc !important;
+    }
+
+    .card {
+        background-color: transparent;
+        overflow: hidden;
+
+        input,
+        textarea {
+            border-color: rgba(255, 255, 255, 0.3) !important;
+        }
+    }
+
+    .select * {
+        color: #0f0f0f !important;
+    }
+
+    .card-header {
+        background-color: rgba(119, 67, 220, 0.75);
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+    }
+
+    .card-header-title {
+        color: white;
+    }
+
+    .card-content {
+        background: rgba(93, 30, 215, 0.35);
+    }
+
+    .card-content * {
+        background: transparent;
+    }
+
+    .datetimepicker {
+        .datetimepicker-header,
+        .datetimepicker-selection-wrapper *,
+        .datetimepicker-selection-date {
+            color: #6a3ebb !important;
+        }
+
+        button {
+            color: white !important;
+        }
+
+        .datepicker-nav {
+            background: #5d1ed7 !important;
+        }
+
+        .datepicker-date {
+            color: #6a686d !important;
+        }
+
+        button {
+            color: #0f0f0f !important;
+        }
+    }
+}

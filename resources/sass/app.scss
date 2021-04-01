@@ -4,6 +4,7 @@
 @import "./pages/admin-groups.scss";
 @import "./pages/project.scss";
 @import "./pages/commitee.scss";
+@import "./pages/home.scss";
 @import "./task-modal.scss";
 
 @import "./pages/project-admin/index.scss";
@@ -15,6 +16,7 @@
 html {
     background: #f2f4f8;
 }
+
 body {
     margin: 0;
     padding: 0;
@@ -29,13 +31,14 @@ body {
 }
 
 .sidebar {
+    overflow-y: scroll;
     position: fixed;
     top: 0;
     left: 0;
     margin: 0;
     padding: 0;
     width: 240px;
-    background: #36088f;
+    background: #2d3436;
     height: 100%;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 
@@ -44,45 +47,52 @@ body {
         width: 80% !important;
         margin: 15px auto;
     }
+
+    h1 {
+        text-align: center;
+        color: white;
+        font-family: "Source Sans Pro", sans-serif;
+        font-weight: 300;
+        font-size: 3em;
+    }
+
+    a {
+        display: block;
+        color: #edeaff;
+        padding: 8px 0 8px 16px;
+        font-family: "Source Sans Pro", sans-serif;
+        text-decoration: none;
+    }
+
+    a > div {
+        display: inline-block;
+        width: 16px;
+        text-align: right;
+        margin-right: 10px;
+    }
+
+    a > div > i {
+        display: inline-block;
+        text-align: right;
+        vertical-align: middle;
+        --ggs: 0.6;
+    }
+
+    & > div.nav-separator {
+        border-top: 1px solid rgba(255, 255, 255, 0.192);
+        width: 80%;
+        margin: 10px auto 0 auto;
+    }
+
+    a.nav-header {
+        text-transform: uppercase;
+        font-weight: 100;
+        color: white;
+        font-size: 1em;
+    }
+
 }
 
-.sidebar h1 {
-    text-align: center;
-    color: white;
-    font-family: "Source Sans Pro", sans-serif;
-    font-weight: 300;
-    font-size: 3em;
-}
-.sidebar a {
-    display: block;
-    color: #edeaff;
-    padding: 8px 0 8px 16px;
-    font-family: "Source Sans Pro", sans-serif;
-    text-decoration: none;
-}
-.sidebar a > div {
-    display: inline-block;
-    width: 16px;
-    text-align: right;
-    margin-right: 10px;
-}
-
-.sidebar a > div > i {
-    display: inline-block;
-    text-align: right;
-    vertical-align: middle;
-    --ggs: 0.6;
-}
-
-.sidebar > div.nav-separator {
-    border-top: 1px solid rgba(255, 255, 255, 0.192);
-    width: 80%;
-    margin: 10px auto 0 auto;
-}
-.sidebar > a.nav-header {
-    text-transform: uppercase;
-    font-weight: 100;
-}
 
 .topbar {
     position: fixed;
@@ -92,23 +102,28 @@ body {
     background: white;
     height: 64px;
     width: 100%;
+    max-width: inherit;
     box-shadow: 0 0px 25px rgba(0, 0, 0, 0.2);
 
     .profile {
         line-height: 64px;
         margin-right: 15px;
         vertical-align: middle;
+
         a {
             text-decoration: none;
             color: black;
+
             svg {
                 margin-right: 5px;
             }
         }
+
         button {
             line-height: 64px;
         }
     }
+
     .notifications {
         line-height: 32px;
         margin-left: 15px;
@@ -118,6 +133,8 @@ body {
 div.page-content {
     margin-left: 240px;
     width: calc(100% - 240px);
+    max-width: calc(100% - 240px);
+
     h2.page-title {
         display: flex;
         align-items: center;
@@ -145,6 +162,10 @@ div.page-content {
     margin: 25px auto;
 }
 
+.inner {
+    padding-top: 64px;
+}
+
 .content {
     .content-separation {
         margin: 0 !important;
@@ -167,200 +188,7 @@ div.page-content {
         margin: auto;
     }
 
-    .summary-container {
-        width: 100%;
-        margin: 50px auto;
-        padding: 25px;
-        border-radius: 10px;
-        background-color: white;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 
-        .container {
-            width: 100%;
-        }
-
-        .summary-name {
-            margin: 0 !important;
-            margin-bottom: 25px !important;
-            padding-bottom: 5px;
-            border-bottom: 3px solid #5d1ed7;
-            width: fit-content;
-        }
-
-        ul {
-            grid-gap: 10px;
-            margin: 0;
-            margin-top: 15px;
-
-            li {
-                display: flex;
-                align-items: center;
-                font-size: 1.25em;
-                font-weight: 700;
-                padding: 5px 15px;
-                height: 50px;
-                width: fit-content;
-                color: white;
-                border-radius: 7.5px;
-                background-color: #946be3;
-                margin-top: 15px;
-
-                svg {
-                    margin-right: 25px !important;
-                }
-            }
-
-            .summary-stars {
-                background-color: #ffd45f;
-            }
-
-            .summary-works {
-                background-color: #6a3ebb;
-            }
-
-            .summary-total-stars {
-                background-color: #f1c037;
-            }
-
-            .summary-total-note {
-                background-color: #32c563;
-            }
-        }
-        .notation-grid {
-            display: flex;
-            flex-direction: column;
-        }
-    }
-
-    .project-item {
-        display: flex;
-        flex-direction: column;
-        box-sizing: content-box;
-        width: 200px;
-        height: auto;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .project-thumbnail {
-        position: relative;
-        width: 180px;
-        height: 180px;
-        background-color: #5d1ed7;
-        border-radius: 5px;
-        margin: 10px;
-        color: white;
-    }
-
-    .thumbnail-title {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: auto;
-        font-size: 1.75em;
-        font-weight: 800;
-        text-transform: uppercase;
-        font-style: italic;
-    }
-
-    .thumbnail-user {
-        position: absolute;
-        display: flex;
-        align-items: baseline;
-        color: white;
-        font-weight: 600;
-        right: 5px;
-        bottom: 5px;
-        font-size: 0.9em;
-    }
-    .thumbnail-user svg {
-        font-size: 0.9em;
-        margin-right: 5px;
-        color: rgb(255, 196, 0) !important;
-    }
-
-    .project-title {
-        font-size: 1.1em !important;
-        font-weight: 400;
-        margin: 5px 0 0px 10px !important;
-    }
-
-    .project-item p {
-        font-size: 0.75em;
-        margin: 0 10px;
-        margin-top: 10px;
-        color: #141313 !important;
-    }
-
-    .task-item {
-        margin: 25px 0;
-        width: 300px;
-        height: 150px;
-        border-radius: 15px;
-        overflow: hidden;
-        background-color: white;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-    .task-content {
-        box-sizing: border-box;
-        height: 115px;
-        padding: 15px;
-
-        padding-bottom: 10px !important;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-
-    .task-title {
-        font-size: 1em !important;
-        font-weight: 400;
-        margin: 0 !important;
-        margin-bottom: 2.5px !important;
-    }
-
-    .task-description {
-        font-size: 0.75em;
-        margin: 0;
-        height: 40px;
-    }
-
-    .task-info {
-        display: flex;
-        align-items: center;
-    }
-
-    .task-info ul {
-        display: flex;
-        align-items: center;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        margin-left: 10px;
-        color: #5d1ed7;
-
-        li {
-            margin: 0;
-            margin-left: 2.5px;
-        }
-    }
-
-    .task-project {
-        background-color: #946be3;
-        height: 35px;
-        padding: 0 15px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .task-project-title {
-        margin: 0 !important;
-        font-size: 1.25em !important;
-        color: white;
-    }
 }
 
 .submit-button {
@@ -393,6 +221,7 @@ div.page-content {
     background-color: #5d1ed7 !important;
     border: #5d1ed7 !important;
 }
+
 .button:hover {
     background-color: #5121af !important;
     border: #5121af !important;
@@ -401,189 +230,9 @@ div.page-content {
 .is-light {
     background-color: #eef3fc !important;
 }
+
 .is-light:hover {
     background-color: #dfe3e9 !important;
-}
-
-@media (prefers-color-scheme: dark) {
-    html {
-        background-color: #242222;
-    }
-
-    body {
-        color: white !important;
-    }
-
-    .select :is(select, option) {
-        color: #0f0f0f !important;
-    }
-
-    .sidebar {
-        background: #131212 !important;
-        box-shadow: 5px 0 25px rgba(0, 0, 0, 0.2);
-    }
-
-    .topbar {
-        background-color: #0f0f0f;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-
-        .profile {
-            a {
-                text-decoration: none;
-                color: white;
-            }
-        }
-
-        .section-title {
-            color: white !important;
-        }
-
-        .dropdown-content {
-            background-color: #0f0f0f;
-        }
-        .dropdown-item:hover {
-            background-color: #242222;
-        }
-    }
-
-    .section-separation {
-        background-color: #3f3f3f !important;
-    }
-
-    .content {
-        .content-separation {
-            border-color: #6a686d;
-        }
-
-        .section-line {
-            background-color: #3f3f3f !important;
-        }
-        .section-title {
-            color: white;
-        }
-
-        .summary-container {
-            background-color: #0f0f0f;
-            color: white !important;
-
-            h5 {
-                color: white;
-            }
-        }
-
-        .project-item {
-            background-color: #141313;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .project-title {
-            color: white;
-        }
-
-        .project-thumbnail {
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .thumbnail-user {
-            color: white;
-        }
-
-        .project-item p {
-            color: #a6a4ab !important;
-        }
-
-        .task-item {
-            h1 {
-                color: white;
-            }
-            color: #e4e9f0;
-            background-color: #131212;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .task-project {
-            background-color: #505050;
-        }
-    }
-    .summary-container {
-        color: white !important;
-        .summary-name {
-            color: white;
-        }
-    }
-
-    .is-light {
-        color: black !important;
-    }
-
-    ::placeholder {
-        /* Chrome, Firefox, Opera, Safari 10.1+ */
-        color: #cccccc !important;
-        opacity: 1; /* Firefox */
-    }
-
-    :-ms-input-placeholder {
-        /* Internet Explorer 10-11 */
-        color: #cccccc !important;
-    }
-
-    ::-ms-input-placeholder {
-        /* Microsoft Edge */
-        color: #cccccc !important;
-    }
-
-    .card {
-        background-color: transparent;
-        overflow: hidden;
-
-        input,
-        textarea {
-            border-color: rgba(255, 255, 255, 0.3) !important;
-        }
-    }
-
-    .select * {
-        color: #0f0f0f !important;
-    }
-
-    .card-header {
-        background-color: rgba(119, 67, 220, 0.75);
-        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
-    }
-
-    .card-header-title {
-        color: white;
-    }
-
-    .card-content {
-        background: rgba(93, 30, 215, 0.35);
-    }
-
-    .card-content * {
-        background: transparent;
-    }
-
-    .datetimepicker {
-        .datetimepicker-header,
-        .datetimepicker-selection-wrapper *,
-        .datetimepicker-selection-date {
-            color: #6a3ebb !important;
-        }
-        button {
-            color: white !important;
-        }
-        .datepicker-nav {
-            background: #5d1ed7 !important  ;
-        }
-
-        .datepicker-date {
-            color: #6a686d !important;
-        }
-
-        button {
-            color: #0f0f0f !important;
-        }
-    }
 }
 
 .mobile-btn {
@@ -661,6 +310,7 @@ div.page-content {
 .slide-in {
     animation: sidebar 0.5s forwards;
 }
+
 .slide-out {
     animation: sidebar 0.5s backwards;
 }
@@ -694,9 +344,4 @@ div.page-content {
     h2.page-title {
         justify-content: center;
     }
-}
-
-.row {
-    display: flex;
-    justify-content: space-between;
 }
