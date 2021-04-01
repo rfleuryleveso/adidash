@@ -26,6 +26,7 @@ class AdminUpdateGroup extends FormRequest
 
         return [
             'name' => ['required', 'string'],
+            'description' => ['required', 'string'],
             'parent_group' => ['nullable', 'exists:App\Models\Group,id'],
             'is_class' => ['nullable', 'in:on'],
             'rank' => ['required', 'in:0,1,2,3,4,5'],

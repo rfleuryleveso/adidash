@@ -30,6 +30,13 @@
                                         @error('name') <p class="help is-danger">{{ $message }} </p>@enderror
                                     </div>
                                     <div class="field">
+                                        <label class="label">Description</label>
+                                        <div class="control">
+                                            <input class="input" type="text" name="description" value="{{$group->description}}">
+                                        </div>
+                                        @error('description') <p class="help is-danger">{{ $message }} </p>@enderror
+                                    </div>
+                                    <div class="field">
                                         <label class="label">Groupe parent</label>
                                         <div class="control">
                                             <div class="select">
