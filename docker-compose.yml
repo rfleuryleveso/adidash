@@ -47,10 +47,11 @@ services:
     container_name: adidash-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 8000:443
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
+      - ./docker-compose/nginx-ssl:/etc/nginx/ssl/
     networks:
       - adidash
 networks:
