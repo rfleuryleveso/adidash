@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 
-class CreateNewUser implements CreatesNewUsers
+class
+CreateNewUser implements CreatesNewUsers
 {
 	use PasswordValidationRules;
 
@@ -30,6 +31,7 @@ class CreateNewUser implements CreatesNewUsers
 				'max:255',
 				Rule::unique(User::class),
 			],
+            'regex:/(.*)student\.junia\.com$/i',
 			'password' => $this->passwordRules(),
 		])->validate();
 		return User::create([
