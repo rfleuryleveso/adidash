@@ -18,7 +18,7 @@ use App\Http\Controllers\Admin\AdminGroupsController;
 use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
 use App\Http\Controllers\Staff\StaffStudentsController as StaffStudentsController;
 
-//use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
+use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
 use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
 
 //use App\Http\Controllers\Staff\StaffSettingsController as StaffSettingsController;
@@ -51,14 +51,20 @@ Route::prefix('')->middleware("auth")->group(function () {
             Route::get('{task}', [StaffTasksController::class, 'task'])->name('task');
             Route::post('{task}/grades', [StaffTasksController::class, 'updateNotation'])->name('task.update-grades');
             Route::post('update', [StaffTasksController::class, 'update'])->name('update');
+
+            Route::post('genSpreadSheet', [StaffTasksController::class, 'generateSpreadSheet'])->name('genSpreadsheet');
         });
 
         //Elèves
         Route::group(["prefix" => "students", "as" => "students."], function () {
             Route::get('', [StaffStudentsController::class, 'home'])->name('home');
-
+            Route::get('{user}', [StaffStudentsController::class, 'student'])->name('student');
         });
 
+        Route::group(["prefix" => "projects", "as" => "projects."], function () {
+            Route::get('', [StaffProjectsController::class, 'home'])->name('home');
+            Route::get('{project}', [StaffProjectsController::class, 'project'])->name('project');
+        });
 
     });
     Route::group(["prefix" => "", "as" => "student."], function () {
