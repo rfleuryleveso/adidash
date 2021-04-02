@@ -30,6 +30,6 @@ mix.sass("resources/sass/app.scss", "public/dist/css")
 
     .js("resources/js/project-admin/create-task.js", "public/dist/js/create-task.js")
     .js('node_modules/choices.js/public/assets/scripts/choices.min.js', 'public/dist/js/choices.min.js')
-
+    .js('resources/js/tasks.js', 'public/dist/js/tasks.js')
     .js('resources/js/app.js', 'public/dist/js/app.js')
     .js('resources/js/calendar/index.js', 'public/dist/js/calendar.js')
