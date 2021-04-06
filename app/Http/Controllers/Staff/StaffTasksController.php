@@ -87,7 +87,5 @@ class StaffTasksController extends Controller
 
     }
 
-    public function generateSpreadSheet(StaffGenerateNotationSpreadsheetRequest $request) {
 
-    }
 }

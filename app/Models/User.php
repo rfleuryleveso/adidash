@@ -145,6 +145,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's grades
+     *
+     * @return [Grade]
+     */
+    public function grades()
+    {
+        return $this->hasMany(Grade::class, 'user_id');
+    }
+
+    /**
      * Helper functions for groups
      */
 

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Group as GroupResource;
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\Group;
 use App\Models\Project;
 
 class StaffHomeController extends Controller
 {
     public function home()
-    {    
+    {
         $tasksAwaitingNotation = Task::where(
             [
                 ['status', 'FINISHED'],
@@ -31,5 +33,18 @@ class StaffHomeController extends Controller
 
         return view('staff.home.home', ['tasksAwaitingNotation'=>$tasksAwaitingNotation], ['projectAwaitingNotation'=>$projectAwaitingNotation]);
     }
+    /**
+     * Displays the groups
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function groups(Request $request)
+    {
+        $groups = Group::where('is_class', true)->get();
+        if($request->ajax()){
+            return GroupResource::collection($groups);
+        }
 
+        return "";
+    }
 }

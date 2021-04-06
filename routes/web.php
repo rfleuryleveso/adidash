@@ -21,7 +21,7 @@ use App\Http\Controllers\Staff\StaffStudentsController as StaffStudentsControlle
 use App\Http\Controllers\Staff\StaffProjectsController as StaffProjectsController;
 use App\Http\Controllers\Staff\StaffTasksController as StaffTasksController;
 
-//use App\Http\Controllers\Staff\StaffSettingsController as StaffSettingsController;
+use App\Http\Controllers\Staff\StaffGradesController as StaffGradesController;
 
 
 /*
@@ -41,7 +41,7 @@ Route::prefix('')->middleware("auth")->group(function () {
     ///PROTO ROUTE PROF//
     /////////////////////
     Route::group(['prefix' => 'staff', 'as' => 'staff.', 'middleware' => 'can:access-staff'], function () {
-
+        Route::get('groups', [StaffHomeController::class, 'groups'])->name('groups');
         //Accueil
         Route::get('', [StaffHomeController::class, 'home'])->name('home');
 
@@ -52,7 +52,7 @@ Route::prefix('')->middleware("auth")->group(function () {
             Route::post('{task}/grades', [StaffTasksController::class, 'updateNotation'])->name('task.update-grades');
             Route::post('update', [StaffTasksController::class, 'update'])->name('update');
 
-            Route::post('genSpreadSheet', [StaffTasksController::class, 'generateSpreadSheet'])->name('genSpreadsheet');
+
         });
 
         //Elèves
@@ -64,6 +64,12 @@ Route::prefix('')->middleware("auth")->group(function () {
         Route::group(["prefix" => "projects", "as" => "projects."], function () {
             Route::get('', [StaffProjectsController::class, 'home'])->name('home');
             Route::get('{project}', [StaffProjectsController::class, 'project'])->name('project');
+        });
+
+        Route::group(["prefix" => "grades", "as" => "grades."], function () {
+            Route::get('', [StaffGradesController::class, 'home'])->name('home');
+
+            Route::post('gen-spreadsheet', [StaffGradesController::class, 'generateSpreadSheet'])->name('gen-spreadsheet');
         });
 
     });
