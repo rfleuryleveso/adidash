@@ -67,7 +67,7 @@
                     <div class="field">
                         <label class="label">Date de début (Optionnel)</label>
                         <div class="control">
-                            <input class="input @error('starts_at') is-danger @enderror" type="date" name="starts_at"
+                            <input data-date-format="YYYY-MM-DD" class="input @error('starts_at') is-danger @enderror" type="date" name="starts_at"
                                 placeholder="Date de début (optionnel)">
                         </div>
                         <p class="help">La tâche ne sera pas affichée avant cette date</p>
@@ -76,7 +76,7 @@
                     <div class="field">
                         <label class="label">Date de fin (Optionnel)</label>
                         <div class="control">
-                            <input class="input @error('ends_at') is-danger @enderror" type="date" name="ends_at"
+                            <input data-date-format="YYYY-MM-DD" class="input @error('ends_at') is-danger @enderror" type="date" name="ends_at"
                                 placeholder="Date de fin (optionnel)">
                         </div>
                         <p class="help">La date de fin est optionnelle, mais recommandée. Un rappel sera envoyé aux membres
