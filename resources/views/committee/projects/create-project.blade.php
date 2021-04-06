@@ -14,7 +14,7 @@
                 </p>
             </header>
             <div class="card-content project-description">
-                <form method="POST" route="{{ route('committee.create-project') }}">
+                <form method="POST" action="{{ route('committee.create-project') }}">
                     @csrf
                     <div class="field">
                         <label class="label">Nom du projet</label>
