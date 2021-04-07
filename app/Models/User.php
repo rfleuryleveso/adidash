@@ -264,6 +264,6 @@ class User extends Authenticatable
      */
     public function isAdministrator()
     {
-        return false;
+        return $this->hasAdministrationGroup();
     }
 }
