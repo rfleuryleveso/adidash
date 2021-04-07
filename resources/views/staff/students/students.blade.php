@@ -17,25 +17,26 @@
                 <div class="card-content">
                     <table class="table is-fullwidth">
                         <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Classe</th>
-                                <th>Détail</th>
-                            </tr>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Classe</th>
+                            <th>Détail</th>
+                        </tr>
                         </thead>
                         <tbody>
 
-                            @foreach ($users as $user)
-                                <tr>
-                                    <td>{{ $user->fullName }}</td>
-                                    <td>{{ $user->hasClassGroup() ? $user->getClassGroups()->first()->name : 'Pas de classe' }}</td>
-                                    <td>Soon</td>
-                                </tr>
-                            @endforeach
+                        @foreach ($users as $user)
+                            <tr>
+                                <td>{{ $user->fullName }}</td>
+                                <td>{{ $user->hasClassGroup() ? $user->getClassGroups()->first()->name : 'Pas de classe' }}</td>
+                                <td><a href="{{route('staff.students.student', ['user' => $user->id])}}">Détails</a>
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                     <div class="is-block">
-                           {{ $users->links() }}
+                        {{ $users->links() }}
                     </div>
                 </div>
             </div>

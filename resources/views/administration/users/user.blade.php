@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
-@section('title', "Administration {$user->fullName}")
+@section('title', "Staff {$user->fullName}")
 
-@section('page_name', "Administration | {$user->fullName}")
+@section('page_name', "Staff | {$user->fullName}")
 
 @section('content')
     <div class="content-container">
