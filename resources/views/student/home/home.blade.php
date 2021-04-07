@@ -20,15 +20,15 @@
                     <h3 class="summary-name">{{ Auth::user()->fullName }} :</h3>
                     <div class="row">
                         <section>
-                            <h5>Résumé de la semaine :</h5>
+                            <h5>Résumé de la semaine dernière:</h5>
                             <ul>
-                                <li class="grid-item summary-stars "><i class="fas fa-star star"></i>
-                                    <span>Etoiles : 4</span>
+                                <li class="grid-item summary-stars "><i class="fas fa-star star left-icon"></i>
+                                    <span>Etoiles : {{$gradesLastWeeks['one_star']}}x<i class="fas fa-star mr-3"></i> {{$gradesLastWeeks['two_stars']}}x<i class="fas fa-star mr-0"></i><i class="fas fa-star"></i></span>
                                 </li>
-                                <li class="grid-item summary-tasks"><i class="fas fa-check-double"></i>
+                                <li class="grid-item summary-tasks"><i class="fas fa-check-double left-icon"></i>
                                     <span>Tâches en cours : {{$tasksCount}}</span>
                                 </li>
-                                <li class="grid-item summary-works"><i class="fas fa-truck-loading"></i><span>En attente de
+                                <li class="grid-item summary-works"><i class="fas fa-truck-loading left-icon"></i><span>En attente de
                                         livrable : {{$waitingForDeliverable}}</span>
                                 </li>
                             </ul>
