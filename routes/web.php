@@ -11,8 +11,11 @@ use App\Http\Controllers\Student\DeliverableController as StudentDeliverableCont
 use App\Http\Controllers\Student\HomeController;
 use App\Http\Controllers\Student\ProjectController;
 use App\Http\Controllers\Student\TasksController as StudentTasksController;
-use App\Http\Controllers\Admin\AdminController as AdministrationController;
+
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\Admin\AdminController as AdministrationController;
+use App\Http\Controllers\Admin\AdminUsersController as AdminUsersController;
 use App\Http\Controllers\Admin\AdminGroupsController;
 
 use App\Http\Controllers\Staff\StaffHomeController as StaffHomeController;
@@ -165,6 +168,12 @@ Route::prefix('')->middleware("auth")->group(function () {
 
             });
 
+        });
+        Route::group(['prefix' => 'users', 'as' => 'users.'], function () {
+            Route::get('', [AdminUsersController::class, 'home'])->name('home');
+            Route::group(['prefix' => '{user}', 'as' => 'user.'], function () {
+                Route::get('', [AdminUsersController::class, 'edit'])->name('edit');
+            });
         });
     });
 });

@@ -124,6 +124,10 @@
                     <div><i class="fas fa-users"></i></div>
                     Groupes
                 </a>
+                <a href="{{ route('administration.users.home') }}">
+                    <div><i class="fas fa-users"></i></div>
+                    Utilisateurs
+                </a>
             @endif
         </nav>
     </div>
