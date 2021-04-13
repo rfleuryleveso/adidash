@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Staff;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Group as GroupResource;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\Group;
@@ -26,13 +27,18 @@ class StaffHomeController extends Controller
             [
                 ['status', 'STARTED'],
             ]
-            )
-        //Cross search between project id and status
-        ->whereIn('id', $projectIds)
-        ->get();
+        )
+            //Cross search between project id and status
+            ->whereIn('id', $projectIds)
+            ->get();
 
-        return view('staff.home.home', ['tasksAwaitingNotation'=>$tasksAwaitingNotation], ['projectAwaitingNotation'=>$projectAwaitingNotation]);
+        $projects = Project::all();
+        $tasks = Task::all();
+        $users = User::all();
+
+        return view('staff.home.home', ['users' => $users, 'projects' => $projects, 'tasks' => $tasks, 'tasksAwaitingNotation' => $tasksAwaitingNotation, 'projectAwaitingNotation' => $projectAwaitingNotation]);
     }
+
     /**
      * Displays the groups
      *
@@ -41,7 +47,7 @@ class StaffHomeController extends Controller
     public function groups(Request $request)
     {
         $groups = Group::where('is_class', true)->get();
-        if($request->ajax()){
+        if ($request->ajax()) {
             return GroupResource::collection($groups);
         }
 
