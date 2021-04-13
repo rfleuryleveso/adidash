@@ -17,6 +17,8 @@ class CreateGroupProjectTable extends Migration
             $table->id();
             $table->integer('group_id');
             $table->integer('project_id');
+
+            $table->index(['group_id', 'project_id']);
         });
     }
 
