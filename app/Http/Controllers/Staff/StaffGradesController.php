@@ -17,7 +17,7 @@ class StaffGradesController extends Controller
     public function home()
     {
 
-        $earliestTask = Task::orderBy('ended_at')->first();
+        $earliestTask = Task::orderBy('ended_at')->whereNotNull('ended_at')->first();
 
         return view('staff.grades.home', ['earliestTask' => $earliestTask]);
     }
@@ -28,6 +28,8 @@ class StaffGradesController extends Controller
 
 
         $matchingTasks = Task::query();
+        $matchingTasks->whereNotNull('ended_at');
+        $matchingTasks->where('notation_status', 'FINISHED');
         if ($request->start_date) {
             $matchingTasks->where('ended_at', '>', $request->start_date);
         }
@@ -36,7 +38,9 @@ class StaffGradesController extends Controller
         }
 
         $tasksIds = $matchingTasks->get()->pluck('id');
-
+        if (count($tasksIds) == 0) {
+            return redirect()->back()->with('error', 'Il n\'y à aucune tâche notée dans cet interval');
+        }
         $spreadsheet = new Spreadsheet();
         foreach ($groups as $group) {
             $groupSheet = $spreadsheet->createSheet();
@@ -85,6 +89,9 @@ class StaffGradesController extends Controller
 
                     $summary = $tasksInWeek->reduce(function ($carry, $task) use ($user) {
                         $grade = $task->grades('user_id', $user->id)->where('evaluation_type', 'STAFF')->first();
+                        if (!$grade) {
+                            return $carry;
+                        }
                         if ($grade->grade == 2) {
                             $carry['stars_two']++;
                         } elseif ($grade->grade == 1) {

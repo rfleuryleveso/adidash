@@ -19,7 +19,7 @@
                 <div class="field">
                     <label class="label">Date de début (Optionnel)</label>
                     <div class="control">
-                        <input value="{{date('Y-m-d', $earliestTask->ended_at->timestamp)}}"
+                        <input value="{{date('Y-m-d', $earliestTask ? $earliestTask->ended_at->timestamp : '2020-07-01')}}"
                                class="input @error('starts_at') is-danger @enderror" type="date" name="start_date"
                                placeholder="Date de début (optionnel)">
                     </div>
