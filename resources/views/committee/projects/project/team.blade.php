@@ -9,12 +9,34 @@
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">
-                Equipe du projet
+                Equipe du projet ({{$members->count()}} membre)
             </p>
         </header>
         <div class="card-content">
             <div class="content">
-                TODO
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom</th>
+                        <th>Classe</th>
+                        <th>Rang</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($members as $member)
+                        <tr>
+                            <th>{{$member->id}}</th>
+                            <td>{{$member->fullName}}</td>
+                            <td>{{$member->hasClassGroup() ? $member->getClassGroups()->first()->name : ''}}</td>
+                            <td>
+                                <x-project-user-relation :relation="$member->pivot->relation_type"/>
+                            </td>
+                        </tr>
+                    @endforeach
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

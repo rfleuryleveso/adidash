@@ -29,10 +29,10 @@ class ProjectController extends CommitteeController
     }
 
     /**
-    * Displays one project
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Displays one project
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function project(Project $project)
     {
         $team = $project->members()->withPivot('relation_type')->get();
@@ -40,33 +40,33 @@ class ProjectController extends CommitteeController
     }
 
     /**
-    * Displays one project tasks
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Displays one project tasks
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function project_tasks(Project $project)
     {
-        $tasks = $project->tasks();
+        $tasks = $project->tasks()->get();
         return view('committee.projects.project.tasks', ['tab' => 'tasks', 'project' => $project, 'tasks' => $tasks]);
     }
 
     /**
-    * Displays one project team
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Displays one project team
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function project_team(Project $project)
     {
-        $team = $project->members();
-        return view('committee.projects.project.team', ['tab' => 'team', 'project' => $project, 'team' => $team]);
+        $members = $project->members()->withPivot('relation_type')->get();
+        return view('committee.projects.project.team', ['tab' => 'team', 'project' => $project, 'members' => $members]);
     }
 
 
     /**
-    * Creates a project
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Creates a project
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function createProject(CommitteeCreateProjectRequest $request)
     {
         $project = new Project;
@@ -78,14 +78,12 @@ class ProjectController extends CommitteeController
             $group = Group::find($groupId);
             $group->projects()->attach($project);
         }
-
         foreach ($request->get('project-chiefs') as $chiefId) {
             // Create the relation and notify the chief
             $chief = User::find($chiefId);
             $chief->ownedProjects()->attach($project, ['relation_type' => 3]);
             $chief->notify(new ProjectAwaitingConfiguration($project));
         }
-
 
 
         return redirect()->route('committee.project', ['project' => $project->id])->with('success', "Projet {$project->name} créer avec succès");
