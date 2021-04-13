@@ -25,22 +25,6 @@
         <img class="logo" src="/dist/image/logo.png">
 
         <nav>
-            <a class="active" href="{{ route('student.home') }}">
-                <div><i class="fas fa-home"></i></div>
-                Accueil
-            </a>
-            <a href="{{ route('student.tasks.index') }}">
-                <div><i class="fas fa-tasks"></i></div>
-                Tâches
-            </a>
-            <a href="{{ route('student.projects.list') }}">
-                <div><i class="far fa-lightbulb"></i></div>
-                Projets
-            </a>
-            <!-- <a href="{{ route('meetings.index') }}">
-                <div><i class="fas fa-calendar"></i></div>
-                Agenda
-            </a> -->
 
 
             @if (Auth::user()->hasStaffGroup())
@@ -66,14 +50,20 @@
                     <div><i class="fas fa-user-graduate"></i></div>
                     Notation
                 </a>
-
+            @else
+                <a class="active" href="{{ route('student.home') }}">
+                    <div><i class="fas fa-home"></i></div>
+                    Accueil
+                </a>
+                <a href="{{ route('student.tasks.index') }}">
+                    <div><i class="fas fa-tasks"></i></div>
+                    Tâches
+                </a>
+                <a href="{{ route('student.projects.list') }}">
+                    <div><i class="far fa-lightbulb"></i></div>
+                    Projets
+                </a>
             @endif
-
-            <!--
-///////////////////////////////////////////
-////////////fin proto instance prof////////////
-///////////////////////////////////////////
--->
 
             @foreach (Auth::user()->ownedProjects as $project)
                 <div class="nav-separator"></div>

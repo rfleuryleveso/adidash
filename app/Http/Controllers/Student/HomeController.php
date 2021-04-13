@@ -13,6 +13,11 @@ class HomeController extends Controller
 {
     public function home()
     {
+        if (Auth::user()->hasStaffGroup()) {
+            return redirect()->route('staff.home');
+        }
+
+
         $tasks = Auth::user()->tasks();
         $tasksCount = $tasks->count();
         $waitingForDeliverable = $tasks->where('status', 'STARTED')
