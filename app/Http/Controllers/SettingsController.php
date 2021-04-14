@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StudentUpdatePasswordRequest;
+use Hash;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Group;
@@ -25,7 +27,7 @@ class SettingsController extends Controller
     /**
      * Updates user's settings
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -44,13 +46,13 @@ class SettingsController extends Controller
             'class_group' => ["required", "integer", Rule::in($availableGroupsIds)]
         ]);
         $forms = collect($validated);
-        
+
         // Update
-        
+
         $user = Auth::user();
         $user->fill($forms->only("first_name", "last_name", "email")->all());
         $user->save();
-        
+
         // Update class
         if (Auth::user()->hasClassGroup()) {
             $currentClassGroup = Auth::user()->getClassGroups()->first();
@@ -60,9 +62,22 @@ class SettingsController extends Controller
             ])->first();
             $pivotModel->delete();
         }
-        
+
         Auth::user()->groups()->attach($forms->get("class_group"));
-        
+
         return redirect('settings')->with('success', 'Profil mis à jour avec succès');
+    }
+
+    /**
+     * Updates user's settings
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(StudentUpdatePasswordRequest $request)
+    {
+        Auth::user()->password = Hash::make($request->password);
+        Auth::user()->save();
+        return redirect('settings')->with('success', 'Mot de passe mis à jour');
     }
 }

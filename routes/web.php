@@ -114,6 +114,7 @@ Route::prefix('')->middleware(["auth", "verified"])->group(function () {
 
     Route::get('settings', [SettingsController::class, 'home'])->name('settings');
     Route::post('settings', [SettingsController::class, 'update'])->name('settings.update');
+    Route::post('settings/password', [SettingsController::class, 'updatePassword'])->name('settings.update-password');
 
     Route::get('tags', [HomeController::class, 'tags'])->name('tags');
 
