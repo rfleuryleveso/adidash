@@ -8,42 +8,31 @@
     <div class="box">
         Cette page permet de gérer les utilisateurs.
     </div>
-    <div class="groups box">
-        <div class="columns">
-            <div class="column">
-                #
-            </div>
-            <div class="column">
-                Nom
-            </div>
-            <div class="column">
-                Classe
-            </div>
-            <div class="column">
-                Actions
-            </div>
-        </div>
-        @foreach($users as $user)
-            <div class="group parent-group">
-                <div class="columns">
-                    <div class="column is-2">
-                        {{$user->id}}
-                    </div>
-                    <div class="column">
-                        {{$user->fullName}}
-                    </div>
-                    <div class="column">
-                        {{$user->hasClassGroup() ? $user->getClassGroups()->first()->name : ""}}
-                        {{$user->hasCommitteeGroup() ? $user->getCommitteeGroups()->first()->name : ""}}
-                        {{$user->hasStaffGroup() ? $user->getStaffGroups()->first()->name : ""}}
-                    </div>
-                    <div class="column">
-                        <a href="{{route('administration.users.user.edit', ['user' => $user->id])}}"><i
+    <div class="users box">
+        <table class="table is-fullwidth">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Classe</th>
+                <th>Détail</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            @foreach ($users as $user)
+                <tr>
+                    <td>@if($user->deleted_at) <i class="fas fa-trash"></i> @endif {{$user->id}}</td>
+                    <td>{{ $user->fullName }}</td>
+                    <td>{{ $user->hasClassGroup() ? $user->getClassGroups()->first()->name : 'Pas de classe' }}</td>
+                    <td><a href="{{route('administration.users.user.edit', ['userWithDeleted' => $user->id])}}"><i
                                 class="fas fa-edit"></i> Editer</a>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+                    </td>
+                </tr>
+            @endforeach
+            </tbody>
+        </table>
+
 
     </div>
     <a class="button is-link" href="{{route('administration.users.create')}}"> Créer un nouvel utilisateur</a>

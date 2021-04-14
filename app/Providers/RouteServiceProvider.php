@@ -41,6 +41,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('user', User::class);
         Route::model('deliverable', Deliverable::class);
 
+        Route::bind('userWithDeleted', function ($value) {
+            return User::withTrashed()->find($value);
+        });
+
         parent::boot();
     }
 

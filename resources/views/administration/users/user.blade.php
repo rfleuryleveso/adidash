@@ -71,14 +71,25 @@
                         </tbody>
                     </table>
                 </div>
-
-                <form method="POST" style="display: inline" action="{{route('administration.users.user.delete', ['user' => $user->id])}}">
-                    @csrf
-                    <button type="submit" class="button is-warning">
-                        Supprimer un utilisateur <i class="far fa-trash-alt ml-3"></i>
-                    </button>
-                </form>
-                <form method="POST" style="display: inline" action="{{route('administration.users.user.deletePermanently', ['user' => $user->id])}}">
+                @if($user->deleted_at)
+                    <form method="POST" style="display: inline"
+                          action="{{route('administration.users.user.restore', ['userWithDeleted' => $user->id])}}">
+                        @csrf
+                        <button type="submit" class="button is-warning">
+                            Restorer un utilisateur <i class="fas fa-trash-restore ml-3"></i>
+                        </button>
+                    </form>
+                @else
+                    <form method="POST" style="display: inline"
+                          action="{{route('administration.users.user.delete', ['userWithDeleted' => $user->id])}}">
+                        @csrf
+                        <button type="submit" class="button is-warning">
+                            Supprimer un utilisateur <i class="far fa-trash-alt ml-3"></i>
+                        </button>
+                    </form>
+                @endif
+                <form method="POST" style="display: inline"
+                      action="{{route('administration.users.user.deletePermanently', ['userWithDeleted' => $user->id])}}">
                     @csrf
                     <button type="submit" class="button is-warning">
                         Supprimer un utilisateur (PERMANENT)

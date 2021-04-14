@@ -14,7 +14,7 @@ class AdminUsersController extends Controller
     //
     public function home()
     {
-        $users = User::all();
+        $users = User::withTrashed()->get();
         return view('administration.users.users', ['users' => $users]);
     }
 
@@ -46,6 +46,12 @@ class AdminUsersController extends Controller
         }
         $user->delete();
         return redirect()->route('administration.users.home')->with('success', 'Utilisateur supprimé');
+    }
+
+    public function restore(User $user)
+    {
+        $user->restore();
+        return redirect()->back()->with('success', 'Utilisateur restoré');
     }
 
     public function deleteUserPermanently(User $user)
