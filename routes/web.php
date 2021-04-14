@@ -176,6 +176,9 @@ Route::prefix('')->middleware(["auth", "verified"])->group(function () {
             Route::post('create', [AdminUsersController::class, 'createUser'])->name('create');
             Route::group(['prefix' => '{user}', 'as' => 'user.'], function () {
                 Route::get('', [AdminUsersController::class, 'edit'])->name('edit');
+
+                Route::post('delete', [AdminUsersController::class, 'deleteUser'])->name('delete');
+                Route::post('delete/permanent', [AdminUsersController::class, 'deleteUserPermanently'])->name('deletePermanently');
             });
         });
     });

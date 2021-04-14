@@ -65,12 +65,26 @@
                             <td>{{$user->projects()->count()}}</td>
                         </tr>
                         <tr>
-                            <th>Chef de projets sur: </th>
+                            <th>Chef de projets sur:</th>
                             <td>{{$user->ownedProjects()->get()->pluck('name')->join(', ')}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
+
+                <form method="POST" style="display: inline" action="{{route('administration.users.user.delete', ['user' => $user->id])}}">
+                    @csrf
+                    <button type="submit" class="button is-warning">
+                        Supprimer un utilisateur <i class="far fa-trash-alt ml-3"></i>
+                    </button>
+                </form>
+                <form method="POST" style="display: inline" action="{{route('administration.users.user.deletePermanently', ['user' => $user->id])}}">
+                    @csrf
+                    <button type="submit" class="button is-warning">
+                        Supprimer un utilisateur (PERMANENT)
+                        <i class="fas fa-radiation-alt ml-3"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>
