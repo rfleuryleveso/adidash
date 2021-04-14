@@ -54,4 +54,6 @@ class StaffStudentsController extends Controller
         $tasks = Auth::user()->tasks;
         return view('staff.students.student', ['user' => $user, 'tasksPerWeekLabels' => $tasksPerWeekLabels, 'tasksPerWeekValues' => $tasksPerWeekValues, 'projects' => $projects, 'tasks' => $tasks]);
     }
+
+
 }

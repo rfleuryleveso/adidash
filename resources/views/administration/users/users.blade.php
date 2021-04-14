@@ -46,5 +46,6 @@
         @endforeach
 
     </div>
+    <a class="button is-link" href="{{route('administration.users.create')}}"> Créer un nouvel utilisateur</a>
 
 @endsection
