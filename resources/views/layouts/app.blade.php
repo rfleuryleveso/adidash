@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/dist/css/normalize.css" />
     <link rel="stylesheet" href="/dist/css/bulma.css" />
-    <link rel="stylesheet" href="/dist/css/app.css" />
     <link rel="stylesheet" href="/dist/css/choices.min.css" />
     <link rel="stylesheet" href="/dist/css/bulma-tooltip.min.css" />
+    <link rel="stylesheet" href="/dist/css/app.css" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     @stack('styles')
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
