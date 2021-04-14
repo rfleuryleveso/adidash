@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AdminCreateUserRequest;
 use Carbon\Carbon;
+use Hash;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Auth;
@@ -31,9 +32,10 @@ class AdminUsersController extends Controller
     public function createUser(AdminCreateUserRequest $request)
     {
         $user = new User($request->validated());
+        $user->password = Hash::make($request->password);
         $user->email_verified_at = Carbon::now();
         $user->save();
-        return redirect()->route('administration.users.user.edit', ['user' => $user->id]);
+        return redirect()->route('administration.users.user.edit', ['userWithDeleted' => $user->id]);
     }
 
     public function deleteUser(User $user)
