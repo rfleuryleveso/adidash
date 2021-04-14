@@ -5,7 +5,9 @@ namespace App\Providers;
 use App\Models\Project;
 use App\Policies\ProjectPolicy;
 use App\Policies\UserPolicy;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 
@@ -43,10 +45,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('access-staff', function (User $user) {
             return $user->hasStaffGroup();
         });
-        
-        Gate::define('access-administration', function (User $user) {
 
+        Gate::define('access-administration', function (User $user) {
             return $user->hasAdministrationGroup();
         });
+
+
     }
 }

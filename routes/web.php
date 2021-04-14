@@ -39,7 +39,7 @@ use App\Http\Controllers\Staff\StaffGradesController as StaffGradesController;
 */
 
 
-Route::prefix('')->middleware("auth")->group(function () {
+Route::prefix('')->middleware(["auth", "verified"])->group(function () {
     /////////////////////
     ///PROTO ROUTE PROF//
     /////////////////////

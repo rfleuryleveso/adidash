@@ -53,7 +53,7 @@ class ProjectAwaitingConfiguration extends Notification
         return (new MailMessage)
                     ->line("Bonjour, {$notifiable->fullName}")
                     ->line("Votre projet, {$this->project->name} à été créer par le comité et doit maintenant être configuré.")
-                    ->action('Configurer le projet', url('/'));
+                    ->action('Configurer le projet', route('project-admin.home', ['project' => $this->project->id]));
     }
 
     /**

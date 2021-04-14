@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Notifications\EmailVerification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 /**
  * App\Models\User
@@ -53,7 +55,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|User withoutTrashed()
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, SoftDeletes, HasFactory;
 
@@ -265,5 +267,11 @@ class User extends Authenticatable
     public function isAdministrator()
     {
         return $this->hasAdministrationGroup();
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+
+        $this->notify(new EmailVerification); // your custom notification
     }
 }

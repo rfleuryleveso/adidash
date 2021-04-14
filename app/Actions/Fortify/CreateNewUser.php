@@ -30,10 +30,10 @@ CreateNewUser implements CreatesNewUsers
 				'email',
 				'max:255',
 				Rule::unique(User::class),
+                // 'regex:/(.*)student\.junia\.com$/i',
 			],
-            'regex:/(.*)student\.junia\.com$/i',
 			'password' => $this->passwordRules(),
-		])->validate();
+		], ['email.regex' => 'Veuillez entrer un email en @student.junia.com'])->validate();
 		return User::create([
 			'first_name' => $input['first_name'],
 			'last_name' => $input['last_name'],

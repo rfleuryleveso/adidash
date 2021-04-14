@@ -166,6 +166,11 @@
                     {{ session('success') }}
                 </div>
             @endif
+            @if (session('status'))
+                <div class="notification is-info mb-2">
+                    {{ session('status') }}
+                </div>
+            @endif
             @if (session('error'))
                 <div class="notification is-danger mb-2">
                     {{ session('error') }}
