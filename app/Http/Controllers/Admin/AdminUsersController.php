@@ -31,6 +31,7 @@ class AdminUsersController extends Controller
     public function createUser(AdminCreateUserRequest $request)
     {
         $user = new User($request->validated());
+        $user->email_verified_at = Carbon::now();
         $user->save();
         return redirect()->route('administration.users.user.edit', ['user' => $user->id]);
     }

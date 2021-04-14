@@ -53,8 +53,8 @@
                             @enderror
                         </div>
                         <div class="form-bottom">
-                            <button type="submit" class="button is-success"><i class="fa fa-plus"></i><span>Créer un
-                                tag</span></button>
+                            <button type="submit" class="button is-success"><i class="fa fa-plus"></i><span>Créer un utilisateur</span>
+                            </button>
                         </div>
                     </form>
                 </div>
