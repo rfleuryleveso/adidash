@@ -96,6 +96,13 @@
                         <i class="fas fa-radiation-alt ml-3"></i>
                     </button>
                 </form>
+                <form method="POST" style="display: inline"
+                      action="{{route('administration.users.user.login', ['userWithDeleted' => $user->id])}}">
+                    @csrf
+                    <button type="submit" class="button is-warning">
+                        Se connecter en tant que {{$user->fullName}} <i class="fas fa-key ml-3"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ use Auth;
 use App\Models\Group;
 use Illuminate\Validation\Rule;
 use App\Models\GroupUser;
+use App\Models\User;
 
 class SettingsController extends Controller
 {
@@ -79,5 +80,18 @@ class SettingsController extends Controller
         Auth::user()->password = Hash::make($request->password);
         Auth::user()->save();
         return redirect('settings')->with('success', 'Mot de passe mis à jour');
+    }
+
+    public function returnToMainAccount()
+    {
+        // In case the user has used the "login as" feature, make it possible to get back to it's main account
+        if (session()->has('original_user')) {
+            $mainAccount = User::find(session()->get('original_user'));
+            session()->remove('original_user');
+            Auth::login($mainAccount);
+            return redirect()->route('administration.users.home')->with('success', 'Session restaurée');
+        } else {
+            return redirect()->back()->with('error', 'Aucun compte à restaurer');
+        }
     }
 }

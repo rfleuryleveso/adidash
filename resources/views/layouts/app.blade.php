@@ -3,21 +3,29 @@
 
 <head>
     <title>AdiDash | @yield('title')</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/dist/css/normalize.css" />
-    <link rel="stylesheet" href="/dist/css/bulma.css" />
-    <link rel="stylesheet" href="/dist/css/choices.min.css" />
-    <link rel="stylesheet" href="/dist/css/bulma-tooltip.min.css" />
-    <link rel="stylesheet" href="/dist/css/app.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="/dist/css/normalize.css"/>
+    <link rel="stylesheet" href="/dist/css/bulma.css"/>
+    <link rel="stylesheet" href="/dist/css/choices.min.css"/>
+    <link rel="stylesheet" href="/dist/css/bulma-tooltip.min.css"/>
+    <link rel="stylesheet" href="/dist/css/app.css"/>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     @stack('styles')
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap"
-        rel="stylesheet" />
+          rel="stylesheet"/>
 
 </head>
 
 <body>
+@if (session('original_user'))
+    <div class="auth-orig">
+        Connecté en tant que {{Auth::user()->fullName}}
+        <a href="{{route('settings.returnToMainAccount')}}">Retour</a>
+    </div>
+@endif
+<div class="app">
+
     <div class="sidebar">
         <div class="mobile-close-btn">
             <div class="mobile-close-btn-line1"></div>
@@ -161,7 +169,7 @@
             <h2 class="page-title">
                 @yield('page_name')
             </h2>
-            <hr class="section-separation" />
+            <hr class="section-separation"/>
             @if (session('success'))
                 <div class="notification is-success mb-2">
                     {{ session('success') }}
@@ -182,15 +190,17 @@
             </div>
 
 
-
         </div>
     </div>
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
-    <script src="/dist/js/app.js"></script>
-    <script src="/dist/js/choices.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js" integrity="sha256-9CKDuBNIQo/dQgrK9nyK+XcD2MBjb0JgnPMANrQw6Cs=" crossorigin="anonymous"></script>
 
-    @stack('scripts')
+</div>
+<script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+<script src="/dist/js/app.js"></script>
+<script src="/dist/js/choices.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"
+        integrity="sha256-9CKDuBNIQo/dQgrK9nyK+XcD2MBjb0JgnPMANrQw6Cs=" crossorigin="anonymous"></script>
+
+@stack('scripts')
 </body>
 
 </html>

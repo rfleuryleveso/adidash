@@ -67,4 +67,12 @@ class AdminUsersController extends Controller
         $user->forceDelete();
         return redirect()->route('administration.users.home')->with('success', 'Utilisateur supprimé');
     }
+
+    public function login(User $user)
+    {
+        $origId = Auth::id();
+        Auth::login($user);
+        session(['original_user' => $origId]);
+        return redirect()->route('student.home')->with('success', "Connecté en tant que {$user['fullName']}");
+    }
 }
