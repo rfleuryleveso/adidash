@@ -177,6 +177,8 @@ Route::prefix('')->middleware(["auth", "verified"])->group(function () {
             Route::group(['prefix' => '{userWithDeleted}', 'as' => 'user.'], function () {
                 Route::get('', [AdminUsersController::class, 'edit'])->name('edit');
                 Route::post('restore', [AdminUsersController::class, 'restore'])->name('restore');
+
+                Route::post('login', [AdminUsersController::class, 'login'])->name('login');
                 Route::post('delete', [AdminUsersController::class, 'deleteUser'])->name('delete');
                 Route::post('delete/permanent', [AdminUsersController::class, 'deleteUserPermanently'])->name('deletePermanently');
             });
