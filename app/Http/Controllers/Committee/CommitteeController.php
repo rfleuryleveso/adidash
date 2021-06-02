@@ -16,7 +16,7 @@ use App\Notifications\ProjectAwaitingConfiguration;
 
 class CommitteeController extends Controller
 {
-    
+
     /**
      * Returns a list of the committee's users
      */
@@ -44,7 +44,7 @@ class CommitteeController extends Controller
      */
     public function home()
     {
-        $users = $this->usersList();
+        $users = $this->usersList()->count();
         $projects = $this->projectsList();
         return view('committee.home', ['users' => $users, 'projects' => $projects]);
     }
@@ -61,7 +61,7 @@ class CommitteeController extends Controller
         if($request->ajax()){
             return GroupResource::collection($groups);
         }
-        
+
         return view('committee.groups', ['groups' => $groups]);
     }
 
