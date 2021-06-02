@@ -31,10 +31,14 @@ class StaffGradesController extends Controller
         $matchingTasks->whereNotNull('ended_at');
         $matchingTasks->where('notation_status', 'FINISHED');
         if ($request->start_date) {
-            $matchingTasks->where('ended_at', '>', $request->start_date);
+            $startDate = new Carbon($request->start_date);
+            $startDate->startOf('week');
+            $matchingTasks->where('ended_at', '>', $startDate);
         }
         if ($request->end_date) {
-            $matchingTasks->where('ended_at', '<', $request->end_date);
+            $endDate = new Carbon($request->end_date);
+            $endDate->endOfWeek();
+            $matchingTasks->where('ended_at', '<', $endDate);
         }
 
         $tasksIds = $matchingTasks->get()->pluck('id');
@@ -51,7 +55,7 @@ class StaffGradesController extends Controller
             $weeks = (new Carbon($request->start_date))->diffInWeeks($request->end_date);
             $date = Carbon::now()->subtract('week', $weeks);
 
-            for ($i = 0; $i < $weeks; $i++) {
+            for ($i = 0; $i <= $weeks; $i++) {
                 $week = $date->clone()->add('week', $i);
                 $startOfWeek = $week->clone()->startOfWeek();
                 $endOfWeek = $week->clone()->endOfWeek();
@@ -75,14 +79,11 @@ class StaffGradesController extends Controller
                 $groupSheet = $groupSheet->setCellValueByColumnAndRow(2, $key + 3, $user->last_name);
 
                 $tasks = $user->tasks()->whereIn('task_id', $tasksIds)->get();
-
-
-                for ($i = 0; $i < $weeks; $i++) {
+                for ($i = 0; $i <= $weeks; $i++) {
                     $week = $date->clone()->add('week', $i);
                     $startOfWeek = $week->clone()->startOfWeek();
                     $endOfWeek = $week->clone()->endOfWeek();
-
-                    $tasksInWeek = $tasks->filter(function ($task) use ($startOfWeek, $endOfWeek) {
+                    $tasksInWeek = $tasks->filter(function ($task) use ($startOfWeek, $endOfWeek, $i) {
                         return $task->ended_at->between($startOfWeek, $endOfWeek);
                     });
 
@@ -102,7 +103,6 @@ class StaffGradesController extends Controller
                         return $carry;
                     }, ['stars_two' => 0, 'stars_one' => 0, 'stars_zero' => 0]);
 
-
                     $groupSheet->setCellValueByColumnAndRow(3 + $i * 4, $key + 3, $summary['stars_two']);
                     $groupSheet->setCellValueByColumnAndRow(3 + $i * 4 + 1, $key + 3, $summary['stars_one']);
                     $groupSheet->setCellValueByColumnAndRow(3 + $i * 4 + 2, $key + 3, $summary['stars_zero']);
@@ -111,14 +111,14 @@ class StaffGradesController extends Controller
                 // User summary
 
                 $formula = "=";
-                for ($i = 0; $i < $weeks; $i++) {
+                for ($i = 0; $i <= $weeks; $i++) {
                     $formula .= "4*" . $groupSheet->getCellByColumnAndRow(3 + $i * 4, $key + 3)->getCoordinate() . "+" . $groupSheet->getCellByColumnAndRow(3 + $i * 4 + 1, $key + 3)->getCoordinate();
                     if ($weeks - $i != 1) {
                         $formula .= "+";
                     }
                 }
-                $groupSheet->setCellValueByColumnAndRow(3 + $weeks * 4 + 1, $key + 3, "Note:");
-                $groupSheet->setCellValueByColumnAndRow(3 + $weeks * 4 + 2, $key + 3, $formula);
+                $groupSheet->setCellValueByColumnAndRow(3 + ($weeks + 1) * 4 + 1, $key + 3, "Note:");
+                // $groupSheet->setCellValueByColumnAndRow(3 + ($weeks + 1) * 4 + 2, $key + 3, $formula);
 
 
             }
