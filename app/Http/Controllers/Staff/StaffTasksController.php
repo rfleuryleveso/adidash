@@ -62,7 +62,7 @@ class StaffTasksController extends Controller
     {
         foreach ($request->grades as $grade) {
             Grade::updateOrCreate(
-                ['task_id' => $request->task->id, 'user_id' => $grade['user']],
+                ['task_id' => $request->task->id, 'user_id' => $grade['user'], 'evaluation_type' => 'STAFF'],
                 ['grade' => $grade['grade'], 'evaluator_id' => Auth::id(), 'comments' => $grade['comments'], 'evaluation_type' => 'STAFF']
             );
         }
