@@ -19,9 +19,10 @@
                 <div class="field">
                     <label class="label">Date de début (Optionnel)</label>
                     <div class="control">
-                        <input value="{{date('Y-m-d', $earliestTask ? $earliestTask->ended_at->timestamp : '2020-07-01')}}"
-                               class="input @error('starts_at') is-danger @enderror" type="date" name="start_date"
-                               placeholder="Date de début (optionnel)">
+                        <input
+                            value="{{date('Y-m-d', $earliestTask ? ($earliestTask->ended_at ? $earliestTask->ended_at->timestamp : $earliestTask->created_at->timestamp) : $earliestTask->created_at->timestamp)}}"
+                            class="input @error('starts_at') is-danger @enderror" type="date" name="start_date"
+                            placeholder="Date de début (optionnel)">
                     </div>
                     <p class="help">La tâche ne sera pas affichée avant cette date</p>
                     @error('starts_at') <p class="help is-danger">{{ $message }} </p>@enderror
