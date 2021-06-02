@@ -64,6 +64,7 @@
                                     ->where('evaluation_type', 'STAFF')
                                     ->first();
                                 @endphp
+                                <p>{{$projectChiefGrade ? $projectChiefGrade->grade : ''}} étoiles</p>
                                 <p>{{$projectChiefGrade ? $projectChiefGrade->comments : ''}}</p>
 
                                 <br/>
