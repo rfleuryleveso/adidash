@@ -1,6 +1,6 @@
 .page-student-tasks-tasks {
     .student-tasks-container {
-        width: 90%;
+        width: 100%;
         margin: auto;
     }
     .tasks-list {
@@ -43,10 +43,7 @@
         border-radius: 10px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
         display: block;
-        width: 75%;
-        max-width: 1000px;
-        min-width: 650px;
-        height: 50px;
+        width: 100%;
         margin-bottom: 10px;
 
         & > a {
@@ -100,7 +97,6 @@
                 }
 
                 .project-title-container {
-                    width: 100px;
 
                     .project-title {
                         margin: 0 !important;
